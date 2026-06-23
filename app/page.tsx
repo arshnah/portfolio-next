@@ -4,6 +4,7 @@ import Guestbook from "@/components/Guestbook";
 import Contact from "@/components/Contact";
 import Fx from "@/components/Fx";
 import RepoSidebar from "@/components/RepoSidebar";
+import ActivityFeed from "@/components/ActivityFeed";
 
 const builds = [
   { href: "https://nexlease.in", yr: "2024-26", title: "Nexlease",
@@ -28,6 +29,8 @@ export default function Home() {
       <Nav />
       <RepoSidebar />
       <Hero />
+
+      <ActivityFeed />
 
       <section className="chapter" id="builds">
         <div className="shell">

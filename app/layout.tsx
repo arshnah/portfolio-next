@@ -9,7 +9,7 @@ const mono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: 
 
 export const metadata: Metadata = {
   title: "Arshdeep Singh · Full-Stack, App & Game Developer",
-  description: "One-person dev team for hire. Web, mobile, games — built and shipped solo.",
+  description: "One-person dev team for hire. Web, mobile, games. Built and shipped solo.",
 };
 
 const themeInit = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t='${DEFAULT_THEME}';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','${DEFAULT_THEME}');}})();`;

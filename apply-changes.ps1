@@ -1,4 +1,4 @@
-﻿# apply-changes.ps1 - Arshdeep portfolio (dark=charcoal+lime, light=white+sea-blue, sidebar, perf)
+﻿# apply-changes.ps1 - Arshdeep portfolio (bento activity feed + OG image + charcoal+lime)
 # RUN IN PROJECT ROOT: C:\Users\arsh\Documents\projex\portfolio-next
 $ErrorActionPreference = 'Stop'
 if (-not (Test-Path 'app/globals.css')) { Write-Host 'Galat folder.' -ForegroundColor Red; exit 1 }
@@ -27,7 +27,7 @@ const mono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: 
 
 export const metadata: Metadata = {
   title: "Arshdeep Singh · Full-Stack, App & Game Developer",
-  description: "One-person dev team for hire. Web, mobile, games — built and shipped solo.",
+  description: "One-person dev team for hire. Web, mobile, games. Built and shipped solo.",
 };
 
 const themeInit = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t='${DEFAULT_THEME}';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','${DEFAULT_THEME}');}})();`;
@@ -287,6 +287,37 @@ footer span{ font-family:var(--mono); font-size:11.5px; color:var(--faint); }
 .repo .rdesc{ color:var(--muted); font-size:12.5px; margin:8px 0 6px; line-height:1.5; }
 .repo .rmeta{ display:flex; align-items:center; gap:14px; font-family:var(--mono); font-size:11px; color:var(--faint); }
 .sb-empty{ padding:12px; font-family:var(--mono); font-size:12px; color:var(--muted); line-height:1.5; }
+
+/* ---------- ACTIVITY FEED (Lanyard) ---------- */
+.activity{ display:flex; flex-direction:column; gap:10px; margin-top:28px; max-width:360px; }
+.act-status{ display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; color:var(--muted); }
+.act-dot{ width:8px; height:8px; border-radius:50%; flex:none; box-shadow:0 0 6px currentColor; }
+.act-card{ display:flex; align-items:center; gap:13px; padding:12px 14px; background:var(--panel); border:1px solid var(--line); border-radius:12px; transition:border-color .2s; text-decoration:none; }
+.act-card:hover{ border-color:var(--accent); }
+.act-img{ width:48px; height:48px; border-radius:8px; object-fit:cover; flex:none; }
+.act-tag{ font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:.06em; text-transform:uppercase; margin-bottom:4px; }
+.act-name{ font-family:var(--display); font-weight:600; font-size:14px; color:var(--text); }
+.act-sub{ font-size:12.5px; color:var(--muted); margin-top:2px; }
+
+/* ---------- BENTO ACTIVITY GRID ---------- */
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.bento-card{ background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:20px 18px;
+  position:relative; transition:border-color .25s, transform .3s cubic-bezier(.16,1,.3,1); overflow:hidden; }
+.bento-card:hover{ border-color:var(--accent); transform:translateY(-2px); }
+.bento-card.wide{ grid-column:span 2; }
+.bento-card.full{ grid-column:1/-1; }
+.bc-tag{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin-bottom:12px; }
+.bc-main{ font-family:var(--display); font-weight:700; font-size:clamp(18px,2.2vw,24px); color:var(--text); line-height:1.25; }
+.bc-main.sm{ font-size:clamp(15px,1.6vw,18px); }
+.bc-sub{ font-family:var(--mono); font-size:12.5px; color:var(--muted); margin-top:6px; }
+.bc-art{ position:absolute; right:14px; top:14px; width:56px; height:56px; border-radius:8px; object-fit:cover; }
+.bc-link{ position:absolute; top:16px; right:16px; font-size:16px; color:var(--faint); transition:color .2s; }
+.bento-card:hover .bc-link{ color:var(--accent); }
+.bc-sha-row{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.bc-sha{ font-family:var(--mono); font-size:12px; background:var(--panel-2); color:var(--accent); padding:3px 8px; border-radius:6px; border:1px solid var(--line); }
+.bc-date{ font-family:var(--mono); font-size:11px; color:var(--faint); }
+.bc-contrib{ width:100%; border-radius:8px; margin-top:10px; filter:brightness(.9) saturate(1.2); }
+@media(max-width:780px){ .bento{ grid-template-columns:1fr; } .bento-card.wide,.bento-card.full{ grid-column:span 1; } .bc-art{ width:44px; height:44px; } }
 '@
 Set-Content -Path 'app/globals.css' -Value $content -Encoding UTF8
 Write-Host '  updated app/globals.css' -ForegroundColor Green
@@ -301,6 +332,7 @@ import Guestbook from "@/components/Guestbook";
 import Contact from "@/components/Contact";
 import Fx from "@/components/Fx";
 import RepoSidebar from "@/components/RepoSidebar";
+import ActivityFeed from "@/components/ActivityFeed";
 
 const builds = [
   { href: "https://nexlease.in", yr: "2024-26", title: "Nexlease",
@@ -325,6 +357,8 @@ export default function Home() {
       <Nav />
       <RepoSidebar />
       <Hero />
+
+      <ActivityFeed />
 
       <section className="chapter" id="builds">
         <div className="shell">
@@ -369,6 +403,91 @@ export default function Home() {
 Set-Content -Path 'app/page.tsx' -Value $content -Encoding UTF8
 Write-Host '  updated app/page.tsx' -ForegroundColor Green
 
+# ---- app/opengraph-image.tsx ----
+$dir = Split-Path 'app/opengraph-image.tsx' -Parent
+if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
+$content = @'
+import { ImageResponse } from "next/og";
+export const runtime = "edge";
+export const alt = "Arshdeep Singh — Full-Stack, App & Game Developer";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default function OG() {
+  return new ImageResponse(
+    (
+      <div style={{
+        width: "100%", height: "100%", display: "flex", flexDirection: "column",
+        justifyContent: "center", padding: "80px",
+        background: "linear-gradient(160deg, #181A12 0%, #121309 60%, #14160F 100%)",
+        fontFamily: "sans-serif", position: "relative", overflow: "hidden",
+      }}>
+        {/* green glow blob */}
+        <div style={{ position: "absolute", right: -100, bottom: -100, width: 600, height: 600, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(52,211,153,.22), transparent 65%)" }} />
+        {/* lime glow */}
+        <div style={{ position: "absolute", right: 120, bottom: 80, width: 300, height: 300, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(163,230,53,.15), transparent 65%)" }} />
+        {/* tag */}
+        <div style={{ fontFamily: "monospace", fontSize: 20, color: "#A3E635", letterSpacing: "0.18em", marginBottom: 24, textTransform: "uppercase" }}>
+          // arshnah
+        </div>
+        {/* name */}
+        <div style={{ fontSize: 96, fontWeight: 700, lineHeight: 0.92, letterSpacing: "-0.03em", marginBottom: 28,
+          background: "linear-gradient(100deg, #A3E635 30%, #34D399)", backgroundClip: "text", color: "transparent",
+          display: "flex" }}>
+          Arshdeep Singh.
+        </div>
+        {/* role */}
+        <div style={{ fontSize: 28, fontWeight: 600, color: "#ECEEE4", marginBottom: 16 }}>
+          Full-Stack · Software · App · Game Dev
+        </div>
+        {/* tagline */}
+        <div style={{ fontSize: 22, color: "#9A9E8C", maxWidth: 700, lineHeight: 1.5 }}>
+          One-person dev team for hire. Web, mobile, games.
+        </div>
+        {/* url */}
+        <div style={{ position: "absolute", bottom: 60, right: 80, fontFamily: "monospace", fontSize: 20, color: "#5F6450" }}>
+          arshnah.vercel.app
+        </div>
+      </div>
+    ),
+    { ...size }
+  );
+}
+'@
+Set-Content -Path 'app/opengraph-image.tsx' -Value $content -Encoding UTF8
+Write-Host '  updated app/opengraph-image.tsx' -ForegroundColor Green
+
+# ---- components/Nav.tsx ----
+$dir = Split-Path 'components/Nav.tsx' -Parent
+if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
+$content = @'
+import ThemeToggle from "./ThemeToggle";
+
+export default function Nav() {
+  return (
+    <nav>
+      <div className="row">
+        <a className="logo" href="#top">arsh<span>nah</span></a>
+        <div className="nav-right">
+          <div className="nav-links">
+            <a href="#activity">00 / activity</a>
+            <a href="#builds">01 / builds</a>
+            <a href="#stack">02 / stack</a>
+            <a href="#guestbook">03 / guestbook</a>
+            <a href="#contact">04 / contact</a>
+          </div>
+          <ThemeToggle />
+        </div>
+      </div>
+    </nav>
+  );
+}
+'@
+Set-Content -Path 'components/Nav.tsx' -Value $content -Encoding UTF8
+Write-Host '  updated components/Nav.tsx' -ForegroundColor Green
+
 # ---- components/ThemeToggle.tsx ----
 $dir = Split-Path 'components/ThemeToggle.tsx' -Parent
 if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
@@ -402,6 +521,54 @@ export default function ThemeToggle() {
 '@
 Set-Content -Path 'components/ThemeToggle.tsx' -Value $content -Encoding UTF8
 Write-Host '  updated components/ThemeToggle.tsx' -ForegroundColor Green
+
+# ---- components/Hero.tsx ----
+$dir = Split-Path 'components/Hero.tsx' -Parent
+if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
+$content = @'
+"use client";
+import { useEffect, useRef } from "react";
+import Globe from "./Globe";
+
+export default function Hero() {
+  const typedRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = typedRef.current!;
+    const txt = "// booting build.log : full-stack · software · app · game dev";
+    let i = 0, stop = false;
+    (function type() {
+      if (stop) return;
+      if (i <= txt.length) { el.innerHTML = txt.slice(0, i) + '<span class="cur"></span>'; i++; setTimeout(type, 34); }
+    })();
+    return () => { stop = true; };
+  }, []);
+
+  return (
+    <header className="hero" id="top">
+      <Globe />
+      <div className="shell hero-content">
+        <div className="typed" ref={typedRef} />
+        <h1>Arsh<span className="o">deep</span><br />Singh.</h1>
+        <p className="role">Full-Stack Developer · Software · App · Game Dev</p>
+        <p className="intro">
+          I&apos;m a one-person dev team for hire. Which means I&apos;m the frontend guy, the backend guy, the Android guy,
+          and the idiot who gets pinged when a client&apos;s server falls over at 3am. Web, mobile, games. I take a project
+          from empty folder to live, then babysit it. Most of what I&apos;ve shipped is in production right now, not rotting
+          in some private repo.
+        </p>
+        <div className="cta">
+          <a className="btn p" href="#builds">View the builds →</a>
+          <a className="btn s" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div className="drag-hint"><span className="dot" /> drag to spin</div>
+    </header>
+  );
+}
+'@
+Set-Content -Path 'components/Hero.tsx' -Value $content -Encoding UTF8
+Write-Host '  updated components/Hero.tsx' -ForegroundColor Green
 
 # ---- components/Contact.tsx ----
 $dir = Split-Path 'components/Contact.tsx' -Parent
@@ -770,4 +937,153 @@ export default function RepoSidebar() {
 Set-Content -Path 'components/RepoSidebar.tsx' -Value $content -Encoding UTF8
 Write-Host '  updated components/RepoSidebar.tsx' -ForegroundColor Green
 
-Write-Host 'Done. npm run dev' -ForegroundColor Cyan
+# ---- components/ActivityFeed.tsx ----
+$dir = Split-Path 'components/ActivityFeed.tsx' -Parent
+if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
+$content = @'
+"use client";
+import { useEffect, useState, useRef } from "react";
+
+const DISCORD_ID = "1352866897900732446";
+const GH_USER = "arshnah";
+
+type Spotify = { song: string; artist: string; album_art_url: string; track_id: string; };
+type Activity = { name: string; details?: string; state?: string; type: number;
+  assets?: { large_image?: string; large_text?: string; small_image?: string }; application_id?: string; };
+type Presence = {
+  discord_status: "online" | "idle" | "dnd" | "offline";
+  activities: Activity[];
+  spotify?: Spotify;
+  discord_user: { username: string; avatar: string; id: string };
+};
+
+const STATUS_COLOR: Record<string, string> = { online:"#3DDC97", idle:"#F5A623", dnd:"#FF4A2E", offline:"#5F6450" };
+const STATUS_LABEL: Record<string, string> = { online:"Online", idle:"Idle", dnd:"Do Not Disturb", offline:"Offline" };
+
+function Clock() {
+  const [t, setT] = useState("");
+  useEffect(() => {
+    const tick = () => setT(new Date().toLocaleTimeString("en-IN", { timeZone:"Asia/Kolkata", hour:"2-digit", minute:"2-digit", second:"2-digit" }));
+    tick(); const id = setInterval(tick, 1000); return () => clearInterval(id);
+  }, []);
+  return <>{t}</>;
+}
+
+type Commit = { sha: string; commit: { message: string; author: { date: string } }; html_url: string; };
+
+export default function ActivityFeed() {
+  const [presence, setPresence] = useState<Presence | null>(null);
+  const [commit, setCommit] = useState<Commit | null>(null);
+  const esRef = useRef<EventSource | null>(null);
+
+  useEffect(() => {
+    // Lanyard SSE realtime
+    const connect = () => {
+      const es = new EventSource(`https://api.lanyard.rest/v1/users/${DISCORD_ID}/sse`);
+      esRef.current = es;
+      es.onmessage = (e) => {
+        const d = JSON.parse(e.data);
+        if (d.t === "INIT_STATE" || d.t === "PRESENCE_UPDATE") setPresence(d.d);
+      };
+      es.onerror = () => { es.close(); setTimeout(connect, 5000); };
+    };
+    connect();
+
+    // Latest commit
+    fetch(`https://api.github.com/users/${GH_USER}/events/public?per_page=30`)
+      .then(r => r.json())
+      .then((events: any[]) => {
+        const push = events.find(e => e.type === "PushEvent");
+        if (push?.payload?.commits?.length) {
+          const c = push.payload.commits[push.payload.commits.length - 1];
+          const repo = push.repo.name.split("/")[1];
+          setCommit({ sha: c.sha.slice(0,7), commit: { message: c.message.split("\n")[0], author: { date: push.created_at } }, html_url: `https://github.com/${push.repo.name}/commit/${c.sha}` });
+        }
+      }).catch(() => {});
+
+    return () => { esRef.current?.close(); };
+  }, []);
+
+  const gaming = presence?.activities.find(a => a.type === 0);
+  const status = presence?.discord_status ?? "offline";
+  const since = commit ? new Date(commit.commit.author.date).toLocaleDateString("en-IN", { day:"numeric", month:"short" }) : null;
+
+  return (
+    <section className="chapter" id="activity">
+      <div className="shell">
+        <div className="ch-head rv"><span className="ch-no">00</span><h2>Activity</h2><span className="line" /></div>
+        <div className="bento rv">
+
+          {/* NOW PLAYING / GAMING */}
+          {presence?.spotify ? (
+            <a className="bento-card wide" href={`https://open.spotify.com/track/${presence.spotify.track_id}`} target="_blank" rel="noopener noreferrer">
+              <div className="bc-tag">♫ NOW PLAYING</div>
+              <div className="bc-main">&ldquo;{presence.spotify.song}&rdquo;</div>
+              <div className="bc-sub">{presence.spotify.artist}</div>
+              {presence.spotify.album_art_url && <img src={presence.spotify.album_art_url} alt="album" className="bc-art" />}
+              <span className="bc-link">↗</span>
+            </a>
+          ) : gaming ? (
+            <div className="bento-card wide">
+              <div className="bc-tag">🎮 PLAYING</div>
+              <div className="bc-main">{gaming.name}</div>
+              {gaming.details && <div className="bc-sub">{gaming.details}</div>}
+            </div>
+          ) : (
+            <div className="bento-card wide">
+              <div className="bc-tag">♫ NOW PLAYING</div>
+              <div className="bc-main" style={{ color:"var(--faint)" }}>Nothing playing right now.</div>
+            </div>
+          )}
+
+          {/* DISCORD STATUS */}
+          <a className="bento-card" href={`https://discord.com/users/${DISCORD_ID}`} target="_blank" rel="noopener noreferrer">
+            <div className="bc-tag">💬 DISCORD STATUS</div>
+            <div className="bc-main" style={{ color: STATUS_COLOR[status] }}>{STATUS_LABEL[status]}</div>
+            <span className="bc-link">↗</span>
+          </a>
+
+          {/* LOCATION / TIME */}
+          <div className="bento-card">
+            <div className="bc-tag">📍 LOCATION</div>
+            <div className="bc-main">India</div>
+            <div className="bc-sub"><Clock /></div>
+          </div>
+
+          {/* LATEST COMMIT */}
+          {commit && (
+            <a className="bento-card wide" href={commit.html_url} target="_blank" rel="noopener noreferrer">
+              <div className="bc-tag">⌥ LATEST COMMIT</div>
+              <div className="bc-sha-row"><code className="bc-sha">#{commit.sha}</code><span className="bc-date">{since}</span></div>
+              <div className="bc-main sm">{commit.commit.message}</div>
+              <span className="bc-link">↗</span>
+            </a>
+          )}
+
+          {/* GUESTBOOK */}
+          <a className="bento-card" href="#guestbook">
+            <div className="bc-tag">✍ GUESTBOOK</div>
+            <div className="bc-main sm">Sign my guestbook ✨</div>
+          </a>
+
+          {/* CONTRIBUTIONS */}
+          <div className="bento-card full">
+            <div className="bc-tag">⌥ CONTRIBUTIONS</div>
+            <img
+              src={`https://ghchart.rshah.org/A3E635/${GH_USER}`}
+              alt="GitHub contributions"
+              className="bc-contrib"
+              onError={e => (e.currentTarget.style.display = "none")}
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+'@
+Set-Content -Path 'components/ActivityFeed.tsx' -Value $content -Encoding UTF8
+Write-Host '  updated components/ActivityFeed.tsx' -ForegroundColor Green
+
+Write-Host 'Done. Ab chala: npm run dev' -ForegroundColor Cyan
