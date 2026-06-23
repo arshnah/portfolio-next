@@ -1,0 +1,13 @@
+﻿# deps
+/node_modules
+# next build
+/.next
+/out
+# env (Supabase keys yahan - kabhi commit mat karo)
+.env*.local
+# misc
+.DS_Store
+*.log
+npm-debug.log*
+/build
+.vercel
