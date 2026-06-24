@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Space_Grotesk, Instrument_Serif, Space_Mono } from "next/font/google";
 import { DEFAULT_THEME } from "@/lib/themes";
 import "./globals.css";

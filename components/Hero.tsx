@@ -1,38 +1,26 @@
-﻿"use client";
-import { useEffect, useRef } from "react";
+"use client";
 import Globe from "./Globe";
+import ActivityFeed from "./ActivityFeed";
 
 export default function Hero() {
-  const typedRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = typedRef.current!;
-    const txt = "// booting build.log : full-stack · software · app · game dev";
-    let i = 0, stop = false;
-    (function type() {
-      if (stop) return;
-      if (i <= txt.length) { el.innerHTML = txt.slice(0, i) + '<span class="cur"></span>'; i++; setTimeout(type, 34); }
-    })();
-    return () => { stop = true; };
-  }, []);
-
   return (
     <header className="hero" id="top">
       <Globe />
       <div className="shell hero-content">
-        <div className="typed" ref={typedRef} />
-        <h1>Arsh<span className="o">deep</span><br />Singh.</h1>
-        <p className="role">Full-Stack Developer · Software · App · Game Dev</p>
+        <p className="eyebrow">developer · india · open for work</p>
+        <h1>Arshdeep<br />Singh<span className="accent-dot">.</span></h1>
+        <p className="role">Full-stack · Android · and the server it runs on</p>
         <p className="intro">
-          I&apos;m a one-person dev team for hire. Which means I&apos;m the frontend guy, the backend guy, the Android guy,
-          and the idiot who gets pinged when a client&apos;s server falls over at 3am. Web, mobile, games. I take a project
-          from empty folder to live, then babysit it. Most of what I&apos;ve shipped is in production right now, not rotting
-          in some private repo.
+          I&apos;m a solo developer. I build the whole thing — the website, the Android app, the backend,
+          the VPS it sits on — and then I&apos;m the one who keeps it alive. Most of what I&apos;ve made is in
+          production right now, used by actual people, not sitting in a private repo as a demo. Taught myself
+          all of it, and currently running five-ish products at once without dropping any of them. So far.
         </p>
         <div className="cta">
-          <a className="btn p" href="#builds">View the builds →</a>
-          <a className="btn s" href="#contact">Get in touch</a>
+          <a className="btn p" href="#builds">See the work →</a>
+          <a className="btn s" href="#contact">Email me</a>
         </div>
+        <ActivityFeed />
       </div>
       <div className="drag-hint"><span className="dot" /> drag to spin</div>
     </header>

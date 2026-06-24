@@ -1,23 +1,22 @@
-﻿import Nav from "@/components/Nav";
+import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Guestbook from "@/components/Guestbook";
 import Contact from "@/components/Contact";
 import Fx from "@/components/Fx";
 import RepoSidebar from "@/components/RepoSidebar";
-import ActivityFeed from "@/components/ActivityFeed";
 
 const builds = [
-  { href: "https://nexlease.in", yr: "2024-26", title: "Nexlease",
-    desc: "A rental marketplace I built for a client: website, Android app, an ops dashboard for their team, plus Nexscore, a custom locality-scoring engine. Full stack, start to finish.",
+  { href: "https://nexlease.in", yr: "2024–26", title: "Nexlease",
+    desc: "A rental marketplace, built end to end by me — React site, Kotlin app on the Play Store, an ops dashboard for the team, and Nexscore, a locality-scoring engine I wrote from scratch. Runs on a VPS I manage, break, and fix myself.",
     tags: ["React", "Node", "MySQL", "Android"] },
   { href: "https://justcalltech.in", yr: "2023", title: "JustCallTech",
-    desc: "An IT services brand. I built their Kotlin Android app (live on the Play Store) and their website. Bookings for laptops, WiFi, CCTV, AMC.",
+    desc: "An IT-services brand. I built the Kotlin Android app (live on the Play Store) and the website — bookings for laptop repair, wifi, CCTV, AMC. Got the site to 97/100 SEO and code-split the bundle down to a third of its size.",
     tags: ["Kotlin", "Firebase", "MVVM"] },
   { href: "https://chc-site.vercel.app", yr: "2025", title: "Content Helper Community",
-    desc: "Site for a creator community. It pulls every member's live YouTube subscriber count through a serverless function I wrote for them.",
+    desc: "A creator community's site. The fun part: it pulls every member's live YouTube subscriber count through a serverless function I wrote — 17 channels, refreshed hourly, behind a gold-on-black look.",
     tags: ["Vercel", "YouTube API", "SVG"] },
   { href: "https://whatnowindia.vercel.app", yr: "2025", title: "WhatNow",
-    desc: "Built the platform for a startup helping Indian students figure out what comes next right after their board exams.",
+    desc: "A platform for a startup helping Indian students figure out what to do right after their board exams. I built the site and led the redesign.",
     tags: ["Next.js", "Vercel"] },
 ];
 
@@ -30,11 +29,10 @@ export default function Home() {
       <RepoSidebar />
       <Hero />
 
-      <ActivityFeed />
-
       <section className="chapter" id="builds">
         <div className="shell">
-          <div className="ch-head rv"><span className="ch-no">01</span><h2>What I&apos;ve built</h2><span className="line" /></div>
+          <div className="ch-head rv"><span className="ch-no">01</span><h2>Work that&apos;s live</h2><span className="line" /></div>
+          <p className="rv aside">Every link below goes to the real product. No case-study fluff, no &ldquo;coming soon.&rdquo;</p>
           <div className="builds">
             {builds.map((b) => (
               <a className="build rv" key={b.title} href={b.href} target="_blank" rel="noopener noreferrer">
@@ -49,9 +47,10 @@ export default function Home() {
 
       <section className="chapter" id="stack">
         <div className="shell">
-          <div className="ch-head rv"><span className="ch-no">02</span><h2>The stack</h2><span className="line" /></div>
-          <p className="rv" style={{ color: "var(--muted)", maxWidth: "54ch", marginBottom: "30px" }}>
-            I don&apos;t stick to one fixed stack, I use what the job needs. Everything here I&apos;ve actually shipped with, not just tried once over a weekend.
+          <div className="ch-head rv"><span className="ch-no">02</span><h2>Tools I actually use</h2><span className="line" /></div>
+          <p className="rv aside">
+            No fixed stack. I pick what the job needs and what I can ship fast with. Everything here I&apos;ve shipped to
+            production, not tried once over a weekend.
           </p>
           <div className="stack rv">{stack.map((s) => <span key={s}>{s}</span>)}</div>
         </div>
@@ -62,8 +61,8 @@ export default function Home() {
 
       <footer>
         <div className="row">
-          <span>© 2026 Arshdeep Singh</span>
-          <span>Built with Next.js · pure-canvas globe</span>
+          <span>© 2026 Arshdeep Singh — built this one myself too</span>
+          <span>Next.js · hand-coded canvas globe</span>
         </div>
       </footer>
 

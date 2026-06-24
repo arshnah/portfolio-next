@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useState } from "react";
 
 type Repo = { name: string; html_url: string; description: string | null; language: string | null; stargazers_count: number };
