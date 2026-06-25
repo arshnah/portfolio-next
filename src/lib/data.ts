@@ -1,4 +1,6 @@
 ﻿export const projects = [
+  { year: "2026", name: "KOHAKU", url: "https://kohaku-agency.vercel.app",
+    desc: "A creative agency I run with a friend, aimed at anime and manga brands. I built the whole site: a 3D hero in Three.js, a live chat widget, and a Supabase backend that runs our lead inbox. We pitch studios manga-first." },
   { year: "2024–26", name: "Nexlease", url: "https://nexlease.in",
     desc: "A rental marketplace I built end to end. The website, the Android app on the Play Store, an ops dashboard for the team, and Nexscore, a locality-scoring engine I wrote from scratch. It runs on a server I manage (and break, and fix) myself." },
   { year: "2023", name: "JustCallTech", url: "https://justcalltech.in",
