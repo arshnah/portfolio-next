@@ -5,7 +5,9 @@ import Activity from "@/components/Activity";
 import Terminal from "@/components/Terminal";
 import Guestbook from "@/components/Guestbook";
 import Starfield from "@/components/Starfield";
-import { projects, services } from "@/lib/data";
+import GithubGraph from "@/components/GithubGraph";
+import Link from "next/link";
+import { projects, services, stack, posts, testimonials } from "@/lib/data";
 
 export default function Home() {
   const [term, setTerm] = useState(false);
@@ -57,6 +59,22 @@ export default function Home() {
           </div>
         </section>
 
+        {/* skills */}
+        <section className="py-[70px] border-t border-white/[0.08]" id="skills">
+          <div className="flex items-baseline gap-3.5 mb-[34px]"><h2 className="text-[14px] font-semibold tracking-[0.14em] uppercase text-muted">Stack</h2><span className="flex-1 h-px bg-white/[0.08]" /></div>
+          <div className="flex flex-wrap gap-2.5">
+            {stack.map(t => (
+              <span key={t} className="font-mono text-[13px] text-ink/90 px-3.5 py-2 rounded-[8px] border border-white/[0.1] bg-surf">{t}</span>
+            ))}
+          </div>
+        </section>
+
+        {/* contributions */}
+        <section className="py-[70px] border-t border-white/[0.08]" id="contributions">
+          <div className="flex items-baseline gap-3.5 mb-[34px]"><h2 className="text-[14px] font-semibold tracking-[0.14em] uppercase text-muted">Contributions</h2><span className="flex-1 h-px bg-white/[0.08]" /></div>
+          <GithubGraph username="arshnah" />
+        </section>
+
         {/* services */}
         <section className="py-[70px] border-t border-white/[0.08]" id="services">
           <div className="flex items-baseline gap-3.5 mb-[34px]"><h2 className="text-[14px] font-semibold tracking-[0.14em] uppercase text-muted">What I can build for you</h2><span className="flex-1 h-px bg-white/[0.08]" /></div>
@@ -70,6 +88,36 @@ export default function Home() {
             ))}
           </div>
           <p className="mt-[22px] text-faint text-[14px]">Not sure what you need? Just tell me the problem. I&apos;ll figure out the tech.</p>
+        </section>
+
+        {/* writing */}
+        <section className="py-[70px] border-t border-white/[0.08]" id="writing">
+          <div className="flex items-baseline gap-3.5 mb-[34px]"><h2 className="text-[14px] font-semibold tracking-[0.14em] uppercase text-muted">Blog</h2><span className="flex-1 h-px bg-white/[0.08]" /></div>
+          <div className="grid gap-1">
+            {posts.slice(0, 3).map(p => (
+              <Link key={p.slug} href={`/blog/${p.slug}`} className="group grid sm:grid-cols-[110px_1fr] gap-1.5 sm:gap-5 py-4 transition hover:bg-surf hover:px-4 hover:rounded-[10px]">
+                <span className="font-mono text-[13px] text-faint pt-1">{new Date(p.date).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})}</span>
+                <div>
+                  <h3 className="text-[18px] font-semibold tracking-[-0.01em] group-hover:underline underline-offset-4">{p.title}</h3>
+                  <p className="mt-1 text-muted text-[14.5px] leading-[1.6] max-w-[62ch]">{p.summary}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <Link href="/blog" className="inline-block mt-5 font-mono text-[13px] text-muted hover:text-ink transition">all posts &rarr;</Link>
+        </section>
+
+        {/* testimonials */}
+        <section className="py-[70px] border-t border-white/[0.08]" id="words">
+          <div className="flex items-baseline gap-3.5 mb-[34px]"><h2 className="text-[14px] font-semibold tracking-[0.14em] uppercase text-muted">Kind words</h2><span className="flex-1 h-px bg-white/[0.08]" /></div>
+          <div className="grid md:grid-cols-2 gap-[18px]">
+            {testimonials.map(t => (
+              <figure key={t.name} className="p-6 bg-surf border border-white/[0.08] rounded-[14px]">
+                <blockquote className="text-[16px] text-ink/90 leading-[1.65]">&ldquo;{t.quote}&rdquo;</blockquote>
+                <figcaption className="mt-4 text-[13.5px]"><span className="font-semibold">{t.name}</span> <span className="text-faint">· {t.role}</span></figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <Guestbook />
