@@ -1,8 +1,19 @@
-﻿"use client";
+"use client";
 import useSWR from "swr";
 import { useState } from "react";
 const fetcher = (u: string) => fetch(u).then(r => r.json());
-const fmt = (d: string) => { try { return new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short" }); } catch { return ""; } };
+const fmt = (d: string) => {
+  try {
+    const then = new Date(d).getTime();
+    const s = Math.max(0, Math.floor((Date.now() - then) / 1000));
+    if (s < 45) return "just now";
+    if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+    if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+    if (s < 604800) return `${Math.floor(s / 86400)}d ago`;
+    const sameYear = new Date(then).getFullYear() === new Date().getFullYear();
+    return new Date(then).toLocaleDateString("en-IN", { day: "numeric", month: "short", ...(sameYear ? {} : { year: "numeric" }) });
+  } catch { return ""; }
+};
 
 export default function Guestbook() {
   const { data, mutate } = useSWR("/api/guestbook", fetcher);
@@ -45,7 +56,7 @@ export default function Guestbook() {
           <div key={e.id} className="bg-surf border border-white/[0.08] rounded-[12px] px-[18px] py-4">
             <div className="flex justify-between items-baseline gap-2.5">
               <span className="font-semibold text-[15px] text-accent">{e.name}</span>
-              <span className="font-mono text-[11px] text-faint">{fmt(e.created_at)}</span>
+              <span className="font-mono text-[11px] text-faint" title={new Date(e.created_at).toLocaleString("en-IN")}>{fmt(e.created_at)}</span>
             </div>
             <p className="text-ink text-[15px] mt-1.5 break-words">{e.message}</p>
           </div>
