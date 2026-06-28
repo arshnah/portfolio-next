@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 type Line = { html: string };
 const files: Record<string,string> = {
 "about.md":`<span class="text-accent"># whoami</span>
-I'm Arshdeep — solo developer from India. I build the whole product
+I'm Arshdeep, a solo developer from India. I build the whole product
 myself: the website, the Android app, the backend, and the server it
 runs on. Then I keep it alive. Self-taught. Most of what I've shipped
 is live in production right now.
@@ -20,14 +20,14 @@ daily       arch linux, btw 🐧`,
 github    <a href="https://github.com/arshnah" target="_blank" class="text-[#39d3c4] underline">github.com/arshnah</a>
 discord   arshnah
 status    open for work / freelance`,
-"projects/nexlease.md":`Nexlease (2024–26) — <a href="https://nexlease.in" target="_blank" class="text-[#39d3c4] underline">nexlease.in</a>
+"projects/nexlease.md":`Nexlease (2024–26) · <a href="https://nexlease.in" target="_blank" class="text-[#39d3c4] underline">nexlease.in</a>
 Rental marketplace: React site, Kotlin app, ops dashboard, and Nexscore
 locality-scoring engine. Runs on a VPS I manage myself.`,
-"projects/justcalltech.md":`JustCallTech (2023) — <a href="https://justcalltech.in" target="_blank" class="text-[#39d3c4] underline">justcalltech.in</a>
+"projects/justcalltech.md":`JustCallTech (2023) · <a href="https://justcalltech.in" target="_blank" class="text-[#39d3c4] underline">justcalltech.in</a>
 IT-services brand. Kotlin app (Play Store) + website. 97/100 SEO.`,
-"projects/chc.md":`Content Helper Community (2025) — <a href="https://chc-site.vercel.app" target="_blank" class="text-[#39d3c4] underline">chc-site.vercel.app</a>
+"projects/chc.md":`Content Helper Community (2025) · <a href="https://chc-site.vercel.app" target="_blank" class="text-[#39d3c4] underline">chc-site.vercel.app</a>
 Live YouTube subscriber counts via a serverless function. 17 channels, hourly.`,
-"projects/whatnow.md":`WhatNow (2025) — <a href="https://whatnowindia.vercel.app" target="_blank" class="text-[#39d3c4] underline">whatnowindia.vercel.app</a>
+"projects/whatnow.md":`WhatNow (2025) · <a href="https://whatnowindia.vercel.app" target="_blank" class="text-[#39d3c4] underline">whatnowindia.vercel.app</a>
 Platform for students choosing what's next after board exams.`,
 };
 const tree: Record<string,string[]> = { "~":["about.md","stack.txt","contact.txt","projects/"], "~/projects":["nexlease.md","justcalltech.md","chc.md","whatnow.md"] };
@@ -66,7 +66,7 @@ export default function Terminal({ open, onClose }: { open: boolean; onClose: ()
 </div></div>`;
 
   function boot() {
-    const L = [`<span class="text-[#5b6675]">Arch Linux 6.x — tty1</span>`,`<span class="text-[#5b6675]">login: arsh ... ✓</span>`,"",neofetch(),"",`<span class="text-[#7e8a99]">type <span class="text-[#56d364]">help</span> to explore. <span class="text-[#56d364]">exit</span> to go back.</span>`,""];
+    const L = [`<span class="text-[#5b6675]">Arch Linux 6.x · tty1</span>`,`<span class="text-[#5b6675]">login: arsh ... ✓</span>`,"",neofetch(),"",`<span class="text-[#7e8a99]">type <span class="text-[#56d364]">help</span> to explore. <span class="text-[#56d364]">exit</span> to go back.</span>`,""];
     let i = 0; (function t(){ if(i<L.length){ pr(L[i]); i++; setTimeout(t, i<3?200:110); } })();
   }
   useEffect(() => { if (open) { inRef.current?.focus(); if(!booted.current){ booted.current=true; boot(); } } }, [open]);
@@ -83,14 +83,14 @@ export default function Terminal({ open, onClose }: { open: boolean; onClose: ()
   <span class="text-[#56d364]">help neofetch whoami about stack contact</span>
   <span class="text-[#56d364]">ls  cd &lt;dir&gt;  cat &lt;file&gt;  projects  clear  exit</span>
   <span class="text-[#5b6675]">(a few easter eggs hidden around. poke.)</span>`,
-      whoami: () => "arshnah — Arshdeep Singh. solo developer, full-stack + android + ops.",
+      whoami: () => "arshnah · Arshdeep Singh. solo developer across full-stack, android, and ops.",
       about: () => files["about.md"], stack: () => files["stack.txt"], contact: () => files["contact.txt"],
       neofetch, ls: () => (tree[cur]||[]).map(f=>f.endsWith("/")?`<span class="text-[#39d3c4]">${f}</span>`:f).join("   "),
       projects: () => ["nexlease","justcalltech","chc","whatnow"].map(k=>files["projects/"+k+".md"]).join("\n\n"),
       clear: () => { setLines([]); return null; }, exit: () => { onClose(); return null; },
       pwd: () => cur==="~"?"/home/arsh":"/home/arsh/projects",
       arch: () => "i use arch btw 🐧", guitar: () => "🎸 yeah, I play. mostly at 2am instead of sleeping.",
-      gym: () => "🏋️ push day > leg day.", jarvis: () => `<span class="text-[#39d3c4]">Jarvis</span> — my home server. runs local AI (Ollama) + automations. WIP.`,
+      gym: () => "🏋️ push day > leg day.", jarvis: () => `<span class="text-[#39d3c4]">Jarvis</span> · my home server. runs local AI with Ollama plus a few automations. still a work in progress.`,
       sudo: () => `<span class="text-[#ffb24a]">arsh is not in the sudoers file. This incident will be reported.</span> <span class="text-[#5b6675]">(jk)</span>`,
       vim: () => `you opened vim. you live here now. <span class="text-[#5b6675]">(type 'exit')</span>`,
       date: () => new Date().toString(),
@@ -98,7 +98,7 @@ export default function Terminal({ open, onClose }: { open: boolean; onClose: ()
     if (c==="cd") { const d=a; if(!d||d==="~"||d===".."){setCwd("~");} else if(d==="projects"||d==="projects/"){setCwd("~/projects");} else if([".config","secret",".secret"].includes(d)){pr(`<span class="text-[#ff6b5c]">cd: ${d}: Permission denied</span> <span class="text-[#5b6675]">(nice try 👀)</span>`);} else {pr(`<span class="text-[#ff6b5c]">cd: ${d}: No such directory</span>`);} return; }
     if (c==="cat") { if(!a){pr(`<span class="text-[#ff6b5c]">cat: missing file</span>`);return;} const k=cur==="~/projects"?"projects/"+a:a; const f=files[k]||files[a]; pr(f||`<span class="text-[#ff6b5c]">cat: ${a}: No such file</span>`); return; }
     if (map[c]) { const r = map[c](); if(r!==null&&r!==undefined) pr(r); return; }
-    pr(`<span class="text-[#ff6b5c]">command not found: ${c}</span> — type <span class="text-[#56d364]">help</span>`);
+    pr(`<span class="text-[#ff6b5c]">command not found: ${c}</span> · type <span class="text-[#56d364]">help</span>`);
   }
 
   const COMP = ["help","neofetch","whoami","about","stack","contact","ls","cd","cat","projects","clear","exit","arch","jarvis","guitar","gym"];
@@ -115,7 +115,7 @@ export default function Terminal({ open, onClose }: { open: boolean; onClose: ()
     <div className="fixed inset-0 z-[100] bg-[#0a0c11] flex flex-col p-6 font-mono" style={{ animation:"fade .25s ease" }} onClick={()=>inRef.current?.focus()}>
       <div className="flex items-center gap-2 text-[#6b7686] text-xs mb-3.5">
         <span className="w-[11px] h-[11px] rounded-full bg-[#ff5f57]" /><span className="w-[11px] h-[11px] rounded-full bg-[#febc2e]" /><span className="w-[11px] h-[11px] rounded-full bg-[#28c840]" />
-        <span className="ml-2">arsh@arch: ~ — zsh</span><span className="ml-auto text-[#5b6675]">esc / exit → close</span>
+        <span className="ml-2">arsh@arch: ~ · zsh</span><span className="ml-auto text-[#5b6675]">esc / exit → close</span>
       </div>
       <div ref={outRef} className="flex-1 overflow-y-auto term-scroll text-[14px] leading-[1.55] text-[#e8ece9] whitespace-pre-wrap break-words">
         {lines.map((l,i)=><div key={i} dangerouslySetInnerHTML={{ __html: l.html }} />)}
