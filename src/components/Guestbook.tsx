@@ -4,14 +4,13 @@ import { useState } from "react";
 const fetcher = (u: string) => fetch(u).then(r => r.json());
 const fmt = (d: string) => {
   try {
-    const then = new Date(d).getTime();
-    const s = Math.max(0, Math.floor((Date.now() - then) / 1000));
-    if (s < 45) return "just now";
-    if (s < 3600) return `${Math.floor(s / 60)}m ago`;
-    if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
-    if (s < 604800) return `${Math.floor(s / 86400)}d ago`;
-    const sameYear = new Date(then).getFullYear() === new Date().getFullYear();
-    return new Date(then).toLocaleDateString("en-IN", { day: "numeric", month: "short", ...(sameYear ? {} : { year: "numeric" }) });
+    const then = new Date(d), now = new Date();
+    const startOf = (x: Date) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+    const days = Math.round((startOf(now) - startOf(then)) / 86400000);
+    if (days <= 0) return then.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", hour12: true }); // today: exact time
+    if (days < 7) return `${days}d ago`;
+    const sameYear = then.getFullYear() === now.getFullYear();
+    return then.toLocaleDateString("en-IN", { day: "numeric", month: "short", ...(sameYear ? {} : { year: "numeric" }) });
   } catch { return ""; }
 };
 
