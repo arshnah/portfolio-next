@@ -1,4 +1,6 @@
-﻿export const projects = [
+export const projects = [
+  { year: "2026", name: "Wisp", url: "https://wisp-phi.vercel.app",
+    desc: "An open-source, end-to-end encrypted messenger. Messages get locked in your browser before they ever reach the server, so a database leak would only spill gibberish. I wrote the whole crypto layer myself with the Web Crypto API: real accounts, a key directory, and live realtime chat. The code is public." },
   { year: "2026", name: "KOHAKU", url: "https://kohaku-agency.vercel.app",
     desc: "A creative agency I run with a friend, aimed at anime and manga brands. I built the whole site: a 3D hero in Three.js, a live chat widget, and a Supabase backend that runs our lead inbox. We pitch studios manga-first." },
   { year: "2025", name: "Content Helper Community", url: "https://chc-site.vercel.app",
