@@ -37,8 +37,6 @@ export default function Home() {
         with it. I make things work. Making them pretty is somebody else&apos;s job.
       </p>
 
-      <p>[ <a href="#work">Work</a> | <a href="#writing">Blog</a> | <a href="#guestbook">Guestbook</a> | <a href="#contact">Contact</a> ]</p>
-
       <hr />
 
       <h2 id="work">Work</h2>
