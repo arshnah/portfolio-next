@@ -14,16 +14,16 @@ export default function Webring() {
               <stop offset="1" stopColor="#ff7a5c" />
             </linearGradient>
           </defs>
-          <rect width="88" height="31" fill="#0c0812" />
-          <rect x="1" y="1" width="86" height="29" fill="#181026" />
-          <rect x="1" y="1" width="86" height="1" fill="#3a2c52" />
-          <rect x="1" y="1" width="27" height="29" fill="#0f0a18" />
+          <rect width="88" height="31" fill="var(--bdg-frame)" />
+          <rect x="1" y="1" width="86" height="29" fill="var(--bdg-field)" />
+          <rect x="1" y="1" width="86" height="1" fill="var(--bdg-hi)" />
+          <rect x="1" y="1" width="27" height="29" fill="var(--bdg-panel)" />
           <g transform="translate(14.5,15.5)">
             <circle r="8" fill="none" stroke="url(#vg-arsh)" strokeWidth="2.5" />
             <circle cx="0" cy="-8" r="2.4" fill="#ff5db1" />
           </g>
-          <text x="31" y="14" textLength="53" lengthAdjust="spacingAndGlyphs" fontFamily="Verdana,Geneva,sans-serif" fontSize="9" fontWeight="bold" fill="#ffe0ef">VIBERING</text>
-          <text x="31" y="24" textLength="53" lengthAdjust="spacingAndGlyphs" fontFamily="Verdana,Geneva,sans-serif" fontSize="7" fill="#b98ff0">web ring</text>
+          <text x="31" y="14" textLength="53" lengthAdjust="spacingAndGlyphs" fontFamily="Verdana,Geneva,sans-serif" fontSize="9" fontWeight="bold" fill="var(--bdg-name)">VIBERING</text>
+          <text x="31" y="24" textLength="53" lengthAdjust="spacingAndGlyphs" fontFamily="Verdana,Geneva,sans-serif" fontSize="7" fill="var(--bdg-sub)">web ring</text>
         </svg>
       </a>
       <br />
