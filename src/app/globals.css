@@ -47,11 +47,11 @@ body {
 @keyframes drift { from { transform: translateX(-240px); } to { transform: translateX(calc(100vw + 240px)); } }
 @media (prefers-reduced-motion: reduce) { .cloud { animation: none; } }
 
-/* vibering webring badge — swaps with theme */
-.vibering-badge { border: 0; display: inline-block; vertical-align: middle; }
-.vibering-badge-light { display: none; }
-:root[data-theme="light"] .vibering-badge-dark { display: none; }
-:root[data-theme="light"] .vibering-badge-light { display: inline-block; }
+/* larpring webring badge — swaps with theme */
+.larpring-badge { border: 0; display: inline-block; vertical-align: middle; }
+.larpring-badge-light { display: none; }
+:root[data-theme="light"] .larpring-badge-dark { display: none; }
+:root[data-theme="light"] .larpring-badge-light { display: inline-block; }
 
 a:link { color: var(--link); }
 a:visited { color: var(--visited); }
