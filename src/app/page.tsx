@@ -10,7 +10,11 @@ const dateFmt = (d: string) =>
 export default function Home() {
   return (
     <>
-      <Webring />
+      <div style={{ textAlign: "center", margin: "0 0 6px" }}>
+        <Webring />
+      </div>
+
+      <hr />
 
       <div style={{ display: "flex", alignItems: "center", gap: 16, margin: "8px 0" }}>
         <img src="/arsh.svg" width={76} height={76} alt="arsh" style={{ borderRadius: 12, flex: "none" }} />
