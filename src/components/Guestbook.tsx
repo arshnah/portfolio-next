@@ -25,24 +25,24 @@ export default function Guestbook() {
   const [err, setErr] = useState("");
 
   async function submit() {
-    if (!name.trim() || !msg.trim()) { setErr("naam aur message dono chahiye"); return; }
+    if (!name.trim() || !msg.trim()) { setErr("name and message are both required"); return; }
     setBusy(true); setErr("");
     const res = await fetch("/api/guestbook", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, message: msg }) }).then(r => r.json()).catch(() => ({ ok: false }));
     setBusy(false);
-    if (res.ok) { setName(""); setMsg(""); mutate(); } else { setErr("kuch galat hua, dobara try kar"); }
+    if (res.ok) { setName(""); setMsg(""); mutate(); } else { setErr("something went wrong, try again"); }
   }
 
   return (
     <div id="guestbook">
       <h2>Guestbook</h2>
-      <p>Aaye ho, to ek note chhod jao. Naam, ek line, bas.</p>
+      <p>Passing through? Leave a note. A name, one line, that&apos;s all.</p>
 
       <div style={{ maxWidth: 480, marginBottom: 24 }}>
         <div style={{ marginBottom: 6 }}>
-          <input value={name} onChange={e => setName(e.target.value)} placeholder="naam" maxLength={40} style={field} />
+          <input value={name} onChange={e => setName(e.target.value)} placeholder="name" maxLength={40} style={field} />
         </div>
         <div style={{ marginBottom: 6 }}>
-          <textarea value={msg} onChange={e => setMsg(e.target.value)} placeholder="kuch likh do..." maxLength={280} rows={3} style={{ ...field, resize: "vertical" }} />
+          <textarea value={msg} onChange={e => setMsg(e.target.value)} placeholder="write something..." maxLength={280} rows={3} style={{ ...field, resize: "vertical" }} />
         </div>
         <button onClick={submit} disabled={busy} style={{ padding: "5px 18px", fontFamily: '"Courier New", monospace', fontSize: "14px" }}>
           {busy ? "..." : "sign"}
@@ -51,7 +51,7 @@ export default function Guestbook() {
       </div>
 
       <div>
-        {entries.length === 0 && <p style={{ color: "#666" }}>abhi tak koi nahi aaya. pehle tu hi sahi.</p>}
+        {entries.length === 0 && <p style={{ color: "#666" }}>no one has signed yet. be the first.</p>}
         {entries.map((e: any) => (
           <div key={e.id} style={{ borderTop: "1px solid #ccc", padding: "8px 0" }}>
             <div>
