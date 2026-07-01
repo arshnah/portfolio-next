@@ -6,6 +6,7 @@ import Terminal from "@/components/Terminal";
 import Guestbook from "@/components/Guestbook";
 import Starfield from "@/components/Starfield";
 import GithubGraph from "@/components/GithubGraph";
+import Webring from "@/components/Webring";
 import Link from "next/link";
 import { projects, services, stack, posts, testimonials } from "@/lib/data";
 
@@ -137,9 +138,12 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-white/[0.08] py-[26px] pb-11">
-        <div className="wrap flex justify-between flex-wrap gap-2 text-[13px] text-faint">
-          <span>© 2026 Arshdeep Singh. built it myself.</span>
-          <button onClick={() => setTerm(true)} className="font-mono hover:text-accent transition">&gt;_ for devs</button>
+        <div className="wrap">
+          <Webring />
+          <div className="mt-9 pt-6 border-t border-white/[0.06] flex justify-between flex-wrap gap-2 text-[13px] text-faint">
+            <span>© 2026 Arshdeep Singh. built it myself.</span>
+            <button onClick={() => setTerm(true)} className="font-mono hover:text-accent transition">&gt;_ for devs</button>
+          </div>
         </div>
       </footer>
 
