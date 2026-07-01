@@ -1,19 +1,11 @@
-// Webring nav — links this site into the loopback webring.
 const RING = "https://arshnah.github.io/loopback";
-const ME = "arsh"; // must match your "name" in the ring's webring.json
-
+const ME = "arsh";
 const hop = (dir: string) => `${RING}/go.html?from=${ME}&dir=${dir}`;
 
 export default function Webring() {
   return (
-    <div className="flex flex-col items-center gap-3.5">
-      <div className="flex items-center gap-5 font-mono text-[13px] text-muted">
-        <a href={hop("prev")} className="hover:text-ink transition" aria-label="previous site in the webring">&larr; prev</a>
-        <a href={`${RING}/random/`} className="hover:text-ink transition">random</a>
-        <a href={hop("next")} className="hover:text-ink transition" aria-label="next site in the webring">next &rarr;</a>
-      </div>
-
-      <a href={RING} target="_blank" rel="noopener noreferrer" className="opacity-90 hover:opacity-100 transition" aria-label="loopback webring">
+    <p>
+      <a href={RING} target="_blank" rel="noopener noreferrer" aria-label="loopback webring">
         <svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31" shapeRendering="crispEdges" role="img" aria-label="loopback web ring badge">
           <rect width="88" height="31" fill="#0d1430" />
           <rect x="1" y="1" width="86" height="29" fill="#1b2a5b" />
@@ -30,11 +22,11 @@ export default function Webring() {
           <text x="31" y="24" textLength="53" lengthAdjust="spacingAndGlyphs" fontFamily="Verdana,Geneva,sans-serif" fontSize="7" fill="#f6c177">WEB RING</text>
         </svg>
       </a>
-
-      <span className="text-[12px] text-faint">
-        member of the{" "}
-        <a href={RING} target="_blank" rel="noopener noreferrer" className="hover:text-ink underline underline-offset-2 decoration-white/20">loopback webring</a>
-      </span>
-    </div>
+      <br />
+      Member of the <a href={RING} target="_blank" rel="noopener noreferrer">loopback webring</a>:{" "}
+      <a href={hop("prev")}>&laquo; prev</a> |{" "}
+      <a href={`${RING}/random/`}>random</a> |{" "}
+      <a href={hop("next")}>next &raquo;</a>
+    </p>
   );
 }
