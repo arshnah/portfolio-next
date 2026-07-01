@@ -35,7 +35,7 @@ export default function Home() {
         {projects.map((p) => (
           <li key={p.name}>
             <a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a>{" "}
-            ({p.year}) &mdash; {p.desc}
+            ({p.year}) &middot; {p.desc}
           </li>
         ))}
       </ul>
@@ -63,7 +63,7 @@ export default function Home() {
       <ul>
         {posts.map((p) => (
           <li key={p.slug}>
-            <Link href={`/blog/${p.slug}`}>{p.title}</Link> &mdash; {dateFmt(p.date)}
+            <Link href={`/blog/${p.slug}`}>{p.title}</Link> &middot; {dateFmt(p.date)}
           </li>
         ))}
       </ul>
@@ -76,7 +76,7 @@ export default function Home() {
         <blockquote key={t.name}>
           &ldquo;{t.quote}&rdquo;
           <br />
-          &mdash; {t.name}, {t.role}
+          &middot; {t.name}, {t.role}
         </blockquote>
       ))}
 
