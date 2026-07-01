@@ -24,6 +24,27 @@ body {
 .starfield { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; transition: opacity .3s ease; }
 :root[data-theme="light"] .starfield { opacity: 0; }
 
+/* day sky: soft blue gradient + drifting clouds, only in light mode */
+.daysky {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; opacity: 0;
+  transition: opacity .3s ease;
+  background: linear-gradient(180deg, #bfe0ff 0%, #d8ecff 32%, #eef7ff 66%, #ffffff 100%);
+}
+:root[data-theme="light"] .daysky { opacity: 1; }
+.cloud {
+  position: absolute; height: 34px; background: #fff; border-radius: 40px;
+  filter: blur(5px); opacity: .9; will-change: transform;
+  box-shadow: 34px 6px 0 -4px #fff, -30px 8px 0 -6px #fff, 14px -13px 0 -8px #fff, -12px -8px 0 -9px #fff;
+}
+.c1 { top: 9%;  width: 130px; animation: drift 72s linear infinite; }
+.c2 { top: 22%; width: 90px;  opacity: .7;  animation: drift 96s linear infinite; animation-delay: -40s; }
+.c3 { top: 37%; width: 165px; animation: drift 84s linear infinite; animation-delay: -22s; }
+.c4 { top: 52%; width: 100px; opacity: .75; animation: drift 112s linear infinite; animation-delay: -68s; }
+.c5 { top: 68%; width: 125px; animation: drift 80s linear infinite; animation-delay: -52s; }
+.c6 { top: 82%; width: 80px;  opacity: .65; animation: drift 104s linear infinite; animation-delay: -15s; }
+@keyframes drift { from { transform: translateX(-240px); } to { transform: translateX(calc(100vw + 240px)); } }
+@media (prefers-reduced-motion: reduce) { .cloud { animation: none; } }
+
 a:link { color: var(--link); }
 a:visited { color: var(--visited); }
 a:hover { text-decoration: underline; }

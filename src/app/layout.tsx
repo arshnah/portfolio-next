@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Starfield from "@/components/Starfield";
+import DaySky from "@/components/DaySky";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
       <body>
+        <DaySky />
         <Starfield />
         <ThemeToggle />
         {children}
