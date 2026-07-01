@@ -14,7 +14,7 @@ const fmt = (d: string) => {
   } catch { return ""; }
 };
 
-const field: React.CSSProperties = { width: "100%", padding: "6px 8px", border: "1px solid #808080", fontFamily: '"Courier New", monospace', fontSize: "15px", background: "#fff" };
+const field: React.CSSProperties = { width: "100%", padding: "6px 8px", border: "1px solid var(--field-bd)", fontFamily: '"Courier New", monospace', fontSize: "15px", background: "var(--field)", color: "var(--ink)" };
 
 export default function Guestbook() {
   const { data, mutate } = useSWR("/api/guestbook", fetcher);
@@ -47,16 +47,16 @@ export default function Guestbook() {
         <button onClick={submit} disabled={busy} style={{ padding: "5px 18px", fontFamily: '"Courier New", monospace', fontSize: "14px" }}>
           {busy ? "..." : "sign"}
         </button>
-        {err && <span style={{ marginLeft: 10, color: "#c23b2b", fontSize: 14 }}>{err}</span>}
+        {err && <span style={{ marginLeft: 10, color: "#e0554c", fontSize: 14 }}>{err}</span>}
       </div>
 
       <div>
-        {entries.length === 0 && <p style={{ color: "#666" }}>no one has signed yet. be the first.</p>}
+        {entries.length === 0 && <p style={{ color: "var(--muted)" }}>no one has signed yet. be the first.</p>}
         {entries.map((e: any) => (
-          <div key={e.id} style={{ borderTop: "1px solid #ccc", padding: "8px 0" }}>
+          <div key={e.id} style={{ borderTop: "1px solid var(--line)", padding: "8px 0" }}>
             <div>
               <b>{e.name}</b>
-              <span style={{ color: "#888", marginLeft: 10, fontFamily: '"Courier New", monospace', fontSize: 13 }} title={new Date(e.created_at).toLocaleString("en-IN")}>{fmt(e.created_at)}</span>
+              <span style={{ color: "var(--faint)", marginLeft: 10, fontFamily: '"Courier New", monospace', fontSize: 13 }} title={new Date(e.created_at).toLocaleString("en-IN")}>{fmt(e.created_at)}</span>
             </div>
             <div style={{ marginTop: 3, wordBreak: "break-word" }}>{e.message}</div>
           </div>

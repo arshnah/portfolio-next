@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Starfield from "@/components/Starfield";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Arshdeep Singh",
   description: "Solo developer from India. I build websites, apps, and the systems that run them.",
 };
 
+const themeScript = `(function(){try{var t=localStorage.getItem('arsh-theme');document.documentElement.dataset.theme=t||'dark';}catch(e){document.documentElement.dataset.theme='dark';}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
+      <body>
+        <Starfield />
+        <ThemeToggle />
+        {children}
+      </body>
     </html>
   );
 }

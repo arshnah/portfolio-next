@@ -26,20 +26,20 @@ export default function Activity() {
   }, [np?.isPlaying, np?.title]);
   const musicColor = MUSIC_COLORS[ci];
   const status = dc?.data?.discord_status ?? "offline";
-  const sep = <span style={{ color: "#999" }}>/</span>;
+  const sep = <span style={{ color: "var(--faint)" }}>/</span>;
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "4px 10px", fontFamily: '"Courier New", monospace', fontSize: "14px", color: "#555", margin: "10px 0" }}>
+    <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "4px 10px", fontFamily: '"Courier New", monospace', fontSize: "14px", color: "var(--muted)", margin: "10px 0" }}>
       <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
         <span style={{ width: 8, height: 8, borderRadius: "50%", background: DOT[status], display: "inline-block" }} />
         <span style={{ color: DOT[status] }}>{LBL[status]}</span>
       </span>
       {sep}
       {np?.isPlaying && np?.title
-        ? <a href={np.url} target="_blank" rel="noopener noreferrer">&#9834; <span style={{ color: musicColor }}>{np.title}</span> <span style={{ color: "#999" }}>&mdash; {np.artist}</span></a>
-        : <span style={{ color: "#999" }}>&#9834; not playing</span>}
+        ? <a href={np.url} target="_blank" rel="noopener noreferrer">&#9834; <span style={{ color: musicColor }}>{np.title}</span> <span style={{ color: "var(--faint)" }}>&middot; {np.artist}</span></a>
+        : <span style={{ color: "var(--faint)" }}>&#9834; not playing</span>}
       {sep}
-      <span style={{ color: "#999" }}>{clock} IST</span>
+      <span style={{ color: "var(--faint)" }}>{clock} IST</span>
       {commit?.ok && (
         <>
           {sep}

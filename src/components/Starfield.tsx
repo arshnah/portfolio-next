@@ -56,5 +56,5 @@ export default function Starfield() {
     raf = requestAnimationFrame(frame);
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
-  return <canvas ref={ref} className="absolute inset-0 w-full h-full" aria-hidden="true" />;
+  return <canvas ref={ref} className="starfield" aria-hidden="true" />;
 }

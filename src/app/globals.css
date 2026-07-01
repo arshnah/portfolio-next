@@ -1,25 +1,40 @@
+:root {
+  --bg:#0a0a12; --card:#14141d; --ink:#e8e8ec; --muted:#9a9aa8; --faint:#6b6b78;
+  --link:#8fb6ff; --visited:#c3a9ff; --line:#25252f; --field:#12121a; --field-bd:#2c2c39;
+}
+:root[data-theme="light"] {
+  --bg:#ffffff; --card:#f4f4f4; --ink:#111111; --muted:#555555; --faint:#888888;
+  --link:#0000ee; --visited:#551a8b; --line:#cccccc; --field:#ffffff; --field-bd:#808080;
+}
+
+html { background: var(--bg); }
 body {
-  background: #ffffff;
-  color: #000000;
+  background: transparent;
+  color: var(--ink);
   font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   line-height: 1.4;
   margin: 24px auto;
   max-width: 52em;
   padding: 0 16px;
+  transition: color .2s ease;
 }
 
-a:link { color: #0000ee; }
-a:visited { color: #551a8b; }
-a:active { color: #ff0000; }
+/* starry sky: fixed behind everything, only in dark mode */
+.starfield { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; transition: opacity .3s ease; }
+:root[data-theme="light"] .starfield { opacity: 0; }
+
+a:link { color: var(--link); }
+a:visited { color: var(--visited); }
+a:hover { text-decoration: underline; }
 
 h1 { font-size: 2em; margin: 0 0 0.2em; }
 h2 { font-size: 1.3em; margin: 1em 0 0.3em; }
 
 pre, code, tt, kbd { font-family: "Courier New", Courier, monospace; }
-pre { border: 1px solid #808080; padding: 8px; overflow: auto; background: #f4f4f4; }
+pre { border: 1px solid var(--line); padding: 8px; overflow: auto; background: var(--card); color: var(--ink); }
 
 input, textarea { font-family: "Courier New", Courier, monospace; font-size: 1em; }
 
 blockquote { margin: 0.6em 0 0.6em 1.6em; }
-hr { border: 0; border-top: 1px solid #808080; margin: 1.2em 0; }
+hr { border: 0; border-top: 1px solid var(--line); margin: 1.2em 0; }
