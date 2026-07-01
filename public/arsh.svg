@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="~/arsh terminal">
+  <defs>
+    <pattern id="scan" width="1" height="4" patternUnits="userSpaceOnUse">
+      <rect width="1" height="4" fill="#5b9dff"/>
+      <rect width="1" height="1.5" y="0" fill="#0d1117" opacity="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="500" height="500" fill="#0d1117"/>
+  <g font-family="'JetBrains Mono','SFMono-Regular',Consolas,'Courier New',monospace" font-weight="700" text-anchor="middle" fill="url(#scan)">
+    <text x="250" y="240" font-size="88" letter-spacing="2">~/arsh</text>
+    <text x="250" y="330" font-size="72" letter-spacing="4">$ _</text>
+  </g>
+</svg>

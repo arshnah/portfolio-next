@@ -12,8 +12,13 @@ export default function Home() {
     <>
       <Webring />
 
-      <h1>Arshdeep Singh</h1>
-      <p>Developer in India. Currently open for work.</p>
+      <div style={{ display: "flex", alignItems: "center", gap: 16, margin: "8px 0" }}>
+        <img src="/arsh.svg" width={76} height={76} alt="arsh" style={{ borderRadius: 12, flex: "none" }} />
+        <div>
+          <h1 style={{ margin: 0 }}>Arshdeep Singh</h1>
+          <p style={{ margin: "2px 0 0" }}>Developer in India. Currently open for work.</p>
+        </div>
+      </div>
       <Activity />
 
       <p>
