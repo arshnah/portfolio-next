@@ -10,6 +10,18 @@ const dateFmt = (d: string) =>
 export default function Home() {
   return (
     <>
+      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", padding: "6px 0 14px" }}>
+        <a href="#top" style={{ fontFamily: '"JetBrains Mono","Courier New",monospace', fontWeight: 700 }}>
+          <span style={{ color: "var(--muted)" }}>~/</span>arsh<span style={{ color: "var(--link)" }}>nah</span>
+        </a>
+        <span style={{ display: "flex", gap: 16, fontSize: 14 }}>
+          <a href="#work">Work</a>
+          <a href="#writing">Blog</a>
+          <a href="#guestbook">Guestbook</a>
+          <a href="#contact">Contact</a>
+        </span>
+      </nav>
+
       <div style={{ textAlign: "center", margin: "0 0 6px" }}>
         <Webring />
       </div>
