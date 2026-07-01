@@ -4,8 +4,9 @@ body {
   font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   line-height: 1.4;
-  margin: 12px;
+  margin: 24px auto;
   max-width: 52em;
+  padding: 0 16px;
 }
 
 a:link { color: #0000ee; }
