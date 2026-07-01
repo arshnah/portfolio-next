@@ -10,6 +10,8 @@ const dateFmt = (d: string) =>
 export default function Home() {
   return (
     <>
+      <Webring />
+
       <h1>Arshdeep Singh</h1>
       <p>Developer in India. Currently open for work.</p>
       <Activity />
@@ -94,10 +96,6 @@ export default function Home() {
         <br />
         Discord: <a href="https://discord.com/users/1352866897900732446" target="_blank" rel="noopener noreferrer">@arshnah</a>
       </p>
-
-      <hr />
-
-      <Webring />
 
       <hr />
 
