@@ -1,12 +1,10 @@
 :root {
   --bg:#0a0a12; --card:#14141d; --ink:#e8e8ec; --muted:#9a9aa8; --faint:#6b6b78;
   --link:#8fb6ff; --visited:#c3a9ff; --line:#25252f; --field:#12121a; --field-bd:#2c2c39;
-  --bdg-frame:#0c0812; --bdg-field:#181026; --bdg-hi:#3a2c52; --bdg-panel:#0f0a18; --bdg-name:#ffe0ef; --bdg-sub:#b98ff0;
 }
 :root[data-theme="light"] {
   --bg:#ffffff; --card:#f4f4f4; --ink:#111111; --muted:#555555; --faint:#888888;
   --link:#0000ee; --visited:#551a8b; --line:#cccccc; --field:#ffffff; --field-bd:#808080;
-  --bdg-frame:#cdb8ec; --bdg-field:#fbf3e8; --bdg-hi:#ffffff; --bdg-panel:#f3e7d5; --bdg-name:#3d2a63; --bdg-sub:#b1508f;
 }
 
 html { background: var(--bg); }
@@ -46,6 +44,12 @@ body {
 .c6 { top: 82%; width: 80px;  opacity: .65; animation: drift 104s linear infinite; animation-delay: -15s; }
 @keyframes drift { from { transform: translateX(-240px); } to { transform: translateX(calc(100vw + 240px)); } }
 @media (prefers-reduced-motion: reduce) { .cloud { animation: none; } }
+
+/* vibering webring badge — swaps with theme */
+.vibering-badge { border: 0; display: inline-block; vertical-align: middle; }
+.vibering-badge-light { display: none; }
+:root[data-theme="light"] .vibering-badge-dark { display: none; }
+:root[data-theme="light"] .vibering-badge-light { display: inline-block; }
 
 a:link { color: var(--link); }
 a:visited { color: var(--visited); }

@@ -6,25 +6,8 @@ export default function Webring() {
   return (
     <p>
       <a href={RING} target="_blank" rel="noopener noreferrer" aria-label="vibering webring">
-        <svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31" role="img" aria-label="vibering web ring badge">
-          <defs>
-            <linearGradient id="vg-arsh" x1="0" y1="0" x2="88" y2="31" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stopColor="#7c5cff" />
-              <stop offset="0.5" stopColor="#ff5db1" />
-              <stop offset="1" stopColor="#ff7a5c" />
-            </linearGradient>
-          </defs>
-          <rect width="88" height="31" fill="var(--bdg-frame)" />
-          <rect x="1" y="1" width="86" height="29" fill="var(--bdg-field)" />
-          <rect x="1" y="1" width="86" height="1" fill="var(--bdg-hi)" />
-          <rect x="1" y="1" width="27" height="29" fill="var(--bdg-panel)" />
-          <g transform="translate(14.5,15.5)">
-            <circle r="8" fill="none" stroke="url(#vg-arsh)" strokeWidth="2.5" />
-            <circle cx="0" cy="-8" r="2.4" fill="#ff5db1" />
-          </g>
-          <text x="31" y="14" textLength="53" lengthAdjust="spacingAndGlyphs" fontFamily="Verdana,Geneva,sans-serif" fontSize="9" fontWeight="bold" fill="var(--bdg-name)">VIBERING</text>
-          <text x="31" y="24" textLength="53" lengthAdjust="spacingAndGlyphs" fontFamily="Verdana,Geneva,sans-serif" fontSize="7" fill="var(--bdg-sub)">web ring</text>
-        </svg>
+        <img className="vibering-badge vibering-badge-dark" src={`${RING}/badge.svg`} width={88} height={31} alt="vibering webring badge" />
+        <img className="vibering-badge vibering-badge-light" src={`${RING}/badge-light.svg`} width={88} height={31} alt="vibering webring badge" />
       </a>
       <br />
       Member of the <a href={RING} target="_blank" rel="noopener noreferrer">vibering webring</a>:{" "}
