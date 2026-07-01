@@ -7,12 +7,14 @@ const fmt = (d: string) => {
     const then = new Date(d), now = new Date();
     const startOf = (x: Date) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
     const days = Math.round((startOf(now) - startOf(then)) / 86400000);
-    if (days <= 0) return then.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", hour12: true }); // today: exact time
+    if (days <= 0) return then.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", hour12: true });
     if (days < 7) return `${days}d ago`;
     const sameYear = then.getFullYear() === now.getFullYear();
     return then.toLocaleDateString("en-IN", { day: "numeric", month: "short", ...(sameYear ? {} : { year: "numeric" }) });
   } catch { return ""; }
 };
+
+const field: React.CSSProperties = { width: "100%", padding: "6px 8px", border: "1px solid #808080", fontFamily: '"Courier New", monospace', fontSize: "15px", background: "#fff" };
 
 export default function Guestbook() {
   const { data, mutate } = useSWR("/api/guestbook", fetcher);
@@ -31,36 +33,35 @@ export default function Guestbook() {
   }
 
   return (
-    <section className="py-[70px] border-t border-white/[0.08]" id="guestbook">
-      <div className="flex items-baseline gap-3.5 mb-[34px]"><h2 className="text-[14px] font-semibold tracking-[0.14em] uppercase text-muted">Guestbook</h2><span className="flex-1 h-px bg-white/[0.08]" /></div>
-      <p className="text-muted text-[15px] mb-6 max-w-[56ch]">Aaye ho, to ek note chhod jao. Naam, ek line, bas.</p>
+    <div id="guestbook">
+      <h2>Guestbook</h2>
+      <p>Aaye ho, to ek note chhod jao. Naam, ek line, bas.</p>
 
-      <div className="max-w-[540px] grid gap-2.5 mb-9">
-        <input value={name} onChange={e => setName(e.target.value)} placeholder="naam" maxLength={40}
-          className="bg-surf border border-white/[0.1] rounded-[10px] px-3.5 py-3 text-[15px] outline-none focus:border-accent transition" />
-        <textarea value={msg} onChange={e => setMsg(e.target.value)} placeholder="kuch likh do..." maxLength={280} rows={3}
-          className="bg-surf border border-white/[0.1] rounded-[10px] px-3.5 py-3 text-[15px] outline-none focus:border-accent transition resize-y" />
-        <div className="flex items-center gap-3">
-          <button onClick={submit} disabled={busy}
-            className="justify-self-start bg-accent text-[#1a1206] font-semibold rounded-[10px] px-[22px] py-2.5 text-[14px] transition hover:brightness-110 disabled:opacity-50">
-            {busy ? "..." : "sign"}
-          </button>
-          {err && <span className="text-[13px] text-[#d65a4a]">{err}</span>}
+      <div style={{ maxWidth: 480, marginBottom: 24 }}>
+        <div style={{ marginBottom: 6 }}>
+          <input value={name} onChange={e => setName(e.target.value)} placeholder="naam" maxLength={40} style={field} />
         </div>
+        <div style={{ marginBottom: 6 }}>
+          <textarea value={msg} onChange={e => setMsg(e.target.value)} placeholder="kuch likh do..." maxLength={280} rows={3} style={{ ...field, resize: "vertical" }} />
+        </div>
+        <button onClick={submit} disabled={busy} style={{ padding: "5px 18px", fontFamily: '"Courier New", monospace', fontSize: "14px" }}>
+          {busy ? "..." : "sign"}
+        </button>
+        {err && <span style={{ marginLeft: 10, color: "#c23b2b", fontSize: 14 }}>{err}</span>}
       </div>
 
-      <div className="grid gap-3">
-        {entries.length === 0 && <p className="text-faint text-[14px] font-mono">// abhi tak koi nahi aaya. pehle tu hi sahi.</p>}
+      <div>
+        {entries.length === 0 && <p style={{ color: "#666" }}>abhi tak koi nahi aaya. pehle tu hi sahi.</p>}
         {entries.map((e: any) => (
-          <div key={e.id} className="bg-surf border border-white/[0.08] rounded-[12px] px-[18px] py-4">
-            <div className="flex justify-between items-baseline gap-2.5">
-              <span className="font-semibold text-[15px] text-accent">{e.name}</span>
-              <span className="font-mono text-[11px] text-faint" title={new Date(e.created_at).toLocaleString("en-IN")}>{fmt(e.created_at)}</span>
+          <div key={e.id} style={{ borderTop: "1px solid #ccc", padding: "8px 0" }}>
+            <div>
+              <b>{e.name}</b>
+              <span style={{ color: "#888", marginLeft: 10, fontFamily: '"Courier New", monospace', fontSize: 13 }} title={new Date(e.created_at).toLocaleString("en-IN")}>{fmt(e.created_at)}</span>
             </div>
-            <p className="text-ink text-[15px] mt-1.5 break-words">{e.message}</p>
+            <div style={{ marginTop: 3, wordBreak: "break-word" }}>{e.message}</div>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

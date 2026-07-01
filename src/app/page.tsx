@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Activity from "@/components/Activity";
 import Guestbook from "@/components/Guestbook";
 import Webring from "@/components/Webring";
 import { projects, services, stack, posts, testimonials } from "@/lib/data";
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <h1>Arshdeep Singh</h1>
       <p>Developer in India. Currently open for work.</p>
+      <Activity />
 
       <p>
         I build websites, apps, and the systems that run them. I take a project from an
