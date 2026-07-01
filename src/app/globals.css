@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   --bg:#0a0a12; --card:#14141d; --ink:#e8e8ec; --muted:#9a9aa8; --faint:#6b6b78;
   --link:#8fb6ff; --visited:#c3a9ff; --line:#25252f; --field:#12121a; --field-bd:#2c2c39;
@@ -11,7 +13,7 @@ html { background: var(--bg); }
 body {
   background: transparent;
   color: var(--ink);
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
   line-height: 1.4;
   margin: 24px auto;
