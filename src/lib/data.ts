@@ -1,6 +1,6 @@
 export const projects = [
   { year: "2026", name: "CipherDrop", url: "https://drop.arshnah.in",
-    desc: "Zero-knowledge file and text drops. Everything is encrypted in your browser before it uploads, and the key lives in the link fragment, so the server only ever stores ciphertext it cannot read. AES-GCM through the Web Crypto API, expiring links, burn-after-read, and syntax-highlighted code pastes. I self-host the whole thing on my own VPS." },
+    desc: "Zero-knowledge file and text drops. Everything is encrypted in your browser before it uploads, and the key lives in the link fragment, so the server only ever stores ciphertext it cannot read. AES-GCM through the Web Crypto API, expiring links, burn-after-read, and syntax-highlighted code pastes. It also ships veil, a page that tucks encrypted messages inside ordinary images. I self-host the whole thing on my own VPS." },
   { year: "2026", name: "Wisp", url: "https://chat.arshnah.in",
     desc: "An open-source, end-to-end encrypted messenger. Messages get locked in your browser before they ever reach the server, so a database leak would only spill gibberish. I wrote the whole crypto layer myself with the Web Crypto API: real accounts, a key directory, and live realtime chat. The code is public." },
   { year: "2026", name: "KOHAKU", url: "https://kohaku-agency.vercel.app",
