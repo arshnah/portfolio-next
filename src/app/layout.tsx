@@ -5,13 +5,13 @@ import DaySky from "@/components/DaySky";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://arshnah.vercel.app"),
+  metadataBase: new URL("https://arshnah.in"),
   title: "Arshdeep Singh",
   description: "Solo developer from India. I build websites, apps, and the systems that run them.",
   openGraph: {
     title: "Arshdeep Singh",
     description: "Solo developer from India. I build websites, apps, and the systems that run them.",
-    url: "https://arshnah.vercel.app",
+    url: "https://arshnah.in",
     siteName: "Arshdeep Singh",
     type: "website",
   },

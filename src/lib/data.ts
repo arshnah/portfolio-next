@@ -1,5 +1,7 @@
 export const projects = [
-  { year: "2026", name: "Wisp", url: "https://wisp-phi.vercel.app",
+  { year: "2026", name: "cipherdrop", url: "https://drop.arshnah.in",
+    desc: "Zero-knowledge file and text drops. Everything is encrypted in your browser before it uploads, and the key lives in the link fragment, so the server only ever stores ciphertext it cannot read. AES-GCM through the Web Crypto API, expiring links, burn-after-read, and syntax-highlighted code pastes. I self-host the whole thing on my own VPS." },
+  { year: "2026", name: "Wisp", url: "https://chat.arshnah.in",
     desc: "An open-source, end-to-end encrypted messenger. Messages get locked in your browser before they ever reach the server, so a database leak would only spill gibberish. I wrote the whole crypto layer myself with the Web Crypto API: real accounts, a key directory, and live realtime chat. The code is public." },
   { year: "2026", name: "KOHAKU", url: "https://kohaku-agency.vercel.app",
     desc: "A creative agency I run with a friend, aimed at anime and manga brands. I built the whole site: a 3D hero in Three.js, a live chat widget, and a Supabase backend that runs our lead inbox. We pitch studios manga-first." },
