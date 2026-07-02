@@ -1,11 +1,11 @@
 export const projects = [
-  { year: "2026", name: "cipherdrop", url: "https://drop.arshnah.in",
+  { year: "2026", name: "CipherDrop", url: "https://drop.arshnah.in",
     desc: "Zero-knowledge file and text drops. Everything is encrypted in your browser before it uploads, and the key lives in the link fragment, so the server only ever stores ciphertext it cannot read. AES-GCM through the Web Crypto API, expiring links, burn-after-read, and syntax-highlighted code pastes. I self-host the whole thing on my own VPS." },
   { year: "2026", name: "Wisp", url: "https://chat.arshnah.in",
     desc: "An open-source, end-to-end encrypted messenger. Messages get locked in your browser before they ever reach the server, so a database leak would only spill gibberish. I wrote the whole crypto layer myself with the Web Crypto API: real accounts, a key directory, and live realtime chat. The code is public." },
   { year: "2026", name: "KOHAKU", url: "https://kohaku-agency.vercel.app",
     desc: "A creative agency I run with a friend, aimed at anime and manga brands. I built the whole site: a 3D hero in Three.js, a live chat widget, and a Supabase backend that runs our lead inbox. We pitch studios manga-first." },
-  { year: "2026", name: "larpring", url: "https://larpring.github.io",
+  { year: "2026", name: "LarpRing", url: "https://larpring.github.io",
     desc: "A webring I started and run: a small ring of personal sites that link to each other the old-web way, so people hop between them instead of trusting an algorithm. I built the site, the hosted theme-aware badges, and an automated health check that pings every member and shows who is up. Invite-only, five sites so far." },
   { year: "2025", name: "Content Helper Community", url: "https://chc-site.vercel.app",
     desc: "A creator community's site that shows every member's live YouTube subscriber count. 17 channels, updated automatically every hour." },
