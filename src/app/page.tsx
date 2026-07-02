@@ -56,7 +56,7 @@ export default function Home() {
         {projects.map((p) => (
           <li key={p.name}>
             <a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a>{" "}
-            ({p.year}) &middot; {p.desc}
+            ({p.year}) &ndash; {p.desc}
           </li>
         ))}
       </ul>
