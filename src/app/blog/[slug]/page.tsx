@@ -5,7 +5,14 @@ import { posts } from "@/lib/data";
 export function generateStaticParams() { return posts.map(p => ({ slug: p.slug })); }
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const post = posts.find(p => p.slug === params.slug);
-  return { title: post ? `${post.title} · Arshdeep Singh` : "Writing" };
+  if (!post) return { title: "Writing" };
+  const url = `https://arshnah.vercel.app/blog/${post.slug}`;
+  return {
+    title: `${post.title} · Arshdeep Singh`,
+    description: post.summary,
+    openGraph: { title: post.title, description: post.summary, url, type: "article" },
+    twitter: { card: "summary_large_image", title: post.title, description: post.summary },
+  };
 }
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 

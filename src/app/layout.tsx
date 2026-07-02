@@ -5,8 +5,21 @@ import DaySky from "@/components/DaySky";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://arshnah.vercel.app"),
   title: "Arshdeep Singh",
   description: "Solo developer from India. I build websites, apps, and the systems that run them.",
+  openGraph: {
+    title: "Arshdeep Singh",
+    description: "Solo developer from India. I build websites, apps, and the systems that run them.",
+    url: "https://arshnah.vercel.app",
+    siteName: "Arshdeep Singh",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Arshdeep Singh",
+    description: "Solo developer from India. I build websites, apps, and the systems that run them.",
+  },
 };
 
 const themeScript = `(function(){try{var t=localStorage.getItem('arsh-theme');document.documentElement.dataset.theme=t||'dark';}catch(e){document.documentElement.dataset.theme='dark';}})();`;
