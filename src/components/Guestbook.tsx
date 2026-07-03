@@ -70,6 +70,10 @@ export default function Guestbook() {
     <div id="guestbook">
       <h2>Guestbook</h2>
       <p>Passing through? Leave a note. A name, one line, that&apos;s all.</p>
+      <p style={{ color: "var(--faint)", fontSize: 14, marginTop: -8 }}>
+        Yes, I saw the <code>{"'; DROP TABLE"}</code> and the <code>{"<script>"}</code> tags &mdash; all logged,
+        escaped, and quietly ignored. (Still a larper, though.) hi nisarga &amp; the threadlocked webring 👋
+      </p>
 
       <div style={{ maxWidth: 480, marginBottom: 24 }}>
         <div style={{ marginBottom: 6 }}>
