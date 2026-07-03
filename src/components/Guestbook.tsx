@@ -1,7 +1,8 @@
 "use client";
 import useSWR from "swr";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const fetcher = (u: string) => fetch(u).then(r => r.json());
+const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 const fmt = (d: string) => {
   try {
     const then = new Date(d), now = new Date();
@@ -23,13 +24,46 @@ export default function Guestbook() {
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
+  const [token, setToken] = useState("");
+  const boxRef = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!SITE_KEY) return;
+    function render() {
+      const ts = (window as unknown as { turnstile?: { render: (el: HTMLElement, o: object) => string; reset: (id: string) => void } }).turnstile;
+      if (ts && boxRef.current && widgetId.current === null) {
+        widgetId.current = ts.render(boxRef.current, {
+          sitekey: SITE_KEY,
+          theme: "dark",
+          callback: (t: string) => setToken(t),
+          "expired-callback": () => setToken(""),
+          "error-callback": () => setToken(""),
+        });
+      }
+    }
+    const id = "cf-turnstile-script";
+    if (!document.getElementById(id)) {
+      const s = document.createElement("script");
+      s.id = id;
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      s.async = true; s.defer = true;
+      s.onload = render;
+      document.head.appendChild(s);
+    } else { render(); }
+  }, []);
 
   async function submit() {
     if (!name.trim() || !msg.trim()) { setErr("name and message are both required"); return; }
+    if (SITE_KEY && !token) { setErr("please complete the check below"); return; }
     setBusy(true); setErr("");
-    const res = await fetch("/api/guestbook", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, message: msg }) }).then(r => r.json()).catch(() => ({ ok: false }));
+    const res = await fetch("/api/guestbook", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, message: msg, turnstileToken: token }) }).then(r => r.json()).catch(() => ({ ok: false }));
     setBusy(false);
-    if (res.ok) { setName(""); setMsg(""); mutate(); } else { setErr("something went wrong, try again"); }
+    if (res.ok) {
+      setName(""); setMsg(""); setToken(""); mutate();
+      const ts = (window as unknown as { turnstile?: { reset: (id: string) => void } }).turnstile;
+      if (ts && widgetId.current !== null) ts.reset(widgetId.current);
+    } else { setErr(res.error || "something went wrong, try again"); }
   }
 
   return (
@@ -44,6 +78,7 @@ export default function Guestbook() {
         <div style={{ marginBottom: 6 }}>
           <textarea value={msg} onChange={e => setMsg(e.target.value)} placeholder="write something..." maxLength={280} rows={3} style={{ ...field, resize: "vertical" }} />
         </div>
+        {SITE_KEY && <div ref={boxRef} style={{ marginBottom: 8 }} />}
         <button onClick={submit} disabled={busy} style={{ padding: "5px 18px", fontFamily: '"Courier New", monospace', fontSize: "14px" }}>
           {busy ? "..." : "sign"}
         </button>

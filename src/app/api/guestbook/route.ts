@@ -3,6 +3,7 @@ export const revalidate = 0;
 const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const WRITE = process.env.SUPABASE_SERVICE_ROLE_KEY || KEY;
+const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY;
 const READ_H = { apikey: KEY || "", Authorization: `Bearer ${KEY || ""}`, "Content-Type": "application/json" };
 const WRITE_H = { apikey: WRITE || "", Authorization: `Bearer ${WRITE || ""}`, "Content-Type": "application/json" };
 
@@ -14,6 +15,20 @@ function spammy(name: string, message: string) {
   const letters = message.replace(/[^a-zA-Z]/g, "");
   if (letters.length > 24 && letters === letters.toUpperCase()) return true;
   return false;
+}
+
+async function verifyTurnstile(token: string, ip: string) {
+  if (!TURNSTILE_SECRET) return true;
+  if (!token) return false;
+  try {
+    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret: TURNSTILE_SECRET, response: token, remoteip: ip }),
+    });
+    const d = await r.json();
+    return !!d.success;
+  } catch { return false; }
 }
 
 async function log(ip: string, ua: string, name: string, message: string, status: string) {
@@ -46,6 +61,7 @@ export async function POST(req: Request) {
     const name = String(body.name || "").trim().slice(0, 40);
     const message = String(body.message || "").trim().slice(0, 280);
     if (!name || !message) { await log(ip, ua, name, message, "blocked_empty"); return NextResponse.json({ ok: false, error: "name and message required" }, { status: 400 }); }
+    if (!(await verifyTurnstile(String(body.turnstileToken || ""), ip))) { await log(ip, ua, name, message, "blocked_turnstile"); return NextResponse.json({ ok: false, error: "verification failed — refresh and try again" }, { status: 400 }); }
     if (spammy(name, message)) { await log(ip, ua, name, message, "blocked_spam"); return NextResponse.json({ ok: false, error: "that looks like spam" }, { status: 400 }); }
     const r = await fetch(`${URL}/rest/v1/guestbook`, { method: "POST", headers: { ...WRITE_H, Prefer: "return=representation" }, body: JSON.stringify({ name, message }) });
     if (!r.ok) { await log(ip, ua, name, message, "error"); return NextResponse.json({ ok: false, error: await r.text() }, { status: 500 }); }
