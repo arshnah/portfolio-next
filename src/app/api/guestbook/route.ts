@@ -16,6 +16,18 @@ function spammy(name: string, message: string) {
   return false;
 }
 
+async function log(ip: string, ua: string, name: string, message: string, status: string) {
+  console.log(`[guestbook] ${status} ip=${ip} ua=${JSON.stringify(ua.slice(0, 140))} name=${JSON.stringify(name.slice(0, 40))}`);
+  if (!URL) return;
+  try {
+    await fetch(`${URL}/rest/v1/guestbook_log`, {
+      method: "POST",
+      headers: WRITE_H,
+      body: JSON.stringify({ ip, user_agent: ua.slice(0, 300), name: name.slice(0, 60), message: message.slice(0, 300), status }),
+    });
+  } catch {}
+}
+
 export async function GET() {
   if (!URL || !KEY) return NextResponse.json({ entries: [] });
   try {
@@ -27,15 +39,18 @@ export async function GET() {
 
 export async function POST(req: Request) {
   if (!URL || !KEY) return NextResponse.json({ ok: false, error: "guestbook not configured" }, { status: 500 });
+  const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || req.headers.get("x-real-ip") || "unknown";
+  const ua = req.headers.get("user-agent") || "";
   try {
     const body = await req.json();
     const name = String(body.name || "").trim().slice(0, 40);
     const message = String(body.message || "").trim().slice(0, 280);
-    if (!name || !message) return NextResponse.json({ ok: false, error: "name and message required" }, { status: 400 });
-    if (spammy(name, message)) return NextResponse.json({ ok: false, error: "that looks like spam" }, { status: 400 });
+    if (!name || !message) { await log(ip, ua, name, message, "blocked_empty"); return NextResponse.json({ ok: false, error: "name and message required" }, { status: 400 }); }
+    if (spammy(name, message)) { await log(ip, ua, name, message, "blocked_spam"); return NextResponse.json({ ok: false, error: "that looks like spam" }, { status: 400 }); }
     const r = await fetch(`${URL}/rest/v1/guestbook`, { method: "POST", headers: { ...WRITE_H, Prefer: "return=representation" }, body: JSON.stringify({ name, message }) });
-    if (!r.ok) return NextResponse.json({ ok: false, error: await r.text() }, { status: 500 });
+    if (!r.ok) { await log(ip, ua, name, message, "error"); return NextResponse.json({ ok: false, error: await r.text() }, { status: 500 }); }
     const d = await r.json();
+    await log(ip, ua, name, message, "posted");
     return NextResponse.json({ ok: true, entry: Array.isArray(d) ? d[0] : d });
-  } catch (e: any) { return NextResponse.json({ ok: false, error: String(e) }, { status: 500 }); }
+  } catch (e: any) { await log(ip, ua, "", "", "error"); return NextResponse.json({ ok: false, error: String(e) }, { status: 500 }); }
 }
