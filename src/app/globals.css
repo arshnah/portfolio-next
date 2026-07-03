@@ -9,6 +9,10 @@
   --link:#0000ee; --visited:#551a8b; --line:#cccccc; --field:#ffffff; --field-bd:#808080;
 }
 
+/* github activity heatmap — blue 5-level scale + count colour */
+:root { --gh-0:#1e2130; --gh-1:#1f3f66; --gh-2:#2f6fc0; --gh-3:#4a9eff; --gh-4:#8fc8ff; --gh-count:#3fb950; }
+:root[data-theme="light"] { --gh-0:#ebedf0; --gh-1:#bcd8ff; --gh-2:#6aa6f0; --gh-3:#2f6fc0; --gh-4:#1a4d8f; --gh-count:#1a7f37; }
+
 html { background: var(--bg); }
 body {
   background: transparent;

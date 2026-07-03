@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Activity from "@/components/Activity";
+import GithubGraph from "@/components/GithubGraph";
 import Guestbook from "@/components/Guestbook";
 import Webring from "@/components/Webring";
 import { projects, services, stack, posts, testimonials } from "@/lib/data";
@@ -48,6 +49,8 @@ export default function Home() {
         Heads up: I suck at frontend. This page is the evidence, and I&apos;ve made my peace
         with it. I make things work. Making them pretty is Yashvardhan&apos;s job.
       </p>
+
+      <GithubGraph />
 
       <hr />
 
