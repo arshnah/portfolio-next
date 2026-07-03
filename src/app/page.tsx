@@ -46,7 +46,7 @@ export default function Home() {
 
       <p>
         Heads up: I suck at frontend. This page is the evidence, and I&apos;ve made my peace
-        with it. I make things work. Making them pretty is somebody else&apos;s job.
+        with it. I make things work. Making them pretty is Yashvardhan&apos;s job.
       </p>
 
       <hr />
