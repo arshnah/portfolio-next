@@ -71,7 +71,7 @@ export default function Guestbook() {
       <h2>Guestbook</h2>
       <p>Passing through? Leave a note. A name, one line, that&apos;s all.</p>
       <p style={{ color: "var(--faint)", fontSize: 14, marginTop: -8 }}>
-        Yes, I saw the <code>{"'; DROP TABLE"}</code> and the <code>{"<script>"}</code> tags &mdash; all logged,
+        Yes, I saw the <code>{"'; DROP TABLE"}</code> and the <code>{"<script>"}</code> tags, all logged,
         escaped, and quietly ignored. (Still a larper, though.) hi nisarga &amp; the threadlocked webring 👋
       </p>
 
