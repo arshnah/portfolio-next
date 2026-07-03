@@ -5,8 +5,8 @@ import { useState } from "react";
 type Day = { date: string; count: number; level: number };
 const fetcher = (u: string) => fetch(u).then((r) => r.json());
 
-const BLOCK = 10;
-const GAP = 2;
+const GAP = 3;
+const SWATCH = 11;
 const LEVELS = ["var(--gh-0)", "var(--gh-1)", "var(--gh-2)", "var(--gh-3)", "var(--gh-4)"];
 
 const fmtDate = (iso: string) =>
@@ -60,10 +60,10 @@ export default function GithubGraph() {
         </span>
       </div>
 
-      <div style={{ overflowX: "auto", paddingBottom: 2 }} onMouseLeave={() => setTip(null)}>
-        <div style={{ display: "flex", gap: GAP, width: "max-content" }}>
+      <div onMouseLeave={() => setTip(null)}>
+        <div style={{ display: "flex", gap: GAP }}>
           {weeks.map((week, wi) => (
-            <div key={wi} style={{ display: "flex", flexDirection: "column", gap: GAP }}>
+            <div key={wi} style={{ flex: "1 1 0", minWidth: 0, display: "flex", flexDirection: "column", gap: GAP }}>
               {week.map((d, di) =>
                 d ? (
                   <div
@@ -71,12 +71,12 @@ export default function GithubGraph() {
                     onMouseEnter={(e) => {
                       const cell = e.currentTarget.getBoundingClientRect();
                       const box = e.currentTarget.closest("[data-gh-card]")!.getBoundingClientRect();
-                      setTip({ x: cell.left - box.left + BLOCK / 2, y: cell.top - box.top, text: label(d) });
+                      setTip({ x: cell.left - box.left + cell.width / 2, y: cell.top - box.top, text: label(d) });
                     }}
-                    style={{ width: BLOCK, height: BLOCK, borderRadius: 2, background: LEVELS[d.level] ?? LEVELS[0] }}
+                    style={{ width: "100%", aspectRatio: "1", borderRadius: "22%", background: LEVELS[d.level] ?? LEVELS[0] }}
                   />
                 ) : (
-                  <div key={di} style={{ width: BLOCK, height: BLOCK }} />
+                  <div key={di} style={{ width: "100%", aspectRatio: "1" }} />
                 )
               )}
             </div>
@@ -87,7 +87,7 @@ export default function GithubGraph() {
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 6, marginTop: 12, fontFamily: '"JetBrains Mono","Courier New",monospace', fontSize: 12, color: "var(--muted)" }}>
         <span>Less</span>
         {LEVELS.map((c, i) => (
-          <span key={i} style={{ width: BLOCK, height: BLOCK, borderRadius: 2, background: c, display: "inline-block" }} />
+          <span key={i} style={{ width: SWATCH, height: SWATCH, borderRadius: 3, background: c, display: "inline-block" }} />
         ))}
         <span>More</span>
       </div>
