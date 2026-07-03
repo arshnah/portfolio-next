@@ -47,7 +47,8 @@ export default function Home() {
 
       <p>
         Heads up: I suck at frontend. This page is the evidence, and I&apos;ve made my peace
-        with it. I make things work. Making them pretty is Yashvardhan&apos;s job.
+        with it. I make things work. Making them pretty is{" "}
+        <a href="https://yashiscool.vercel.app/home" target="_blank" rel="noopener noreferrer">Yashvardhan&apos;s job</a>.
       </p>
 
       <GithubGraph />
