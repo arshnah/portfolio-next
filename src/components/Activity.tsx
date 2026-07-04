@@ -7,9 +7,9 @@ const LBL: Record<string, string> = { online: "online", idle: "idle", dnd: "dnd"
 const MUSIC_COLORS = ["#3a6ea5", "#a85a24", "#6a4fd0", "#2f8f7a", "#b5305a", "#9a7410", "#2f8f4e", "#b5305a"];
 
 export default function Activity() {
-  const { data: dc } = useSWR("/api/discord-status", fetcher, { refreshInterval: 8000 });
-  const { data: np } = useSWR("/api/now-playing", fetcher, { refreshInterval: 12000 });
-  const { data: commit } = useSWR("/api/latest-commit", fetcher, { refreshInterval: 60000 });
+  const { data: dc } = useSWR("https://api.arshnah.in/api/discord-status", fetcher, { refreshInterval: 8000 });
+  const { data: np } = useSWR("https://api.arshnah.in/api/now-playing", fetcher, { refreshInterval: 12000 });
+  const { data: commit } = useSWR("https://api.arshnah.in/api/last-commit", fetcher, { refreshInterval: 60000 });
   const [clock, setClock] = useState("");
   useEffect(() => {
     const t = () => setClock(new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" }));
@@ -25,7 +25,7 @@ export default function Activity() {
     }
   }, [np?.isPlaying, np?.title]);
   const musicColor = MUSIC_COLORS[ci];
-  const status = dc?.data?.discord_status ?? "offline";
+  const status = dc?.status ?? "offline";
   const sep = <span style={{ color: "var(--faint)" }}>/</span>;
 
   return (

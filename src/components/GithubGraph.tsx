@@ -34,7 +34,7 @@ function toWeeks(days: Day[]): (Day | null)[][] {
 }
 
 export default function GithubGraph() {
-  const { data } = useSWR("/api/github-activity", fetcher, { revalidateOnFocus: false });
+  const { data } = useSWR("https://api.arshnah.in/api/contributions", fetcher, { revalidateOnFocus: false });
   const [tip, setTip] = useState<{ x: number; y: number; text: string } | null>(null);
 
   if (!data?.ok) return null;
