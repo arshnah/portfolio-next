@@ -18,6 +18,7 @@ export default function Home() {
         <span style={{ display: "flex", gap: 16, fontSize: 14 }}>
           <a href="#work">Work</a>
           <a href="#writing">Blog</a>
+          <a href="#playground">Playground</a>
           <a href="#guestbook">Guestbook</a>
           <a href="#contact">Contact</a>
         </span>
@@ -93,6 +94,18 @@ export default function Home() {
         ))}
       </ul>
       <p><Link href="/blog">All posts &raquo;</Link></p>
+
+      <hr />
+
+      <h2 id="playground">Playground</h2>
+      <p>Small dumb sites I made for fun, mostly hiding on subdomains.</p>
+      <ul>
+        <li><a href="https://larp.arshnah.in" target="_blank" rel="noopener noreferrer">larp.arshnah.in</a> &middot; a fake hacker terminal you boot into. type &ldquo;help&rdquo;, nothing real happens</li>
+        <li><a href="https://now.arshnah.in" target="_blank" rel="noopener noreferrer">now.arshnah.in</a> &middot; what I&apos;m doing right now, pulled live</li>
+        <li><a href="https://card.arshnah.in" target="_blank" rel="noopener noreferrer">card.arshnah.in</a> &middot; mint yourself a Certified LARPer ID card</li>
+        <li><a href="https://shame.arshnah.in" target="_blank" rel="noopener noreferrer">shame.arshnah.in</a> &middot; a museum of every hack attempt on my guestbook that did nothing</li>
+        <li><a href="https://status.arshnah.in" target="_blank" rel="noopener noreferrer">status.arshnah.in</a> &middot; is everything still up</li>
+      </ul>
 
       <hr />
 
