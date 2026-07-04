@@ -3,6 +3,7 @@ import "./globals.css";
 import Starfield from "@/components/Starfield";
 import DaySky from "@/components/DaySky";
 import ThemeToggle from "@/components/ThemeToggle";
+import CommandPalette from "@/components/CommandPalette";
 
 const DESCRIPTION =
   "arshnah — Arshdeep Singh, a solo full-stack developer from India. I build websites, apps, and the systems that run them, including the LarpRing webring, CipherDrop, and Wisp.";
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   keywords: ["arshnah", "Arshdeep Singh", "Arseoholic", "developer", "full-stack developer", "web developer India", "LarpRing", "portfolio"],
   authors: [{ name: "Arshdeep Singh", url: "https://arshnah.in" }],
   creator: "Arshdeep Singh",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: { "application/rss+xml": "/feed.xml" } },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   openGraph: {
     title: "Arshdeep Singh (arshnah)",
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <DaySky />
         <Starfield />
         <ThemeToggle />
+        <CommandPalette />
         {children}
       </body>
     </html>

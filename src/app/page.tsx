@@ -15,11 +15,11 @@ export default function Home() {
         <a href="#top" style={{ fontFamily: '"JetBrains Mono","Courier New",monospace', fontWeight: 700 }}>
           <span style={{ color: "var(--muted)" }}>~/</span>arsh<span style={{ color: "var(--link)" }}>nah</span>
         </a>
-        <span style={{ display: "flex", gap: 16, fontSize: 14 }}>
+        <span style={{ display: "flex", gap: 16, fontSize: 14, flexWrap: "wrap" }}>
           <a href="#work">Work</a>
           <a href="#writing">Blog</a>
           <a href="#playground">Playground</a>
-          <a href="#guestbook">Guestbook</a>
+          <a href="/resume">Résumé</a>
           <a href="#contact">Contact</a>
         </span>
       </nav>
@@ -39,6 +39,23 @@ export default function Home() {
       </div>
       <Activity />
 
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 20px", margin: "12px 0 2px", fontSize: 14, color: "var(--muted)", fontFamily: '"JetBrains Mono","Courier New",monospace' }}>
+        <span><b style={{ color: "var(--ink)" }}>6+</b> projects shipped</span>
+        <span><b style={{ color: "var(--ink)" }}>live</b> in production</span>
+        <span><b style={{ color: "var(--ink)" }}>solo</b> · design to deploy</span>
+      </div>
+
+      <div style={{ border: "1px solid var(--line)", borderRadius: 10, padding: "13px 16px", margin: "14px 0 6px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+        <div>
+          <div style={{ fontWeight: 700 }}>Open for work.</div>
+          <div style={{ color: "var(--muted)", fontSize: 14 }}>Freelance, contract, or full-time. Usually replies within a day.</div>
+        </div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <a href="mailto:arshjbdarsh@gmail.com?subject=Let%27s%20build%20something" style={{ background: "var(--link)", color: "var(--bg)", padding: "8px 15px", borderRadius: 8, fontWeight: 700, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap" }}>Start a project →</a>
+          <a href="/resume" style={{ border: "1px solid var(--line)", padding: "8px 15px", borderRadius: 8, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap" }}>Résumé</a>
+        </div>
+      </div>
+
       <p>
         I build websites, apps, and the systems that run them. I take a project from an
         empty folder to something live on the internet: the design, the code, the app, the
@@ -57,11 +74,22 @@ export default function Home() {
       <hr />
 
       <h2 id="work">Work</h2>
+      <div>
+        {projects.slice(0, 3).map((p) => (
+          <div key={p.name} style={{ borderLeft: "2px solid var(--link)", paddingLeft: 14, margin: "0 0 16px" }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+              <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 700, fontSize: 17 }}>{p.name}</a>
+              <span style={{ color: "var(--faint)", fontFamily: '"JetBrains Mono","Courier New",monospace', fontSize: 13 }}>{p.year} · live ↗</span>
+            </div>
+            <p style={{ margin: "3px 0 0" }}>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p style={{ color: "var(--muted)", fontSize: 14, margin: "12px 0 4px" }}>Also:</p>
       <ul>
-        {projects.map((p) => (
+        {projects.slice(3).map((p) => (
           <li key={p.name}>
-            <a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a>{" "}
-            ({p.year}) &middot; {p.desc}
+            <a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a> ({p.year}) &middot; {p.desc}
           </li>
         ))}
       </ul>

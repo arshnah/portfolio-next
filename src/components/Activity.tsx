@@ -36,7 +36,7 @@ export default function Activity() {
       </span>
       {sep}
       {np?.isPlaying && np?.title
-        ? <a href={np.url} target="_blank" rel="noopener noreferrer">&#9834; <span style={{ color: musicColor }}>{np.title}</span> <span style={{ color: "var(--faint)" }}>&middot; {np.artist}</span></a>
+        ? <a href={np.url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{np.albumArt ? <img src={np.albumArt} alt="" width={16} height={16} style={{ borderRadius: 3, display: "block" }} /> : <span>&#9834;</span>}<span style={{ color: musicColor }}>{np.title}</span> <span style={{ color: "var(--faint)" }}>&middot; {np.artist}</span></a>
         : <span style={{ color: "var(--faint)" }}>&#9834; not playing</span>}
       {sep}
       <span style={{ color: "var(--faint)" }}>{clock} IST</span>
