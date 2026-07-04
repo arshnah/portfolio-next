@@ -105,6 +105,9 @@ export default function Home() {
         <li><a href="https://card.arshnah.in" target="_blank" rel="noopener noreferrer">card.arshnah.in</a> &middot; mint yourself a Certified LARPer ID card</li>
         <li><a href="https://shame.arshnah.in" target="_blank" rel="noopener noreferrer">shame.arshnah.in</a> &middot; a museum of every hack attempt on my guestbook that did nothing</li>
         <li><a href="https://status.arshnah.in" target="_blank" rel="noopener noreferrer">status.arshnah.in</a> &middot; is everything still up</li>
+        <li><a href="https://slop.arshnah.in" target="_blank" rel="noopener noreferrer">slop.arshnah.in</a> &middot; paste text, see how much of it reads like a machine wrote it</li>
+        <li><a href="https://buttons.arshnah.in" target="_blank" rel="noopener noreferrer">buttons.arshnah.in</a> &middot; make your own 88&times;31 button and download it, old-web style</li>
+        <li><a href="https://uses.arshnah.in" target="_blank" rel="noopener noreferrer">uses.arshnah.in</a> &middot; the tools and stack I actually build with</li>
       </ul>
 
       <hr />
