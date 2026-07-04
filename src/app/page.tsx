@@ -138,6 +138,16 @@ export default function Home() {
 
       <hr />
 
+      <p>
+        <a href="https://larpring.github.io" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", lineHeight: 0 }} aria-label="i larp therefore i am">
+          <svg width="88" height="31" viewBox="0 0 88 31" xmlns="http://www.w3.org/2000/svg" role="img">
+            <rect x="0.5" y="0.5" width="87" height="30" fill="#0b0d10" stroke="#232830" />
+            <text x="44" y="12.5" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight={700} fill="#e8ebf0">i larp</text>
+            <text x="44" y="23" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="7.5" fill="#8b93a1">therefore i am</text>
+          </svg>
+        </a>
+      </p>
+
       <p><small>&copy; 2026 Arshdeep Singh. Built it myself.</small></p>
     </>
   );
