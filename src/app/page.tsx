@@ -110,6 +110,7 @@ export default function Home() {
         <li><a href="https://uses.arshnah.in" target="_blank" rel="noopener noreferrer">uses.arshnah.in</a> &middot; the tools and stack I actually build with</li>
         <li><a href="https://wrapped.arshnah.in" target="_blank" rel="noopener noreferrer">wrapped.arshnah.in</a> &middot; my year in music and shipped code, story-style</li>
         <li><a href="https://playlist.arshnah.in" target="_blank" rel="noopener noreferrer">playlist.arshnah.in</a> &middot; what I have on repeat, playable on Spotify</li>
+        <li><a href="https://chud.arshnah.in" target="_blank" rel="noopener noreferrer">chud.arshnah.in</a> &middot; chudGPT, an AI chatbot that only ever says &ldquo;chud&rdquo;</li>
       </ul>
 
       <hr />
