@@ -49,10 +49,10 @@ export default function Resume() {
 
       <h2>Summary</h2>
       <p style={{ margin: 0, fontSize: 14.5 }}>
-        Solo full-stack developer. I take a project from an empty folder to live on the internet &mdash;
-        the design, the code, the app, and the server it runs on &mdash; then keep it alive. No agency, no team.
-        Most of what I&apos;ve built is in production right now, used by real people. I write my own crypto layers,
-        run my own VPS, and ship end to end.
+        Solo full-stack developer. I take a project from an empty folder to something live on the internet:
+        the design, the code, the app, the server it runs on. Then I keep it alive. No agency, no team.
+        Most of what I&apos;ve built is in production right now, used by real people. I write my own crypto,
+        run my own VPS, and ship the whole thing myself.
       </p>
 
       <h2>Skills</h2>
