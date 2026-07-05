@@ -2,7 +2,9 @@
 import useSWR from "swr";
 import { useEffect, useState, useRef } from "react";
 const fetcher = (u: string) => fetch(u).then(r => r.json());
-const DOT: Record<string, string> = { online: "#2f8f4e", idle: "#b98514", dnd: "#c23b2b", offline: "#5d5d59" };
+// brightened dnd + offline so the status label text clears WCAG 4.5:1 on the
+// dark bg (online/idle already passed)
+const DOT: Record<string, string> = { online: "#2f8f4e", idle: "#b98514", dnd: "#f85149", offline: "#8b8f98" };
 const LBL: Record<string, string> = { online: "online", idle: "idle", dnd: "dnd", offline: "offline" };
 const MUSIC_COLORS = ["#3a6ea5", "#a85a24", "#6a4fd0", "#2f8f7a", "#b5305a", "#9a7410", "#2f8f4e", "#b5305a"];
 
