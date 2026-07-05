@@ -52,10 +52,10 @@ export default function GithubGraph() {
   return (
     <div style={card} data-gh-card>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8, marginBottom: 14 }}>
-        <span style={{ fontFamily: '"JetBrains Mono","Courier New",monospace', fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted)" }}>
+        <span style={{ fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted)" }}>
           GitHub Activity
         </span>
-        <span style={{ fontFamily: '"JetBrains Mono","Courier New",monospace', fontSize: 13, color: "var(--gh-count)" }}>
+        <span style={{ fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 13, color: "var(--gh-count)" }}>
           {data.total} contributions this year
         </span>
       </div>
@@ -84,7 +84,7 @@ export default function GithubGraph() {
         </div>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 6, marginTop: 12, fontFamily: '"JetBrains Mono","Courier New",monospace', fontSize: 12, color: "var(--muted)" }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 6, marginTop: 12, fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 12, color: "var(--muted)" }}>
         <span>Less</span>
         {LEVELS.map((c, i) => (
           <span key={i} style={{ width: SWATCH, height: SWATCH, borderRadius: 3, background: c, display: "inline-block" }} />
@@ -103,7 +103,7 @@ export default function GithubGraph() {
             border: "1px solid var(--line)",
             borderRadius: 8,
             padding: "5px 9px",
-            fontFamily: '"JetBrains Mono","Courier New",monospace',
+            fontFamily: 'var(--font-mono),"Courier New",monospace',
             fontSize: 12,
             color: "var(--ink)",
             whiteSpace: "nowrap",

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const mono = '"JetBrains Mono","Courier New",monospace';
+const mono = 'var(--font-mono),"Courier New",monospace';
 const you = { color: "var(--link)" };
 const faint = { color: "var(--faint)" };
 

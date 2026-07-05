@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <nav className="topnav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", padding: "6px 0 14px" }}>
-        <a href="#top" style={{ fontFamily: '"JetBrains Mono","Courier New",monospace', fontWeight: 700 }}>
+        <a href="#top" style={{ fontFamily: 'var(--font-mono),"Courier New",monospace', fontWeight: 700 }}>
           <span style={{ color: "var(--muted)" }}>~/</span>arsh<span style={{ color: "var(--link)" }}>nah</span>
         </a>
         <span style={{ display: "flex", gap: 16, fontSize: 14, flexWrap: "wrap" }}>
@@ -39,7 +39,7 @@ export default function Home() {
       </div>
       <Activity />
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 20px", margin: "12px 0 2px", fontSize: 14, color: "var(--muted)", fontFamily: '"JetBrains Mono","Courier New",monospace' }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 20px", margin: "12px 0 2px", fontSize: 14, color: "var(--muted)", fontFamily: 'var(--font-mono),"Courier New",monospace' }}>
         <span><b style={{ color: "var(--ink)" }}>6+</b> projects shipped</span>
         <span><b style={{ color: "var(--ink)" }}>live</b> in production</span>
         <span><b style={{ color: "var(--ink)" }}>solo</b> · design to deploy</span>
@@ -79,7 +79,7 @@ export default function Home() {
           <div key={p.name} style={{ borderLeft: "2px solid var(--link)", paddingLeft: 14, margin: "0 0 16px" }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
               <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 700, fontSize: 17 }}>{p.name}</a>
-              <span style={{ color: "var(--faint)", fontFamily: '"JetBrains Mono","Courier New",monospace', fontSize: 13 }}>{p.year} · live ↗</span>
+              <span style={{ color: "var(--faint)", fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 13 }}>{p.year} · live ↗</span>
             </div>
             <p style={{ margin: "3px 0 0" }}>{p.desc}</p>
           </div>
@@ -172,10 +172,10 @@ export default function Home() {
 
       <p>
         <a href="https://larpring.github.io" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", lineHeight: 0 }} aria-label="i larp therefore i am">
-          <svg width="88" height="31" viewBox="0 0 88 31" xmlns="http://www.w3.org/2000/svg" role="img">
+          <svg width="88" height="31" viewBox="0 0 88 31" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect x="0.5" y="0.5" width="87" height="30" fill="#0b0d10" stroke="#232830" />
-            <text x="44" y="12.5" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight={700} fill="#e8ebf0">i larp</text>
-            <text x="44" y="23" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="7.5" fill="#8b93a1">therefore i am</text>
+            <text x="44" y="12.5" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="9" fontWeight={700} fill="#e8ebf0">i larp</text>
+            <text x="44" y="23" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="7.5" fill="#8b93a1">therefore i am</text>
           </svg>
         </a>
       </p>

@@ -68,7 +68,7 @@ export default function Guestbook() {
 
   return (
     <div id="guestbook">
-      <h2>Guestbook{entries.length > 0 && <span style={{ color: "var(--faint)", fontWeight: 400, fontSize: 14, fontFamily: '"JetBrains Mono","Courier New",monospace' }}> · {entries.length} {entries.length === 1 ? "signature" : "signatures"}</span>}</h2>
+      <h2>Guestbook{entries.length > 0 && <span style={{ color: "var(--faint)", fontWeight: 400, fontSize: 14, fontFamily: 'var(--font-mono),"Courier New",monospace' }}> · {entries.length} {entries.length === 1 ? "signature" : "signatures"}</span>}</h2>
       <p>Passing through? Leave a note. A name, one line, that&apos;s all.</p>
       <p style={{ color: "var(--faint)", fontSize: 14, marginTop: -8 }}>
         Yes, I saw the <code>{"'; DROP TABLE"}</code> and the <code>{"<script>"}</code> tags, all logged,

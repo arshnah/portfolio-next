@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Starfield from "@/components/Starfield";
 import DaySky from "@/components/DaySky";
 import ThemeToggle from "@/components/ThemeToggle";
 import CommandPalette from "@/components/CommandPalette";
+
+// self-hosted, preloaded, non-render-blocking (replaces the old google-fonts
+// @import that was the main mobile render-block)
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-inter", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
 
 const DESCRIPTION =
   "arshnah — Arshdeep Singh, a solo full-stack developer from India. I build websites, apps, and the systems that run them, including the LarpRing webring, CipherDrop, and Wisp.";
@@ -62,7 +68,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('arsh-theme');do
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
@@ -73,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Starfield />
         <ThemeToggle />
         <CommandPalette />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

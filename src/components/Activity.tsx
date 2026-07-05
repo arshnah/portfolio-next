@@ -29,7 +29,7 @@ export default function Activity() {
   const sep = <span style={{ color: "var(--faint)" }}>/</span>;
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "4px 10px", fontFamily: '"JetBrains Mono", "Courier New", monospace', fontSize: "14px", color: "var(--muted)", margin: "10px 0" }}>
+    <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "4px 10px", fontFamily: 'var(--font-mono), "Courier New", monospace', fontSize: "14px", color: "var(--muted)", margin: "10px 0" }}>
       <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
         <span style={{ width: 8, height: 8, borderRadius: "50%", background: DOT[status], display: "inline-block" }} />
         <span style={{ color: DOT[status] }}>{LBL[status]}</span>

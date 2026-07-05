@@ -15,14 +15,14 @@ export default function Resume() {
         .resume{max-width:760px;margin:0 auto;}
         .resume h1{margin:0;font-size:26px;letter-spacing:-.02em;}
         .resume .role{color:var(--muted);margin:2px 0 0;}
-        .resume .contact{font-family:"JetBrains Mono","Courier New",monospace;font-size:13px;color:var(--muted);margin:8px 0 0;display:flex;gap:6px 14px;flex-wrap:wrap;}
+        .resume .contact{font-family:var(--font-mono),"Courier New",monospace;font-size:13px;color:var(--muted);margin:8px 0 0;display:flex;gap:6px 14px;flex-wrap:wrap;}
         .resume h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:26px 0 10px;border-bottom:1px solid var(--line);padding-bottom:5px;}
         .resume .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;}
-        .resume .row b{font-size:15px;} .resume .yr{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--faint);}
+        .resume .row b{font-size:15px;} .resume .yr{font-family:var(--font-mono),monospace;font-size:12px;color:var(--faint);}
         .resume .desc{margin:2px 0 12px;color:var(--ink);font-size:14px;}
         .resume .skills{display:flex;flex-direction:column;gap:7px;font-size:14px;}
         .resume .skrow{display:flex;gap:14px;align-items:baseline;}
-        .resume .skrow .k{min-width:104px;flex-shrink:0;color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:12.5px;}
+        .resume .skrow .k{min-width:104px;flex-shrink:0;color:var(--muted);font-family:var(--font-mono),monospace;font-size:12.5px;}
         .resume .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
         .print{border:1px solid var(--line);background:none;color:var(--ink);border-radius:8px;padding:7px 14px;font:inherit;font-size:14px;cursor:pointer;}
         @media print{
@@ -83,7 +83,7 @@ export default function Resume() {
       <h2>Availability</h2>
       <p style={{ margin: 0, fontSize: 14 }}>Open for freelance, contract, or full-time work. Usually replies within a day.</p>
 
-      <div style={{ margin: "30px 0", fontFamily: '"JetBrains Mono",monospace', fontSize: 12, color: "var(--faint)" }} className="noprint">
+      <div style={{ margin: "30px 0", fontFamily: 'var(--font-mono),monospace', fontSize: 12, color: "var(--faint)" }} className="noprint">
         stack, verbatim: {stack.join(" · ")}
       </div>
     </div>

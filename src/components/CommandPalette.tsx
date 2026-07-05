@@ -61,7 +61,7 @@ export default function CommandPalette() {
   return (
     <>
       <style>{`
-        .cmdk-hint{position:fixed;left:14px;bottom:14px;z-index:40;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 9px;cursor:pointer;opacity:.85;}
+        .cmdk-hint{position:fixed;left:14px;bottom:14px;z-index:40;font-family:var(--font-mono),monospace;font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 9px;cursor:pointer;opacity:.85;}
         .cmdk-hint:hover{opacity:1;border-color:var(--link);}
         .cmdk-hint kbd{background:var(--field,#0000);border:1px solid var(--line);border-radius:4px;padding:0 4px;}
         .cmdk-back{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);display:flex;align-items:flex-start;justify-content:center;padding-top:12vh;}
@@ -72,7 +72,7 @@ export default function CommandPalette() {
         .cmdk .row[data-on="1"]{background:var(--link);color:var(--bg);}
         .cmdk .row[data-on="1"] .hint{color:var(--bg);opacity:.8;}
         .cmdk .lbl{font-weight:600;font-size:14px;}
-        .cmdk .hint{color:var(--faint);font-size:12.5px;font-family:"JetBrains Mono",monospace;}
+        .cmdk .hint{color:var(--faint);font-size:12.5px;font-family:var(--font-mono),monospace;}
         .cmdk .ext{margin-left:auto;color:var(--faint);font-size:11px;}
         .cmdk .row[data-on="1"] .ext{color:var(--bg);opacity:.7;}
         .cmdk .none{padding:14px;color:var(--muted);font-size:14px;}
