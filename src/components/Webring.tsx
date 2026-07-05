@@ -17,11 +17,16 @@ export default function Webring() {
         <a href={STAB}>?</a> |{" "}
         <a href={stabHop("next")}>next &raquo;</a>
       </span>
-      <span>
-        Member of the <a href={LARP} target="_blank" rel="noopener noreferrer">larpring</a>:{" "}
-        <a href={larpHop("prev")}>&laquo; prev</a> |{" "}
-        <a href={`${LARP}/random/`}>random</a> |{" "}
-        <a href={larpHop("next")}>next &raquo;</a>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+        <a href={LARP} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", lineHeight: 0 }} aria-label="larpring webring">
+          <img src={`${LARP}/badge.svg`} width={88} height={31} alt="larpring web ring badge" />
+        </a>
+        <span>
+          Member of the <a href={LARP} target="_blank" rel="noopener noreferrer">larpring</a>:{" "}
+          <a href={larpHop("prev")}>&laquo; prev</a> |{" "}
+          <a href={`${LARP}/random/`}>random</a> |{" "}
+          <a href={larpHop("next")}>next &raquo;</a>
+        </span>
       </span>
     </span>
   );
