@@ -15,7 +15,10 @@ export default function Activity() {
     const t = () => setClock(new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" }));
     t(); const i = setInterval(t, 30000); return () => clearInterval(i);
   }, []);
-  const [ci, setCi] = useState(() => Math.floor(Math.random() * MUSIC_COLORS.length));
+  // start deterministic (matches SSR), pick a random start color after mount so
+  // server and client render identically during hydration
+  const [ci, setCi] = useState(0);
+  useEffect(() => { setCi(Math.floor(Math.random() * MUSIC_COLORS.length)); }, []);
   const lastTitle = useRef<string | null>(null);
   useEffect(() => {
     const title = np?.isPlaying ? np?.title : null;

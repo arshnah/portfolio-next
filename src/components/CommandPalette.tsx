@@ -60,7 +60,7 @@ export default function CommandPalette() {
 
   return (
     <>
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cmdk-hint{position:fixed;left:14px;bottom:14px;z-index:40;font-family:var(--font-mono),monospace;font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 9px;cursor:pointer;opacity:.85;}
         .cmdk-hint:hover{opacity:1;border-color:var(--link);}
         .cmdk-hint kbd{background:var(--field,#0000);border:1px solid var(--line);border-radius:4px;padding:0 4px;}
@@ -69,14 +69,14 @@ export default function CommandPalette() {
         .cmdk input{width:100%;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:16px;padding:14px 16px;outline:none;}
         .cmdk .list{max-height:min(52vh,420px);overflow-y:auto;padding:6px;}
         .cmdk .row{display:flex;align-items:baseline;gap:10px;padding:9px 11px;border-radius:8px;cursor:pointer;}
-        .cmdk .row[data-on="1"]{background:var(--link);color:var(--bg);}
-        .cmdk .row[data-on="1"] .hint{color:var(--bg);opacity:.8;}
+        .cmdk .row[data-on='1']{background:var(--link);color:var(--bg);}
+        .cmdk .row[data-on='1'] .hint{color:var(--bg);opacity:.8;}
         .cmdk .lbl{font-weight:600;font-size:14px;}
         .cmdk .hint{color:var(--faint);font-size:12.5px;font-family:var(--font-mono),monospace;}
         .cmdk .ext{margin-left:auto;color:var(--faint);font-size:11px;}
-        .cmdk .row[data-on="1"] .ext{color:var(--bg);opacity:.7;}
+        .cmdk .row[data-on='1'] .ext{color:var(--bg);opacity:.7;}
         .cmdk .none{padding:14px;color:var(--muted);font-size:14px;}
-      `}</style>
+      ` }} />
 
       {!open && (
         <button className="cmdk-hint" onClick={() => { setOpen(true); setQ(""); setI(0); }} aria-label="open command menu">
