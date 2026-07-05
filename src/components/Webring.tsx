@@ -1,19 +1,28 @@
-const RING = "https://larpring.github.io";
-const ME = "arsh";
-const hop = (dir: string) => `${RING}/go.html?from=${ME}&dir=${dir}`;
+// stabring — member (routes by hostname)
+const STAB = "https://ring.stabbed.me";
+const STAB_ME = "arshnah.in";
+const stabHop = (dir: string) => `${STAB}/${dir}/from/${STAB_ME}`;
+
+// larpring — founder (routes by member name in webring.json)
+const LARP = "https://larpring.github.io";
+const LARP_ME = "arsh";
+const larpHop = (dir: string) => `${LARP}/go.html?from=${LARP_ME}&dir=${dir}`;
 
 export default function Webring() {
   return (
-    <p>
-      <a href={RING} target="_blank" rel="noopener noreferrer" aria-label="larpring webring">
-        <img className="larpring-badge larpring-badge-dark" src={`${RING}/badge.svg`} width={88} height={31} alt="larpring webring badge" />
-        <img className="larpring-badge larpring-badge-light" src={`${RING}/badge-light.svg`} width={88} height={31} alt="larpring webring badge" />
-      </a>
-      <br />
-      Member of the <a href={RING} target="_blank" rel="noopener noreferrer">larpring webring</a>:{" "}
-      <a href={hop("prev")}>&laquo; prev</a> |{" "}
-      <a href={`${RING}/random/`}>random</a> |{" "}
-      <a href={hop("next")}>next &raquo;</a>
-    </p>
+    <span style={{ display: "inline-flex", gap: 24, flexWrap: "wrap", justifyContent: "center" }}>
+      <span>
+        Member of the <a href={STAB} target="_blank" rel="noopener noreferrer">stabring</a>:{" "}
+        <a href={stabHop("prev")}>&laquo; prev</a> |{" "}
+        <a href={STAB}>?</a> |{" "}
+        <a href={stabHop("next")}>next &raquo;</a>
+      </span>
+      <span>
+        Member of the <a href={LARP} target="_blank" rel="noopener noreferrer">larpring</a>:{" "}
+        <a href={larpHop("prev")}>&laquo; prev</a> |{" "}
+        <a href={`${LARP}/random/`}>random</a> |{" "}
+        <a href={larpHop("next")}>next &raquo;</a>
+      </span>
+    </span>
   );
 }

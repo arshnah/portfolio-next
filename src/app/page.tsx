@@ -3,7 +3,6 @@ import Activity from "@/components/Activity";
 import GithubGraph from "@/components/GithubGraph";
 import Guestbook from "@/components/Guestbook";
 import Webring from "@/components/Webring";
-import FloatingWebring from "@/components/FloatingWebring";
 import { projects, services, stack, posts, testimonials } from "@/lib/data";
 
 const dateFmt = (d: string) =>
@@ -12,7 +11,6 @@ const dateFmt = (d: string) =>
 export default function Home() {
   return (
     <>
-      <FloatingWebring />
       <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", padding: "6px 0 14px" }}>
         <a href="#top" style={{ fontFamily: '"JetBrains Mono","Courier New",monospace', fontWeight: 700 }}>
           <span style={{ color: "var(--muted)" }}>~/</span>arsh<span style={{ color: "var(--link)" }}>nah</span>

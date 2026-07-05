@@ -51,12 +51,6 @@ body {
 @keyframes drift { from { transform: translateX(-240px); } to { transform: translateX(calc(100vw + 240px)); } }
 @media (prefers-reduced-motion: reduce) { .cloud { animation: none; } }
 
-/* larpring webring badge — swaps with theme */
-.larpring-badge { border: 0; display: inline-block; vertical-align: middle; }
-.larpring-badge-light { display: none; }
-:root[data-theme="light"] .larpring-badge-dark { display: none; }
-:root[data-theme="light"] .larpring-badge-light { display: inline-block; }
-
 a:link { color: var(--link); }
 a:visited { color: var(--visited); }
 a:hover { text-decoration: underline; text-underline-offset: 2px; }
