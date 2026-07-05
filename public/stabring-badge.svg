@@ -1,0 +1,18 @@
+<svg width="88" height="31" viewBox="0 0 88 31" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="stabring web ring">
+  <rect width="88" height="31" fill="#000000"/>
+  <rect x="0.5" y="0.5" width="87" height="30" fill="none" stroke="#2b2b2b"/>
+
+  <!-- knife, angled like the emoji: tip up-left, handle down-right -->
+  <g transform="rotate(218 13 15.5)">
+    <path d="M3 15.6 L16 11.9 L16 15.8 Q9.6 16.6 3 15.6 Z" fill="#dcdce2"/>
+    <path d="M3 15.6 L16 11.9" fill="none" stroke="#ffffff" stroke-width="0.4" stroke-linecap="round"/>
+    <rect x="16" y="11.7" width="1.6" height="4.5" rx="0.4" fill="#b0b0b8"/>
+    <rect x="17.4" y="12" width="7" height="3.9" rx="1.3" fill="#33333b"/>
+    <circle cx="19.4" cy="13.95" r="0.6" fill="#8a8a96"/>
+    <circle cx="21.8" cy="13.95" r="0.6" fill="#8a8a96"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="28" y="14.3" font-family="'JetBrains Mono','Courier New',monospace" font-size="9" font-weight="700" fill="#ffffff" letter-spacing="0.4">stabring</text>
+  <text x="28" y="23.6" font-family="'JetBrains Mono','Courier New',monospace" font-size="6.5" fill="#9a9aa8" letter-spacing="1.6">web ring</text>
+</svg>
