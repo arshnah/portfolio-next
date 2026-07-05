@@ -14,6 +14,7 @@ const COMMANDS: Cmd[] = [
   { label: "wrapped", hint: "a last.fm year in sound", href: "https://wrapped.arshnah.in", ext: true },
   { label: "playlist", hint: "on repeat", href: "https://playlist.arshnah.in", ext: true },
   { label: "uses", hint: "my stack", href: "https://uses.arshnah.in", ext: true },
+  { label: "scratch", hint: "markdown pad", href: "https://scratch.arshnah.in", ext: true },
   { label: "buttons", hint: "88x31 maker", href: "https://buttons.arshnah.in", ext: true },
   { label: "slop", hint: "AI-text detector", href: "https://slop.arshnah.in", ext: true },
   { label: "chud", hint: "chudGPT", href: "https://chud.arshnah.in", ext: true },
