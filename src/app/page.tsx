@@ -170,7 +170,7 @@ export default function Home() {
 
       <hr />
 
-      <p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center", lineHeight: 0, margin: "1em 0" }}>
         <a href="https://larpring.github.io" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", lineHeight: 0 }} aria-label="i larp therefore i am">
           <svg width="88" height="31" viewBox="0 0 88 31" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect x="0.5" y="0.5" width="87" height="30" fill="#0b0d10" stroke="#232830" />
@@ -178,7 +178,10 @@ export default function Home() {
             <text x="44" y="23" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="7.5" fill="#8b93a1">therefore i am</text>
           </svg>
         </a>
-      </p>
+        <img src="/badges/repair.jpg" width={88} height={31} alt="I support right to repair" />
+        <img src="/badges/speech.gif" width={88} height={31} alt="Free speech now" />
+        <img src="/badges/noweb32.gif" width={88} height={31} alt="No web3" />
+      </div>
 
       <p><small>&copy; 2026 Arshdeep Singh. Built it myself.</small></p>
     </>
