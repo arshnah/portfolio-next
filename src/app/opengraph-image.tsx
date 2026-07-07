@@ -27,7 +27,7 @@ export default function Image() {
           Developer in India. I build websites, apps, and the systems that run them.
         </div>
         <div style={{ display: "flex", marginTop: 52, fontSize: 26, color: "#8fb6ff" }}>
-          arshnah.vercel.app
+          arshnah.is-a.dev
         </div>
       </div>
     ),
