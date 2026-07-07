@@ -9,8 +9,8 @@ export const projects = [
     desc: "A webring I started and run: a small ring of personal sites that link to each other the old-web way, so people hop between them instead of trusting an algorithm. I built the site, the hosted theme-aware badges, and an automated health check that pings every member and shows who is up. Invite-only, five sites so far." },
   { year: "2025", name: "Content Helper Community", url: "https://chc-site.vercel.app",
     desc: "A creator community's site that shows every member's live YouTube subscriber count. 17 channels, updated automatically every hour." },
-  { year: "2026", name: "KOHAKU", url: "https://kohaku-agency.vercel.app",
-    desc: "A creative agency I run with a friend, aimed at anime and manga brands. I built the whole site: a 3D hero in Three.js, a live chat widget, and a Supabase backend that runs our lead inbox. We pitch studios manga-first." },
+  // { year: "2026", name: "KOHAKU", url: "https://kohaku-agency.vercel.app",
+  //   desc: "A creative agency I run with a friend, aimed at anime and manga brands. I built the whole site: a 3D hero in Three.js, a live chat widget, and a Supabase backend that runs our lead inbox. We pitch studios manga-first." },
 ];
 export const services = [
   { n: "01", title: "Websites", desc: "Fast, modern sites that look good and actually show up on Google. Business sites, landing pages, web apps." },
