@@ -6,7 +6,7 @@ export function generateStaticParams() { return posts.map(p => ({ slug: p.slug }
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const post = posts.find(p => p.slug === params.slug);
   if (!post) return { title: "Writing" };
-  const url = `https://arshnah.vercel.app/blog/${post.slug}`;
+  const url = `https://arshnah.in/blog/${post.slug}`;
   return {
     title: `${post.title} · Arshdeep Singh`,
     description: post.summary,
