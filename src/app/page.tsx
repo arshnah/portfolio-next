@@ -183,7 +183,7 @@ export default function Home() {
         <img src="/badges/noweb32.gif" width={88} height={31} alt="No web3" />
       </div>
 
-      <p><small>&copy; 2026 Arshdeep Singh. Built it myself.</small></p>
+      <p><small>&copy; 2026 Arshdeep Singh. The badges above were made by <a href="https://furina.is-a.dev" target="_blank" rel="noopener noreferrer">furina</a>.</small></p>
     </>
   );
 }
