@@ -10,6 +10,7 @@ const COMMANDS: Cmd[] = [
   { label: "Résumé", hint: "print / pdf", href: "/resume" },
   { label: "Guestbook", hint: "leave a note", href: "/#guestbook" },
   { label: "Contact", href: "/#contact" },
+  { label: "pings", hint: "contact preferences & availability", href: "/pings" },
   { label: "now", hint: "what I'm doing, live", href: "https://now.arshnah.in", ext: true },
   { label: "wrapped", hint: "a last.fm year in sound", href: "https://wrapped.arshnah.in", ext: true },
   { label: "playlist", hint: "on repeat", href: "https://playlist.arshnah.in", ext: true },

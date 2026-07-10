@@ -48,7 +48,9 @@ export default function Home() {
       <div style={{ border: "1px solid var(--line)", borderRadius: 10, padding: "13px 16px", margin: "14px 0 6px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
         <div>
           <div style={{ fontWeight: 700 }}>Open for work.</div>
-          <div style={{ color: "var(--muted)", fontSize: 14 }}>Freelance, contract, or full-time. Usually replies within a day.</div>
+          <div style={{ color: "var(--muted)", fontSize: 14 }}>
+            Freelance, contract, or full-time. Usually replies within a day (see my <Link href="/pings" style={{ textDecoration: "underline" }}>ping policy</Link>).
+          </div>
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <a href="mailto:arshjbdarsh@gmail.com?subject=Let%27s%20build%20something" style={{ background: "var(--link)", color: "var(--bg)", padding: "8px 15px", borderRadius: 8, fontWeight: 700, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap" }}>Start a project →</a>
@@ -133,6 +135,7 @@ export default function Home() {
         <li><a href="https://card.arshnah.in" target="_blank" rel="noopener noreferrer">card.arshnah.in</a> &middot; mint yourself a Certified LARPer ID card</li>
         <li><a href="https://shame.arshnah.in" target="_blank" rel="noopener noreferrer">shame.arshnah.in</a> &middot; a museum of every hack attempt on my guestbook that did nothing</li>
         <li><a href="https://status.arshnah.in" target="_blank" rel="noopener noreferrer">status.arshnah.in</a> &middot; is everything still up</li>
+        <li><Link href="/pings">arshnah.in/pings</Link> &middot; my contact preferences & availability schedule</li>
         <li><a href="https://slop.arshnah.in" target="_blank" rel="noopener noreferrer">slop.arshnah.in</a> &middot; paste text, see how much of it reads like a machine wrote it</li>
         <li><a href="https://buttons.arshnah.in" target="_blank" rel="noopener noreferrer">buttons.arshnah.in</a> &middot; make your own 88&times;31 button and download it, old-web style</li>
         <li><a href="https://uses.arshnah.in" target="_blank" rel="noopener noreferrer">uses.arshnah.in</a> &middot; the tools and stack I actually build with</li>
@@ -181,6 +184,9 @@ export default function Home() {
         <img src="/badges/repair.jpg" width={88} height={31} alt="I support right to repair" />
         <img src="/badges/speech.gif" width={88} height={31} alt="Free speech now" />
         <img src="/badges/noweb32.gif" width={88} height={31} alt="No web3" />
+        <Link href="/pings" style={{ display: "inline-block", lineHeight: 0 }} aria-label="My contact preferences">
+          <img src="/badges/nopings.jpg" width={88} height={31} alt="My contact preferences" />
+        </Link>
       </div>
       <div>
       <script src="https://yocrrz.is-a.dev/ring/widgetv3.js" type="text/javascript" charSet="utf-8"></script>
