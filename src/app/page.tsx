@@ -182,7 +182,9 @@ export default function Home() {
         <img src="/badges/speech.gif" width={88} height={31} alt="Free speech now" />
         <img src="/badges/noweb32.gif" width={88} height={31} alt="No web3" />
       </div>
-
+      <div>
+      <script src="https://yocrrz.is-a.dev/ring/widgetv3.js" type="text/javascript" charset="utf-8"></script>
+      </div>
       <p><small>&copy; 2026 Arshdeep Singh. The badges above were made by <a href="https://furina.is-a.dev" target="_blank" rel="noopener noreferrer">furina</a>.</small></p>
     </>
   );
