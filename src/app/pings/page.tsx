@@ -56,6 +56,57 @@ export default function PingsPage() {
 
   return (
     <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .ping-day {
+          flex: 1;
+          min-width: 40px;
+          text-align: center;
+          padding: 10px 0;
+          border-radius: 8px;
+          background: var(--field);
+          color: var(--ink);
+          border: 1px solid var(--line);
+          font-weight: 500;
+          font-size: 14px;
+          transition: all 0.2s;
+          cursor: default;
+        }
+        .ping-day.available {
+          background: color-mix(in srgb, var(--link) 15%, transparent);
+          border-color: color-mix(in srgb, var(--link) 40%, transparent);
+        }
+        .ping-day.current {
+          background: var(--link);
+          color: var(--bg);
+          border-color: var(--ink);
+          font-weight: 700;
+        }
+
+        .ping-hour {
+          height: 36px;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: 700;
+          cursor: default;
+          transition: all 0.2s;
+        }
+        .ping-hour.available {
+          background: color-mix(in srgb, var(--link) 15%, transparent);
+          border: 1px solid color-mix(in srgb, var(--link) 30%, transparent);
+          color: var(--ink);
+        }
+        .ping-hour.current {
+          background: var(--link);
+          color: var(--bg);
+          border: 1px solid var(--ink);
+          transform: scale(1.08);
+          z-index: 2;
+        }
+      ` }} />
+
       <nav className="topnav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", padding: "6px 0 14px" }}>
         <Link href="/" style={{ fontFamily: 'var(--font-mono),"Courier New",monospace', fontWeight: 700 }}>
           <span style={{ color: "var(--muted)" }}>~/</span>arsh<span style={{ color: "var(--link)" }}>nah</span>
@@ -110,19 +161,7 @@ export default function PingsPage() {
                 <div 
                   key={day} 
                   title={DAY_LABELS[idx]} 
-                  style={{
-                    flex: 1,
-                    minWidth: "40px",
-                    textAlign: "center",
-                    padding: "10px 0",
-                    borderRadius: 8,
-                    background: isCurrent ? "var(--link)" : "var(--field)",
-                    color: isCurrent ? "var(--bg)" : "var(--ink)",
-                    border: isCurrent ? "1px solid var(--link)" : "1px solid var(--line)",
-                    fontWeight: isCurrent ? 700 : 500,
-                    fontSize: 14,
-                    transition: "all 0.2s"
-                  }}
+                  className={`ping-day available ${isCurrent ? "current" : ""}`}
                 >
                   {day[0]}
                 </div>
@@ -147,21 +186,7 @@ export default function PingsPage() {
                 <div
                   key={h}
                   title={fmtHour(h)}
-                  style={{
-                    height: "36px",
-                    borderRadius: 6,
-                    background: isCurrent ? "var(--link)" : "var(--line)",
-                    opacity: isCurrent ? 1 : 0.65,
-                    border: isCurrent ? "1px solid var(--ink)" : "none",
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    color: isCurrent ? "var(--bg)" : "var(--ink)",
-                    cursor: "default"
-                  }}
+                  className={`ping-hour available ${isCurrent ? "current" : ""}`}
                 >
                   <span style={{ fontSize: 9 }}>{h}</span>
                 </div>
