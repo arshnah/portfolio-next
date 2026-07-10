@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import DevringLoader from "@/components/DevringLoader";
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const DAY_LABELS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -220,9 +221,7 @@ export default function PingPolicyClient() {
             You&apos;re seeing this page because I share my availability and contact rules directly on my site to maintain clear, respectful boundaries. It saves both of us time and helps set realistic expectations for responses!
           </p>
         </details>
-        <div style={{ marginTop: 32, display: "flex", justifyContent: "center" }}>
-          <script src="https://yocrrz.is-a.dev/ring/widgetv3.js" type="text/javascript" charSet="utf-8"></script>
-        </div>
+        <DevringLoader />
       </div>
     </>
   );

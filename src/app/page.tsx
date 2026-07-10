@@ -4,6 +4,7 @@ import GithubGraph from "@/components/GithubGraph";
 import Guestbook from "@/components/Guestbook";
 import Webring from "@/components/Webring";
 import { projects, services, stack, posts, testimonials } from "@/lib/data";
+import DevringLoader from "@/components/DevringLoader";
 
 const dateFmt = (d: string) =>
   new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
@@ -192,9 +193,7 @@ export default function Home() {
           </svg>
         </Link>
       </div>
-      <div>
-      <script src="https://yocrrz.is-a.dev/ring/widgetv3.js" type="text/javascript" charSet="utf-8"></script>
-      </div>
+      <DevringLoader />
       <p><small>&copy; 2026 Arshdeep Singh. The badges above were made by <a href="https://furina.is-a.dev" target="_blank" rel="noopener noreferrer">furina</a>.</small></p>
     </>
   );
