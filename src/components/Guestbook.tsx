@@ -74,17 +74,20 @@ export default function Guestbook() {
         Yes, I saw the <code>{"'; DROP TABLE"}</code> and the <code>{"<script>"}</code> tags, all logged,
         escaped, and quietly ignored. (Still a larper, though.) hi nisarga &amp; the threadlocked webring 👋
       </p>
+      <p style={{ color: "var(--muted)", borderLeft: "2px solid #e0554c", paddingLeft: 8, fontSize: 13.5, margin: "8px 0 16px" }}>
+        Note: Guestbook signatures are temporarily disabled due to a Supabase database permissions issue (missing <code>GRANT INSERT ON public.guestbook TO anon</code>).
+      </p>
 
-      <div style={{ maxWidth: 480, marginBottom: 24 }}>
+      <div style={{ maxWidth: 480, marginBottom: 24, opacity: 0.6 }}>
         <div style={{ marginBottom: 6 }}>
-          <input value={name} onChange={e => setName(e.target.value)} placeholder="name" maxLength={40} style={field} />
+          <input value={name} onChange={e => setName(e.target.value)} placeholder="name" maxLength={40} style={field} disabled />
         </div>
         <div style={{ marginBottom: 6 }}>
-          <textarea value={msg} onChange={e => setMsg(e.target.value)} placeholder="write something..." maxLength={280} rows={3} style={{ ...field, resize: "vertical" }} />
+          <textarea value={msg} onChange={e => setMsg(e.target.value)} placeholder="write something..." maxLength={280} rows={3} style={{ ...field, resize: "vertical" }} disabled />
         </div>
         {SITE_KEY && <div ref={boxRef} style={{ marginBottom: 8 }} />}
-        <button onClick={submit} disabled={busy} style={{ padding: "5px 18px", fontFamily: '"Courier New", monospace', fontSize: "14px" }}>
-          {busy ? "..." : "sign"}
+        <button onClick={submit} disabled={busy || true} style={{ padding: "5px 18px", fontFamily: '"Courier New", monospace', fontSize: "14px", cursor: "not-allowed" }}>
+          {busy ? "..." : "disabled"}
         </button>
         {err && <span style={{ marginLeft: 10, color: "#e0554c", fontSize: 14 }}>{err}</span>}
       </div>

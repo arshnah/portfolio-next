@@ -4,6 +4,7 @@ import GithubGraph from "@/components/GithubGraph";
 import Guestbook from "@/components/Guestbook";
 import Webring from "@/components/Webring";
 import { projects, services, stack, posts, testimonials } from "@/lib/data";
+import DevringLoader from "@/components/DevringLoader";
 
 const dateFmt = (d: string) =>
   new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
@@ -47,7 +48,9 @@ export default function Home() {
       <div style={{ border: "1px solid var(--line)", borderRadius: 10, padding: "13px 16px", margin: "14px 0 6px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
         <div>
           <div style={{ fontWeight: 700 }}>Open for work.</div>
-          <div style={{ color: "var(--muted)", fontSize: 14 }}>Freelance, contract, or full-time. Usually replies within a day.</div>
+          <div style={{ color: "var(--muted)", fontSize: 14 }}>
+            Freelance, contract, or full-time. Usually replies within a day (see my <Link href="/pings" style={{ textDecoration: "underline" }}>ping policy</Link>).
+          </div>
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <a href="mailto:arshjbdarsh@gmail.com?subject=Let%27s%20build%20something" style={{ background: "var(--link)", color: "var(--bg)", padding: "8px 15px", borderRadius: 8, fontWeight: 700, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap" }}>Start a project →</a>
@@ -161,8 +164,15 @@ export default function Home() {
         <img src="/badges/repair.jpg" width={88} height={31} alt="I support right to repair" />
         <img src="/badges/speech.gif" width={88} height={31} alt="Free speech now" />
         <img src="/badges/noweb32.gif" width={88} height={31} alt="No web3" />
+        <Link href="/pings" style={{ display: "inline-block", lineHeight: 0 }} aria-label="My contact preferences">
+          <svg width="88" height="31" viewBox="0 0 88 31" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="0.5" y="0.5" width="87" height="30" fill="#0b0d10" stroke="#54c8a2" />
+            <text x="44" y="12.5" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="9" fontWeight={700} fill="#54c8a2">no pings</text>
+            <text x="44" y="23" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="7.5" fill="#8b93a1">anytime</text>
+          </svg>
+        </Link>
       </div>
-
+      <DevringLoader />
       <p><small>&copy; 2026 Arshdeep Singh. The badges above were made by <a href="https://furina.is-a.dev" target="_blank" rel="noopener noreferrer">furina</a>.</small></p>
     </>
   );
