@@ -6,7 +6,6 @@ type Cmd = { label: string; hint?: string; href: string; ext?: boolean };
 const COMMANDS: Cmd[] = [
   { label: "Work", hint: "featured projects", href: "/#work" },
   { label: "Blog", hint: "posts", href: "/blog" },
-  { label: "Playground", hint: "the dumb sites", href: "/#playground" },
   { label: "Résumé", hint: "print / pdf", href: "/resume" },
   { label: "Guestbook", hint: "leave a note", href: "/#guestbook" },
   { label: "Contact", href: "/#contact" },

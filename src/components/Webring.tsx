@@ -1,8 +1,3 @@
-// stabring — member (routes by hostname)
-const STAB = "https://ring.stabbed.me";
-const STAB_ME = "arshnah.in";
-const stabHop = (dir: string) => `${STAB}/${dir}/from/${STAB_ME}`;
-
 // larpring — founder (routes by member name in webring.json)
 const LARP = "https://larpring.github.io";
 const LARP_ME = "arsh";
@@ -11,17 +6,6 @@ const larpHop = (dir: string) => `${LARP}/go.html?from=${LARP_ME}&dir=${dir}`;
 export default function Webring() {
   return (
     <span style={{ display: "inline-flex", gap: 24, flexWrap: "wrap", justifyContent: "center" }}>
-      <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-        <a href={STAB} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", lineHeight: 0 }} aria-label="stabring webring">
-          <img src="/stabring-badge.svg" width={88} height={31} alt="stabring web ring badge" />
-        </a>
-        <span>
-          Member of the <a href={STAB} target="_blank" rel="noopener noreferrer">stabring</a>:{" "}
-          <a href={stabHop("prev")}>&laquo; prev</a> |{" "}
-          <a href={STAB}>?</a> |{" "}
-          <a href={stabHop("next")}>next &raquo;</a>
-        </span>
-      </span>
       <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
         <a href={LARP} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", lineHeight: 0 }} aria-label="larpring webring">
           <img src={`${LARP}/badge.svg`} width={88} height={31} alt="larpring web ring badge" />

@@ -18,7 +18,6 @@ export default function Home() {
         <span style={{ display: "flex", gap: 16, fontSize: 14, flexWrap: "wrap" }}>
           <a href="#work">Work</a>
           <a href="#writing">Blog</a>
-          <a href="#playground">Playground</a>
           <a href="/resume">Résumé</a>
           <a href="#contact">Contact</a>
         </span>
@@ -122,25 +121,6 @@ export default function Home() {
         ))}
       </ul>
       <p><Link href="/blog">All posts &raquo;</Link></p>
-
-      <hr />
-
-      <h2 id="playground">Playground</h2>
-      <p>Small dumb sites I made for fun, mostly hiding on subdomains.</p>
-      <ul>
-        <li><a href="https://larp.arshnah.in" target="_blank" rel="noopener noreferrer">larp.arshnah.in</a> &middot; a fake hacker terminal you boot into. type &ldquo;help&rdquo;, nothing real happens</li>
-        <li><a href="https://now.arshnah.in" target="_blank" rel="noopener noreferrer">now.arshnah.in</a> &middot; what I&apos;m doing right now, pulled live</li>
-        <li><a href="https://card.arshnah.in" target="_blank" rel="noopener noreferrer">card.arshnah.in</a> &middot; mint yourself a Certified LARPer ID card</li>
-        <li><a href="https://shame.arshnah.in" target="_blank" rel="noopener noreferrer">shame.arshnah.in</a> &middot; a museum of every hack attempt on my guestbook that did nothing</li>
-        <li><a href="https://status.arshnah.in" target="_blank" rel="noopener noreferrer">status.arshnah.in</a> &middot; is everything still up</li>
-        <li><a href="https://slop.arshnah.in" target="_blank" rel="noopener noreferrer">slop.arshnah.in</a> &middot; paste text, see how much of it reads like a machine wrote it</li>
-        <li><a href="https://buttons.arshnah.in" target="_blank" rel="noopener noreferrer">buttons.arshnah.in</a> &middot; make your own 88&times;31 button and download it, old-web style</li>
-        <li><a href="https://uses.arshnah.in" target="_blank" rel="noopener noreferrer">uses.arshnah.in</a> &middot; the tools and stack I actually build with</li>
-        <li><a href="https://scratch.arshnah.in" target="_blank" rel="noopener noreferrer">scratch.arshnah.in</a> &middot; a markdown scratchpad where the whole note lives in the link, so you just paste and share</li>
-        <li><a href="https://wrapped.arshnah.in" target="_blank" rel="noopener noreferrer">wrapped.arshnah.in</a> &middot; my year in music and shipped code, story-style</li>
-        <li><a href="https://playlist.arshnah.in" target="_blank" rel="noopener noreferrer">playlist.arshnah.in</a> &middot; what I have on repeat, playable on Spotify</li>
-        <li><a href="https://chud.arshnah.in" target="_blank" rel="noopener noreferrer">chud.arshnah.in</a> &middot; chudGPT, an AI chatbot that only ever says &ldquo;chud&rdquo;</li>
-      </ul>
 
       <hr />
 
