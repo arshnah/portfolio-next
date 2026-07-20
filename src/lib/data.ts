@@ -1,4 +1,6 @@
 export const projects = [
+  { year: "2026", name: "Jugaad", url: "https://jugaadbot.vercel.app",
+    desc: "A Discord community bot with 84 slash commands: a fake economy, gambling games, levelling, moderation, and family trees people build out of slash commands. Every money operation goes through Postgres functions under row locks, so two commands racing each other cannot duplicate currency. Node.js and discord.js on Supabase, running 24/7 on my own VPS under PM2. I built the bot and the docs site that documents it." },
   { year: "2026", name: "CipherDrop", url: "https://drop.arshnah.in",
     desc: "Zero-knowledge file and text drops. Everything is encrypted in your browser before it uploads, and the key lives in the link fragment, so the server only ever stores ciphertext it cannot read. AES-GCM through the Web Crypto API, expiring links, burn-after-read, and syntax-highlighted code pastes. It also ships veil, a page that tucks encrypted messages inside ordinary images. I self-host the whole thing on my own VPS." },
   { year: "2026", name: "Wisp", url: "https://chat.arshnah.in",

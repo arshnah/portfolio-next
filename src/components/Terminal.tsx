@@ -29,8 +29,12 @@ IT-services brand. Kotlin app (Play Store) + website. 97/100 SEO.`,
 Live YouTube subscriber counts via a serverless function. 17 channels, hourly.`,
 "projects/whatnow.md":`WhatNow (2025) · <a href="https://whatnowindia.vercel.app" target="_blank" class="text-[#39d3c4] underline">whatnowindia.vercel.app</a>
 Platform for students choosing what's next after board exams.`,
+"projects/jugaad.md":`Jugaad (2026) · <a href="https://jugaadbot.vercel.app" target="_blank" class="text-[#39d3c4] underline">jugaadbot.vercel.app</a>
+Discord community bot: 84 slash commands, fake economy, gambling, levelling,
+moderation. Currency moves only through atomic Postgres functions, so racing
+commands cannot duplicate it. discord.js + Supabase, on a VPS under PM2.`,
 };
-const tree: Record<string,string[]> = { "~":["about.md","stack.txt","contact.txt","projects/"], "~/projects":["nexlease.md","justcalltech.md","chc.md","whatnow.md"] };
+const tree: Record<string,string[]> = { "~":["about.md","stack.txt","contact.txt","projects/"], "~/projects":["nexlease.md","justcalltech.md","chc.md","whatnow.md","jugaad.md"] };
 const ARCH = `<span class="text-[#39d3c4] font-bold">       /\\
       /  \\
      /\\   \\
