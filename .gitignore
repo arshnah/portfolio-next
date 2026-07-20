@@ -8,3 +8,7 @@
 next-env.d.ts
 *.tsbuildinfo
 .env*
+
+# Created by stray `npx` runs. This project tracks deno.lock; adding an npm
+# lockfile can change which install command Vercel picks.
+package-lock.json
