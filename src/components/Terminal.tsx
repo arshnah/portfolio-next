@@ -29,12 +29,13 @@ IT-services brand. Kotlin app (Play Store) + website. 97/100 SEO.`,
 Live YouTube subscriber counts via a serverless function. 17 channels, hourly.`,
 "projects/whatnow.md":`WhatNow (2025) · <a href="https://whatnowindia.vercel.app" target="_blank" class="text-[#39d3c4] underline">whatnowindia.vercel.app</a>
 Platform for students choosing what's next after board exams.`,
-"projects/jugaad.md":`Jugaad (2026) · <a href="https://jugaadbot.vercel.app" target="_blank" class="text-[#39d3c4] underline">jugaadbot.vercel.app</a>
-Discord community bot: 84 slash commands, fake economy, gambling, levelling,
+"projects/afterhours.md":`After Hours (2026) · <a href="https://afterhours.arshnah.in" target="_blank" class="text-[#39d3c4] underline">afterhours.arshnah.in</a>
+Discord community bot: 86 slash commands, fake economy, gambling, levelling,
 moderation. Currency moves only through atomic Postgres functions, so racing
-commands cannot duplicate it. discord.js + Supabase, on a VPS under PM2.`,
+commands cannot duplicate it. Bridges a Minecraft server both ways through a
+Paper plugin I wrote. discord.js + Supabase, on a VPS under PM2.`,
 };
-const tree: Record<string,string[]> = { "~":["about.md","stack.txt","contact.txt","projects/"], "~/projects":["nexlease.md","justcalltech.md","chc.md","whatnow.md","jugaad.md"] };
+const tree: Record<string,string[]> = { "~":["about.md","stack.txt","contact.txt","projects/"], "~/projects":["nexlease.md","justcalltech.md","chc.md","whatnow.md","afterhours.md"] };
 const ARCH = `<span class="text-[#39d3c4] font-bold">       /\\
       /  \\
      /\\   \\
@@ -90,7 +91,10 @@ export default function Terminal({ open, onClose }: { open: boolean; onClose: ()
       whoami: () => "arshnah · Arshdeep Singh. solo developer across full-stack, android, and ops.",
       about: () => files["about.md"], stack: () => files["stack.txt"], contact: () => files["contact.txt"],
       neofetch, ls: () => (tree[cur]||[]).map(f=>f.endsWith("/")?`<span class="text-[#39d3c4]">${f}</span>`:f).join("   "),
-      projects: () => ["nexlease","justcalltech","chc","whatnow"].map(k=>files["projects/"+k+".md"]).join("\n\n"),
+      // Derived from the tree rather than a second hardcoded list. The old one
+      // omitted the Discord bot entirely, so `projects` showed four entries
+      // while `ls ~/projects` showed five.
+      projects: () => (tree["~/projects"]||[]).map(f=>files["projects/"+f]).filter(Boolean).join("\n\n"),
       clear: () => { setLines([]); return null; }, exit: () => { onClose(); return null; },
       pwd: () => cur==="~"?"/home/arsh":"/home/arsh/projects",
       arch: () => "i use arch btw 🐧", guitar: () => "🎸 yeah, I play. mostly at 2am instead of sleeping.",
