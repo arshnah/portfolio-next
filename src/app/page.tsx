@@ -76,6 +76,9 @@ export default function Home() {
       <hr />
 
       <h2 id="work">Work</h2>
+      <p style={{ color: "var(--muted)", margin: "0 0 16px" }}>
+        Note: Most of my work remains under strict NDAs.
+      </p>
       <div>
         {projects.slice(0, 3).map((p) => (
           <div key={p.name} style={{ borderLeft: "2px solid var(--link)", paddingLeft: 14, margin: "0 0 16px" }}>
