@@ -34,9 +34,19 @@ export default function Starfield() {
     if (reduce) { ctx.clearRect(0,0,W,H); drawStars(0); return () => ro.disconnect(); }
 
     const mobile = W < 640;
+    let last = 0;
+    const onVis = () => { if (document.hidden) shoot.length = 0; };
+    document.addEventListener("visibilitychange", onVis);
+
     function frame(t: number) {
+      const dt = last ? t - last : 16;
+      last = t;
       ctx!.clearRect(0, 0, W, H);
       drawStars(t);
+      // spawns are clock-based but lifetimes are counted in frames, so a
+      // throttled background tab piles them up. drop the backlog instead of
+      // streaming it all across at once on the way back.
+      if (dt > 200) { shoot.length = 0; next = t + 700; raf = requestAnimationFrame(frame); return; }
       if (t > next) { spawn(); if (!mobile && Math.random()<0.3) spawn(); next = t + (mobile?1100:700) + Math.random()*1600; }
       for (let i = shoot.length-1; i>=0; i--) {
         const o = shoot[i]; o.x += o.vx; o.y += o.vy; o.life++;
@@ -54,7 +64,11 @@ export default function Starfield() {
       raf = requestAnimationFrame(frame);
     }
     raf = requestAnimationFrame(frame);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }, []);
   return <canvas ref={ref} className="starfield" aria-hidden="true" />;
 }

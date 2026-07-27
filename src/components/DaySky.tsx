@@ -49,6 +49,7 @@ export default function DaySky() {
       <div className="skygrad" aria-hidden="true" />
       <div className="skybodies" aria-hidden="true">
         <span className="sun" />
+        <span className="moonglow" />
         <span className="moon" />
         <span className="dawn" />
       </div>
