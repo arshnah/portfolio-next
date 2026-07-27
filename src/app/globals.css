@@ -137,11 +137,16 @@ img, svg { max-width: 100%; }
 }
 
 @media (max-width: 600px) {
-  .skybodies { opacity: .82; }
-  .sun { left: 60%; width: 96px; height: 96px; filter: blur(12px); }
+  /* no band on a phone is empty enough for a full-size moon — the only gap is
+     the ~38px between the webring row and the name. sit it there, smaller, and
+     dim the whole layer so the bit that does overlap reads as background
+     rather than something competing with the text. can't hang it off the left
+     edge: the mask bites lower-right, so the lit sliver is the left side. */
+  .skybodies { opacity: .6; }
+  .sun { left: 72%; top: 4%; width: 96px; height: 96px; filter: blur(12px); }
   .sun::before { width: 300px; height: 300px; margin: -150px 0 0 -150px; }
   .sun::after { width: 150px; height: 620px; margin-left: -75px; filter: blur(22px); }
-  .moon, .moonglow { left: 17%; width: 56px; height: 56px; }
+  .moon, .moonglow { left: 5%; top: 17%; width: 46px; height: 46px; }
   .moonglow::before { width: 190px; height: 190px; margin: -95px 0 0 -95px; }
   .c1 { width: 96px; }  .c2 { width: 68px; }  .c3 { width: 118px; }
   .c4 { width: 76px; }  .c5 { width: 92px; }  .c6 { width: 62px; }
@@ -180,6 +185,17 @@ blockquote { font-family: Georgia, "Times New Roman", serif; font-style: italic;
 hr { border: 0; border-top: 1px solid var(--line); margin: 1.7em 0; }
 
 /* ---------- responsive / mobile ---------- */
+/* contribution heatmap */
+.gh-weeks { display: flex; gap: 3px; }
+.gh-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+@media (max-width: 700px) {
+  /* 53 columns and 52 gaps leave about 3px per cell on a phone — squares end
+     up smaller than the spaces between them. fix the cell size and scroll the
+     year sideways instead of shrinking it into noise. */
+  .gh-weeks { overflow-x: auto; overscroll-behavior-x: contain; padding-bottom: 6px; }
+  .gh-col { flex: 0 0 10px; }
+}
+
 /* keep the top nav clear of the fixed theme toggle (top-right) on narrow
    screens. !important because .topnav carries an inline padding shorthand,
    which otherwise wins and the last link ends up under the button. */

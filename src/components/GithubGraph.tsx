@@ -5,7 +5,6 @@ import { useState } from "react";
 type Day = { date: string; count: number; level: number };
 const fetcher = (u: string) => fetch(u).then((r) => r.json());
 
-const GAP = 3;
 const SWATCH = 11;
 const LEVELS = ["var(--gh-0)", "var(--gh-1)", "var(--gh-2)", "var(--gh-3)", "var(--gh-4)"];
 
@@ -61,9 +60,9 @@ export default function GithubGraph() {
       </div>
 
       <div onMouseLeave={() => setTip(null)}>
-        <div style={{ display: "flex", gap: GAP }}>
+        <div className="gh-weeks">
           {weeks.map((week, wi) => (
-            <div key={wi} style={{ flex: "1 1 0", minWidth: 0, display: "flex", flexDirection: "column", gap: GAP }}>
+            <div key={wi} className="gh-col">
               {week.map((d, di) =>
                 d ? (
                   <div
