@@ -191,7 +191,8 @@ function svg(s: Stats, t: typeof THEMES.dark) {
   .bul{font:400 ${FS}px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:${t.key}}
   .art{font:400 ${ART_FS}px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:${t.art}}
 </style>
-<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="14" fill="${t.bg}" stroke="${t.stroke}"/>
+<rect width="${W}" height="${H}" fill="${t.bg}"/>
+<line x1="12" y1="0" x2="12" y2="${H}" stroke="${t.rule}" stroke-width="1.5"/>
 <text class="art" xml:space="preserve" y="62">${art}</text>
 ${parts.join("\n")}
 </svg>`;
@@ -199,7 +200,8 @@ ${parts.join("\n")}
 
 function fallback(t: typeof THEMES.dark) {
   return `<svg width="${W}" height="90" viewBox="0 0 ${W} 90" xmlns="http://www.w3.org/2000/svg" role="img">
-<rect x="0.5" y="0.5" width="${W - 1}" height="89" rx="14" fill="${t.bg}" stroke="${t.stroke}"/>
+<rect width="${W}" height="90" fill="${t.bg}"/>
+<line x1="12" y1="0" x2="12" y2="90" stroke="${t.rule}" stroke-width="1.5"/>
 <text x="30" y="52" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14" fill="${t.art}">github stats unavailable right now</text>
 </svg>`;
 }
