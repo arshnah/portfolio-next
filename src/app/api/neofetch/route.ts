@@ -1,3 +1,6 @@
+// ART is Wikipe-tan by Kasuga (vector redraw by Editor at Large), CC BY-SA 3.0,
+// converted to ascii offline. Swapping the picture means regenerating this
+// block and updating the credit under the card in arshnah/arshnah.
 export const dynamic = "force-dynamic";
 
 const USER = process.env.NEXT_PUBLIC_GITHUB_USER || "arshnah";
@@ -9,37 +12,33 @@ const THEMES = {
 };
 
 const ART = [
-  "xxxjjjxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxjjjxOOOOOxxxxxj",
-  "xxxxxxxjjjxxxxxxxxxxjjxxxxxxxxxxxxxxxxxxxxxxxxOOxjjxjjxx?:",
-  "xxxxxxxxxxxjjjxxxxxxxjjjjxxxxxxxxxxxxxxxxxxxxxj??:::::?:::",
-  "xxxxxxxxxxxxxxxjjjjjxjjjjxxxxxxxxxxxxxxjjjjj?:::..........",
-  "jjxxxxxxxOO8@@@@8Oxj??jjjjjxxxxxxxxxxjjjjj?....... .......",
-  "jjjxxO88@@@@@@@@888@8Oxxjjjjxxjjjxjjjjjj?:...... .:.....:.",
-  "jxO8@@@@@@@@@888@@8O8@@@@8Oxjjjjjjjjjjj:..... .  x.....?:.",
-  "8@@@@@@@@@@@8@@@888@@@@@@@@@@8Oxjjjjjj:..  ..   ?j    :?",
-  "@@@@@@@@@@@@@888@@@@@@@@@@@@@@@@@8Oxj: .:   :  .Ox   .O.",
-  "@@@@@@@@@@@88@@@@@@@@@@@@@@@@@@@@@@@8..x.  ::  jOx   jj",
-  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@8..8x   j:  .    .O?:",
-  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@? O8.j: xx.x?   .?Ox?",
-  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@x j@?x@xj8@O@:: ?x88OO8O",
-  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@8:.@@.8@@8j88@OOxjO888@@8",
-  "@@@@@@@@@@@@888@@@@@@@@@@@@@@@@@@O O@O:@@8.?8888888888@@@8",
-  "@@@@@@@@@8888@@@@@@@@@@@@@@@@@@@@j.@@j?88. x88888888888888",
-  "888OOxxOO8@@@@@@@@@@@@@@@@@@@@@@@??88j?O.  888888888888888",
-  "xxxxxxO8@@@@@@@888888888888888888??8Oj :   888888888888888",
-  "xxxO888888888888888888888888@@@@@O?xxO:    O88888888888888",
-  "xO8888888888888888888888888@@@@@@@@@@@@Oxj?j88888888888888",
-  "888888888888888888888888888@@@@@@@@@@@@@@@@@@@@@@@@8O88888",
-  "888888888888888888888888888@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-  "888OOO8888888888888888888O@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-  "OxxO8888888888888888888OxO@@@@@@@@@@@@@@@@@@x8@8O@@@@@@@@@",
-  "xO8888888888888888888OOxO@@@@@@@@@@@@@@@@@8:8@@OO@@@@@@@@@",
-  "888888888888888888OOxxxx8@@@@@@@@@8O88@@@@?j@@@@@@88@@@@@@",
-  "88888888888888OOOxxxxxxx@@@@@@@@@@@O8O88@8.8@@:OOj@@?@@@@@",
-  "8888888888OOOOOxxxxxxxx8@@@@@@@@@@O@OOO88@?@@x?@:8@O:@@@@@",
-  "88888OOOOOOxxxxxxxxxxxx@@@@@@@@@@O@8@@@@@@888x8@?@@?8@@@@@",
-  "OOOOOOOOxjjxxxxxxxxxxx8@@@@@@@@@@x8OO88@@@@@@@@@@88@@@@@@@",
-  "xxxxxj???jjjjjjjjjjjjj@@@@@@@@@@8@@O88xOOxOO8O88@@@@@8@@@@"
+  "                                         8OxO",
+  "                   @OOxOOOOxxxOO@  Oj?:@ j..?",
+  "       ?:?O      O?:::???::::::::?Oj:.:Ox?..x",
+  "      O...j 8.jj?:::::::::::::::??jj.:::j?jj??j",
+  "      8x?::??::::::::::::::::::::?:j?jj.?xxx:.:",
+  "        x:::::::::::?:::::::::::::?jj?j..jj??xx",
+  "      ?..?j. :.::::?.:??:??:::::.?:?x.......:j",
+  "      j??j:::.:.?.:: .:??.:j:.:?.:j?j????...x",
+  "       8:?:j:??:j?j:  :j:???:?:j:?xjjjjj???j8",
+  "       ?:??j:jj:j??:   .j??xxjjj:?jjjjjjjjjjx",
+  "      ?::jjx:??:j?x?    . ::88xj?jjjj??jj?jjjx",
+  "     j::.:jxj:j: :x8.     OOOO:jj?::j??jj?jjjjx",
+  "   8?:?..:jx???:  xx.     .:.. :::.:x??jxjjjxjjx@",
+  "  x:?j?:.j8?:j: .  .    .      .:.:x ??xOjjjxOjjj8",
+  "x??jO@?:jx :?jOOj     j??:    :x8@  @:jO8jjjx 8Oxjx8",
+  "888  @?:jO ??jx  8x?:..::...?O8 8?:.?:j8@jjjx",
+  "     8??j8 ??jjx .?Oxj?:::. :.:j  .::?j@@jjxO",
+  "     8j?j  x:?   .:...:. .  .    .jj:jjO8jj8O",
+  "      x?x   ?:         .      .. j8xjO88Ojx@@",
+  "       88    O     . . . ..      j8x8888Ox",
+  "             x ..   . :.: .: .. .x8888888@",
+  "       @@   @?      ...  ...   .88888888888x??@",
+  "       .  .?Ox..    .  ..:    .j8888888888.   @",
+  "       :    .8O.             :x8888888888?.",
+  "       O    :888Ox?: ::. .?xx88888@xO8888O.",
+  "        ?  :888888888888O888888888:..x8888O. .",
+  "        j:x8888xOOxj?:?jxxxOxx88x:....x8888x.:x"
 ];
 
 const xml = (s: unknown) =>
