@@ -1,6 +1,6 @@
-// ART is Wikipe-tan by Kasuga (vector redraw by Editor at Large), CC BY-SA 3.0,
-// converted to ascii offline. Swapping the picture means regenerating this
-// block and updating the credit under the card in arshnah/arshnah.
+// ART is a still you picked, converted to ascii offline: crop x .455-.865,
+// y .015-.98, 54 cols, ramp "  .:?jxO8@". Swapping the picture means
+// regenerating this block.
 export const dynamic = "force-dynamic";
 
 const USER = process.env.NEXT_PUBLIC_GITHUB_USER || "arshnah";
@@ -12,33 +12,35 @@ const THEMES = {
 };
 
 const ART = [
-  "                                         8OxO",
-  "                   @OOxOOOOxxxOO@  Oj?:@ j..?",
-  "       ?:?O      O?:::???::::::::?Oj:.:Ox?..x",
-  "      O...j 8.jj?:::::::::::::::??jj.:::j?jj??j",
-  "      8x?::??::::::::::::::::::::?:j?jj.?xxx:.:",
-  "        x:::::::::::?:::::::::::::?jj?j..jj??xx",
-  "      ?..?j. :.::::?.:??:??:::::.?:?x.......:j",
-  "      j??j:::.:.?.:: .:??.:j:.:?.:j?j????...x",
-  "       8:?:j:??:j?j:  :j:???:?:j:?xjjjjj???j8",
-  "       ?:??j:jj:j??:   .j??xxjjj:?jjjjjjjjjjx",
-  "      ?::jjx:??:j?x?    . ::88xj?jjjj??jj?jjjx",
-  "     j::.:jxj:j: :x8.     OOOO:jj?::j??jj?jjjjx",
-  "   8?:?..:jx???:  xx.     .:.. :::.:x??jxjjjxjjx@",
-  "  x:?j?:.j8?:j: .  .    .      .:.:x ??xOjjjxOjjj8",
-  "x??jO@?:jx :?jOOj     j??:    :x8@  @:jO8jjjx 8Oxjx8",
-  "888  @?:jO ??jx  8x?:..::...?O8 8?:.?:j8@jjjx",
-  "     8??j8 ??jjx .?Oxj?:::. :.:j  .::?j@@jjxO",
-  "     8j?j  x:?   .:...:. .  .    .jj:jjO8jj8O",
-  "      x?x   ?:         .      .. j8xjO88Ojx@@",
-  "       88    O     . . . ..      j8x8888Ox",
-  "             x ..   . :.: .: .. .x8888888@",
-  "       @@   @?      ...  ...   .88888888888x??@",
-  "       .  .?Ox..    .  ..:    .j8888888888.   @",
-  "       :    .8O.             :x8888888888?.",
-  "       O    :888Ox?: ::. .?xx88888@xO8888O.",
-  "        ?  :888888888888O888888888:..x8888O. .",
-  "        j:x8888xOOxj?:?jxxxOxx88x:....x8888x.:x"
+  "            ..............................",
+  "          :????????::?:::???:::::::???????:.",
+  "    ....:jxxxOxxxxjjjj???xxjj?:???j?xxxxxxjj?........",
+  " ..::::?xOOO888OOxxjOjjjj8OOO?j?x?xxx8O888OOO?::::::::",
+  "::::???x88O@@@@8xjxxxjxxj888OjxjjxjxxxO8@@8O8O????????",
+  "::????j8888@@@8xxjjxjOOjxO88xjxOjx8xjjxO@8@888x???????",
+  "jjjxxxO88@@@@@xjOjOjj8OxOxxxjjO@jx@8xjjj88@@888OOxxxxx",
+  "jjxxxxO8@8@@88jO@j@xO8xx@xjxjj8Oxx@@8jjjO8@@O@@xxxxxxx",
+  "      x@8O@@OOx8x?j:xOOj@OjxjxOOxjxjxjOjx8@@O@@?",
+  "      x@OO@@xxjjOOx??x8O@xxjj@@xxx??x?xxx8@@x8@?",
+  "      x@xx@@xjOx@OOxx@@@@x@8j8@@8xxx88jjx8@@xO@j",
+  "      j8xj@8xjO@@@88@@@@@@@@@@@@@888@@@xj8@@jx@?",
+  "::????x8xj88xjj@@@@@@@@@@@8@@@@@@@@@@@@j?O@8jx8j??::::",
+  "jjjjxxxOxj88jjx8@@@@@@@@@@@@@@@@@@@@@@8xjO@OjxOjjjjjjj",
+  "jjjxxxjxxjOOjjxO@@@@@@@@@@@@@@@@@@@@@@xxjO@xjxO?jjjjjj",
+  "j??????xjjxOx?jj@@@@@@@@xjjjjx@@@@@@@OjjjO8xjxO?jjjjjj",
+  "..    :jxjxxx?  .x@@@@@@888888@@@@@8?   jOxxjxxx?jjjjj",
+  "::?????jxjxxxj? .  j8@@@@@@8@@8@8x:.:???jxxxjxjxjjjjjj",
+  "jjjxxjjxOOjxxxO@@@8@@@8@888@8@@@@@@@@@@xxxxx@8Ojjxxxxx",
+  ":::::::@@@xjxxx@@@@@@@@@@@@@@@@@@@@@@@@jxxjO@@@O::::::",
+  "      :@@@Ojxxx8@@@@@@@@@@@@@@@@@@@@@@Oxxjj@@@@O.",
+  "  .:jO88O88j8xxx@@@@@@@@@@@@@@@@@@@@@@xxjjO@@88@@O?:",
+  ":x@@@@@@@88xxxjxO@@@@@@@@@@@@@@@@@@@@OxjxxO88@@@@@@O",
+  ".@@@@@@@@@@@O@8OjxxxxOOOO8O88OOO8OOOxxxOx8@@@@@@@@@8:",
+  "?x8@@@@@@@@@8@@@8x8@8888OOO888@8O8@OxO@8@@@@@@@@@@8j",
+  " ?jx8@@@@@@@@@@@@@8@@@@@@@@@@@@@@8OO@@@@@@@@@@@8x?::",
+  "...??jxO88@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@8O?:.::::?",
+  "......::?jxOO8@@@@@@@@@@@@@@@@@@@@@@@@888xj:...::::::?",
+  "............::xxxxOOO8888888888888OOxj?:..........::::"
 ];
 
 const xml = (s: unknown) =>
