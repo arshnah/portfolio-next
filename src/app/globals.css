@@ -137,16 +137,16 @@ img, svg { max-width: 100%; }
 }
 
 @media (max-width: 600px) {
-  /* no band on a phone is empty enough for a full-size moon — the only gap is
-     the ~38px between the webring row and the name. sit it there, smaller, and
-     dim the whole layer so the bit that does overlap reads as background
-     rather than something competing with the text. can't hang it off the left
-     edge: the mask bites lower-right, so the lit sliver is the left side. */
-  .skybodies { opacity: .6; }
+  /* the only empty band on a phone is the ~38px between the webring row and
+     the name. the left of it is no good — the avatar sits at 11-87 directly
+     under it and paints over both the moon and its glow — so use the right
+     end, which nothing occupies. can't hang it off the left edge either: the
+     mask bites lower-right, so the lit sliver is the left side. */
+  .skybodies { opacity: .78; }
   .sun { left: 72%; top: 4%; width: 96px; height: 96px; filter: blur(12px); }
   .sun::before { width: 300px; height: 300px; margin: -150px 0 0 -150px; }
   .sun::after { width: 150px; height: 620px; margin-left: -75px; filter: blur(22px); }
-  .moon, .moonglow { left: 5%; top: 17%; width: 46px; height: 46px; }
+  .moon, .moonglow { left: 70%; top: 17.4%; width: 40px; height: 40px; }
   .moonglow::before { width: 190px; height: 190px; margin: -95px 0 0 -95px; }
   .c1 { width: 96px; }  .c2 { width: 68px; }  .c3 { width: 118px; }
   .c4 { width: 76px; }  .c5 { width: 92px; }  .c6 { width: 62px; }
