@@ -15,6 +15,7 @@ export default function Activity() {
   const { data: dc } = useSWR("/api/discord-status", fetcher, { refreshInterval: 8000 });
   const { data: np } = useSWR("/api/now-playing", fetcher, { refreshInterval: 12000 });
   const { data: commit } = useSWR("/api/last-commit", fetcher, { refreshInterval: 60000 });
+  const { data: coding } = useSWR("/api/coding", fetcher, { refreshInterval: 600000 });
   const [clock, setClock] = useState("");
   useEffect(() => {
     const t = () => setClock(new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" }));
@@ -56,6 +57,15 @@ export default function Activity() {
         : <span style={{ color: "var(--muted)" }}>&#9834; not playing</span>}
       {sep}
       <span style={{ color: "var(--muted)" }}>{clock} IST</span>
+      {coding?.ok && coding.text && (
+        <>
+          {sep}
+          <span style={{ color: "var(--muted)" }}>
+            {coding.text} {coding.range === "week" ? "this week" : "today"}
+            {coding.language ? ` · ${coding.language}` : ""}
+          </span>
+        </>
+      )}
       {commit?.ok && (
         <>
           {sep}

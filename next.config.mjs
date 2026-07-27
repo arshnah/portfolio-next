@@ -29,6 +29,7 @@ const nextConfig = {
       { source: '/api/now-playing', destination: `${api}/now-playing` },
       { source: '/api/last-commit', destination: `${api}/last-commit` },
       { source: '/api/contributions', destination: `${api}/contributions` },
+      { source: '/api/coding', destination: `${api}/coding` },
     ];
   },
 };
