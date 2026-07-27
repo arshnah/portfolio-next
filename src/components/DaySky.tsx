@@ -45,14 +45,20 @@ export default function DaySky() {
   }, []);
 
   return (
-    <div className="daysky" aria-hidden="true" ref={ref}>
-      <span className="sun" />
-      <span className="dawn" />
-      {LAYERS.map((layer) => (
-        <div className="cloud-layer" data-depth={layer.depth} key={layer.depth}>
-          {layer.clouds.map((c) => <span className={`cloud ${c}`} key={c} />)}
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="skygrad" aria-hidden="true" />
+      <div className="skybodies" aria-hidden="true">
+        <span className="sun" />
+        <span className="moon" />
+        <span className="dawn" />
+      </div>
+      <div className="daysky" aria-hidden="true" ref={ref}>
+        {LAYERS.map((layer) => (
+          <div className="cloud-layer" data-depth={layer.depth} key={layer.depth}>
+            {layer.clouds.map((c) => <span className={`cloud ${c}`} key={c} />)}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

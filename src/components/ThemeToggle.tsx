@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const SUNRISE_MS = 1700;
+const SWAP_MS = 1600;
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState("dark");
-  const sunriseTimer = useRef(0);
+  const swapTimer = useRef(0);
   useEffect(() => { setTheme(document.documentElement.dataset.theme || "dark"); }, []);
-  useEffect(() => () => window.clearTimeout(sunriseTimer.current), []);
+  useEffect(() => () => window.clearTimeout(swapTimer.current), []);
 
   function toggle() {
     const root = document.documentElement;
@@ -16,13 +16,11 @@ export default function ThemeToggle() {
     try { localStorage.setItem("arsh-theme", next); } catch (e) {}
     setTheme(next);
 
-    window.clearTimeout(sunriseTimer.current);
-    delete root.dataset.sunrise;
-    if (next === "light") {
-      void root.offsetWidth;
-      root.dataset.sunrise = "1";
-      sunriseTimer.current = window.setTimeout(() => { delete root.dataset.sunrise; }, SUNRISE_MS);
-    }
+    window.clearTimeout(swapTimer.current);
+    delete root.dataset.swap;
+    void root.offsetWidth;
+    root.dataset.swap = "1";
+    swapTimer.current = window.setTimeout(() => { delete root.dataset.swap; }, SWAP_MS);
   }
 
   return (
