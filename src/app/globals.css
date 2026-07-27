@@ -67,8 +67,8 @@ img, svg { max-width: 100%; }
 .moon {
   left: 24%; width: 74px; height: 74px;
   background: radial-gradient(circle at 36% 32%, #f8fafe 0%, #eaeffb 50%, #d8e0f1 100%);
-  -webkit-mask-image: radial-gradient(circle 54px at 54px 50px, transparent 43px, #000 48px);
-  mask-image: radial-gradient(circle 54px at 54px 50px, transparent 43px, #000 48px);
+  -webkit-mask-image: radial-gradient(ellipse 73% 73% at 73% 68%, transparent 80%, #000 89%);
+  mask-image: radial-gradient(ellipse 73% 73% at 73% 68%, transparent 80%, #000 89%);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
@@ -123,6 +123,24 @@ img, svg { max-width: 100%; }
 .c6 { top: 82%; width: 80px;  opacity: .65; animation: drift 212s linear infinite; animation-delay: -30s; }
 /* starts far enough left that the deepest layer's +360px scroll shift can't bare the left edge */
 @keyframes drift { from { transform: translateX(-700px); } to { transform: translateX(calc(100vw + 240px)); } }
+
+/* phones: everything in the sky is sized for a 1900px viewport, so scale it
+   down or the sun runs off the right edge and the bloom is wider than the
+   screen. shorter lead-in too — a 700px run-up off a 375px screen leaves the
+   sky empty most of the cycle. */
+@media (max-width: 600px) {
+  .sun { left: 60%; width: 96px; height: 96px; filter: blur(12px); }
+  .sun::before { width: 300px; height: 300px; margin: -150px 0 0 -150px; }
+  .sun::after { width: 150px; height: 620px; margin-left: -75px; filter: blur(22px); }
+  .moon, .moonglow { left: 17%; width: 56px; height: 56px; }
+  .moonglow::before { width: 190px; height: 190px; margin: -95px 0 0 -95px; }
+  .c1 { width: 96px; }  .c2 { width: 68px; }  .c3 { width: 118px; }
+  .c4 { width: 76px; }  .c5 { width: 92px; }  .c6 { width: 62px; }
+  .cloud { height: 26px; filter: blur(4px);
+    box-shadow: 25px 5px 0 -3px #fff, -22px 6px 0 -5px #fff, 10px -10px 0 -6px #fff, -9px -6px 0 -7px #fff; }
+  @keyframes drift { from { transform: translateX(-280px); } to { transform: translateX(calc(100vw + 130px)); } }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cloud { animation: none; }
   .sun, .moon, .moonglow { transition: opacity .3s ease; transform: none; }
@@ -153,9 +171,11 @@ blockquote { font-family: Georgia, "Times New Roman", serif; font-style: italic;
 hr { border: 0; border-top: 1px solid var(--line); margin: 1.7em 0; }
 
 /* ---------- responsive / mobile ---------- */
-/* keep the top nav clear of the fixed theme toggle (top-right) on narrow screens */
+/* keep the top nav clear of the fixed theme toggle (top-right) on narrow
+   screens. !important because .topnav carries an inline padding shorthand,
+   which otherwise wins and the last link ends up under the button. */
 @media (max-width: 900px) {
-  .topnav { padding-right: 46px; }
+  .topnav { padding-right: 46px !important; }
 }
 @media (max-width: 600px) {
   body { font-size: 16px; margin: 16px auto; padding: 0 14px; }

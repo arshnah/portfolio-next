@@ -7,7 +7,7 @@ const LAYERS = [
   { depth: 0.58, clouds: ["c1", "c3"] },
 ];
 
-const SWEEP = 620;
+const MAX_SWEEP = 620;
 
 export default function DaySky() {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,9 +24,10 @@ export default function DaySky() {
       const doc = document.documentElement;
       const span = doc.scrollHeight - window.innerHeight;
       const progress = span > 0 ? Math.min(window.scrollY / span, 1) : 0;
+      const sweep = Math.min(MAX_SWEEP, window.innerWidth * 0.8);
       for (const layer of layers) {
         const depth = Number(layer.dataset.depth);
-        const x = progress * SWEEP * depth;
+        const x = progress * sweep * depth;
         const y = progress * -70 * depth;
         layer.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       }
