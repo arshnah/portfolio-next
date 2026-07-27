@@ -61,19 +61,23 @@ img, svg { max-width: 100%; }
     rgba(255,232,175,.30) 47%, rgba(255,221,155,.13) 63%, rgba(255,212,144,.04) 80%,
     rgba(255,208,140,0) 100%);
 }
+/* solid body, not glare — crisp edge, maria, and the glow kept outside it */
 .moon {
-  left: 24%; width: 96px; height: 96px; filter: blur(2px);
-  background: radial-gradient(circle at 40% 34%,
-    rgba(255,255,255,.88) 0%, rgba(240,244,255,.62) 20%, rgba(214,226,255,.32) 42%,
-    rgba(186,205,255,.13) 62%, rgba(170,194,255,.04) 80%, rgba(165,190,255,0) 100%);
+  left: 24%; width: 78px; height: 78px;
+  box-shadow: 0 0 34px 6px rgba(196,214,255,.30), inset -7px -5px 16px rgba(122,140,178,.34);
+  background:
+    radial-gradient(circle at 62% 28%, rgba(176,189,216,.46) 0 6px, transparent 7px),
+    radial-gradient(circle at 39% 57%, rgba(176,189,216,.38) 0 10px, transparent 11px),
+    radial-gradient(circle at 68% 65%, rgba(176,189,216,.30) 0 5px, transparent 6px),
+    radial-gradient(circle at 29% 33%, rgba(176,189,216,.26) 0 4px, transparent 5px),
+    radial-gradient(circle at 38% 32%, #fdfdff 0%, #f1f4ff 42%, #dfe5f6 70%, #c9d2e8 100%);
 }
 /* bloom, offset opposite the core so the light reads as directional */
-.sun::before, .moon::before {
+.sun::before {
   content: ""; position: absolute; left: 50%; top: 50%; border-radius: 50%;
   width: 480px; height: 480px; margin: -240px 0 0 -240px;
+  background: radial-gradient(circle at 62% 38%, rgba(255,228,158,.26) 0%, rgba(255,209,128,.10) 36%, rgba(255,196,116,0) 70%);
 }
-.sun::before  { background: radial-gradient(circle at 62% 38%, rgba(255,228,158,.26) 0%, rgba(255,209,128,.10) 36%, rgba(255,196,116,0) 70%); }
-.moon::before { background: radial-gradient(circle at 60% 40%, rgba(206,222,255,.20) 0%, rgba(180,202,255,.08) 36%, rgba(170,194,255,0) 70%); }
 /* the shaft, raking down-left off the disc */
 .sun::after {
   content: ""; position: absolute; left: 50%; top: 46%;
