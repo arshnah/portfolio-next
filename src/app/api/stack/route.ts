@@ -11,8 +11,8 @@ const API = "https://api.arshnah.in";
 const NOW = "https://now.arshnah.in";
 
 const THEMES = {
-  dark: { bg: "#0d1117", rule: "#30363d", head: "#58a6ff", key: "#d29922", num: "#58a6ff", ink: "#c9d1d9", mut: "#8b949e", faint: "#6e7681", art: "#6e7681" },
-  light: { bg: "#ffffff", rule: "#d8dee4", head: "#0969da", key: "#9a6700", num: "#0969da", ink: "#1f2328", mut: "#57606a", faint: "#8c959f", art: "#8c959f" },
+  dark: { bg: "#0d1117", rule: "#30363d", head: "#58a6ff", key: "#d29922", num: "#58a6ff", ink: "#c9d1d9", mut: "#8b949e", faint: "#6e7681", art: "#6e7681", artBg: "" },
+  light: { bg: "#ffffff", rule: "#d8dee4", head: "#0969da", key: "#9a6700", num: "#0969da", ink: "#1f2328", mut: "#57606a", faint: "#8c959f", art: "#9aa4af", artBg: "#0d1117" },
 };
 type Theme = typeof THEMES.dark;
 
@@ -189,6 +189,9 @@ export async function GET(req: Request) {
   const artTop = 62;
   const artW = Math.max(...ART.map((l) => l.length)) * 9.4 * 0.6;
   const artX = Math.round(RIGHT - artW);
+  // same reason as the neofetch card: the ramp assumes a dark ground, so on
+  // white the portrait would render as its own negative
+  if (t.artBg) out.push(`<rect x="${artX - 12}" y="${artTop - 15}" width="${Math.round(artW) + 24}" height="${ART.length * 9.4 + 18}" rx="10" fill="${t.artBg}"/>`);
   out.push(`<text class="art" xml:space="preserve" y="${artTop}">${ART.map((l, i) => `<tspan x="${artX}" dy="${i === 0 ? 0 : 9.4}">${xml(l)}</tspan>`).join("")}</text>`);
 
   y = 46;

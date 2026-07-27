@@ -4,8 +4,8 @@ const USER = process.env.NEXT_PUBLIC_GITHUB_USER || "arshnah";
 const TOKEN = process.env.GITHUB_TOKEN;
 
 const THEMES = {
-  dark: { bg: "#0d1117", stroke: "#21262d", rule: "#30363d", head: "#58a6ff", key: "#d29922", num: "#58a6ff", ink: "#c9d1d9", art: "#6e7681", dot: "#30363d" },
-  light: { bg: "#ffffff", stroke: "#d0d7de", rule: "#d8dee4", head: "#0969da", key: "#9a6700", num: "#0969da", ink: "#1f2328", art: "#8c959f", dot: "#d8dee4" },
+  dark: { bg: "#0d1117", stroke: "#21262d", rule: "#30363d", head: "#58a6ff", key: "#d29922", num: "#58a6ff", ink: "#c9d1d9", art: "#6e7681", dot: "#30363d", artBg: "" },
+  light: { bg: "#ffffff", stroke: "#d0d7de", rule: "#d8dee4", head: "#0969da", key: "#9a6700", num: "#0969da", ink: "#1f2328", art: "#9aa4af", dot: "#d8dee4", artBg: "#0d1117" },
 };
 
 const ART = [
@@ -151,6 +151,12 @@ function svg(s: Stats, t: typeof THEMES.dark) {
   const half = Math.floor((right - colX) / 2);
 
   const art = ART.map((l, i) => `<tspan x="${artX}" dy="${i === 0 ? 0 : ART_LH}">${xml(l)}</tspan>`).join("");
+  // the ramp maps bright pixels to dense glyphs, which only reads correctly on a
+  // dark ground — on white the same density looks like shadow and the portrait
+  // comes out a negative. so the art keeps its own dark panel in light mode.
+  const artPanel = t.artBg
+    ? `<rect x="${artX - 12}" y="${62 - ART_FS - 6}" width="${artW + 24}" height="${ART.length * ART_LH + 18}" rx="10" fill="${t.artBg}"/>`
+    : "";
 
   let y = 62;
   const parts: string[] = [];
@@ -193,6 +199,7 @@ function svg(s: Stats, t: typeof THEMES.dark) {
 </style>
 <rect width="${W}" height="${H}" fill="${t.bg}"/>
 <line x1="12" y1="0" x2="12" y2="${H}" stroke="${t.rule}" stroke-width="1.5"/>
+${artPanel}
 <text class="art" xml:space="preserve" y="62">${art}</text>
 ${parts.join("\n")}
 </svg>`;
