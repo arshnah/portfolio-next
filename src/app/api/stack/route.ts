@@ -154,17 +154,43 @@ async function github() {
 // column. a right-aligned value with a dotted leader cannot share a line with
 // art on the right, and mixing the two per-section is what made the blocks
 // look unrelated in the first place.
-function row(label: string, value: string, y: number, _t: Theme, cls = "v") {
-  return `<text x="${PAD}" y="${y}" class="bul">.</text>` +
-    `<text x="${PAD + CW * 1.6}" y="${y}" class="k">${xml(label + ":")}</text>` +
-    `<text x="${VALX}" y="${y}" class="${cls}">${xml(value)}</text>`;
+function row(label: string, value: string, y: number, _t: Theme, cls = "v", x = PAD, valx = VALX) {
+  return `<text x="${x}" y="${y}" class="bul">.</text>` +
+    `<text x="${x + CW * 1.6}" y="${y}" class="k">${xml(label + ":")}</text>` +
+    `<text x="${valx}" y="${y}" class="${cls}">${xml(value)}</text>`;
 }
 
-function head(title: string, right: string, y: number, t: Theme) {
+// A row whose value sits on the right edge with a dotted leader running to it.
+//
+// The four separate cards did this and the stack did not, and side by side it
+// is most of why they looked finished and this looked like a draft: a value
+// parked at a fixed column leaves the rest of the row as nothing, where a
+// leader makes the whole width mean something.
+function leaderRow(label: string, value: string, y: number, t: Theme, x: number, right: number, cls = "v") {
+  const from = x + CW * 1.6 + (label.length + 1) * CW + 10;
+  const to = right - value.length * CW - 10;
+  const dots = to > from + 14
+    ? `<line x1="${from}" y1="${y - 4}" x2="${to}" y2="${y - 4}" stroke="${t.rule}" stroke-dasharray="1 4" stroke-linecap="round"/>`
+    : "";
+  return `<text x="${x}" y="${y}" class="bul">.</text>` +
+    `<text x="${x + CW * 1.6}" y="${y}" class="k">${xml(label + ":")}</text>` +
+    dots +
+    `<text x="${right}" y="${y}" text-anchor="end" class="${cls}">${xml(value)}</text>`;
+}
+
+// A heading inside a section, with its rule running out to the edge. One block
+// of eight identical rows is a list; split into Contact and Stats it is
+// information with a shape.
+function subhead(label: string, y: number, x: number, right: number, t: Theme) {
+  return `<text x="${x}" y="${y}" class="sub">${xml(label)}</text>` +
+    `<line x1="${x + label.length * (CW + 0.8) + 12}" y1="${y - 5}" x2="${right}" y2="${y - 5}" stroke="${t.rule}" stroke-opacity="0.55"/>`;
+}
+
+function head(title: string, right: string, y: number, t: Theme, x = PAD) {
   const w = title.length * (CW + 1.4) + 16;
-  return `<text x="${PAD}" y="${y}" class="hd">${xml(title)}</text>` +
+  return `<text x="${x}" y="${y}" class="hd">${xml(title)}</text>` +
     `<text x="${RIGHT}" y="${y}" text-anchor="end" class="u">${xml(right)}</text>` +
-    `<line x1="${PAD + w}" y1="${y - 5}" x2="${RIGHT - right.length * 6.6 - 14}" y2="${y - 5}" stroke="${t.rule}"/>`;
+    `<line x1="${x + w}" y1="${y - 5}" x2="${RIGHT - right.length * 6.6 - 14}" y2="${y - 5}" stroke="${t.rule}"/>`;
 }
 
 const divider = (y: number, t: Theme) =>
@@ -317,93 +343,72 @@ export async function GET(req: Request) {
   let y = 0;
 
   // ── github ────────────────────────────────────────────────────────────────
+  //
+  // Portrait left, facts right — the way the four separate cards had it. Putting
+  // the art on the right and the rows on the left read as a draft beside them:
+  // the face is the heaviest thing in the image and it belongs where the eye
+  // starts, not trailing the text.
   const artTop = 62;
   const ART_COLS = Math.max(...ART.map((l) => l.length));
-  // The left column is budgeted against the art at its LARGEST. The art only
-  // ever shrinks from here, which moves it right and away — so the two can
-  // never overlap however the leading works out below.
-  const artX = Math.round(RIGHT - ART_COLS * 9.4 * 0.6);
+  const artLead = 9.4;
+  const artH = (ART.length - 1) * artLead;
+  const artW = Math.round(ART_COLS * artLead * 0.6);
+  const INFX = PAD + artW + 44;
+
+  if (t.artBg) {
+    out.push(`<rect x="${PAD - 12}" y="${artTop - 15}" width="${artW + 24}" height="${artH + 24}" rx="10" fill="${t.artBg}"/>`);
+  }
+  out.push(
+    `<text class="art" font-size="${artLead}" xml:space="preserve" y="${artTop}">${ART.map((l, i) => `<tspan x="${PAD}" dy="${i === 0 ? 0 : artLead}">${xml(l)}</tspan>`).join("")}</text>`,
+  );
 
   y = 46;
-  out.push(head(`${gh?.login || USER}@github`, "github.com", y, t));
+  out.push(head(`${gh?.login || USER}@github`, "github.com", y, t, INFX));
   y += 34;
   if (gh) {
-    for (const [k, v] of [["uptime", gh.uptime], ["location", gh.location], ["website", gh.site]] as [string, string][]) {
-      out.push(row(k, v, y, t)); y += ROW;
+    for (const [k, v] of [["uptime", gh.uptime], ["location", gh.location]] as [string, string][]) {
+      out.push(leaderRow(k, v, y, t, INFX, RIGHT)); y += ROW;
     }
 
-    // The bar starts at VALX like every other value in this block, and sits on
-    // the same row as its label instead of hanging below it. It was reading as
-    // a second, unlabelled thing.
-    const bar = langBar(gh.langs, VALX, y - BAR_H + 6, artX - 40 - VALX, t);
-    if (bar.svg) {
-      out.push(`<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">languages:</text>`);
-      out.push(bar.svg);
-      y += ROW + 6;
-    }
-    // The last commit lives here rather than under @now: it is a fact about the
-    // account, not about this minute. One line, not two — a message with its
-    // repo and age stacked underneath was a caption explaining a caption.
-    if (cm?.ok) {
-      out.push(row("shipped", clip(`${cm.message}  ·  ${cm.repo?.split("/")[1] || ""}  ·  ${cm.ago}`, Math.floor((artX - 60 - VALX) / CW)), y, t, "m"));
-      y += ROW;
-    }
+    const bar = langBar(gh.langs, INFX + CW * 1.6, y - BAR_H + 6, RIGHT - INFX - CW * 1.6, t);
+    if (bar.svg) { out.push(bar.svg); y += ROW + 8; }
 
+    y += 8;
+    out.push(subhead("contact", y, INFX, RIGHT, t)); y += 26;
+    out.push(leaderRow("website", gh.site, y, t, INFX, RIGHT)); y += ROW;
+    out.push(leaderRow("github", `github.com/${gh.login}`, y, t, INFX, RIGHT)); y += ROW;
+
+    y += 8;
+    out.push(subhead("stats", y, INFX, RIGHT, t)); y += 8;
     const counts: [string, string][] = [
       ["repos", String(gh.repos)],
       ["stars", String(gh.stars)],
       ["followers", String(gh.followers)],
     ];
     if (gh.commits !== null) counts.push(["commits", String(gh.commits)]);
-    // Captions sit 15px under the numerals, so whatever follows has to clear
-    // both — clearing only the numerals is what had `shipped:` landing on the
-    // caption line, two unrelated things reading as one.
-    out.push(stats(counts, PAD + CW * 1.6, y + 22, Math.floor((artX - 40 - PAD) / counts.length)));
+    out.push(stats(counts, INFX, y + 26, Math.floor((RIGHT - INFX) / counts.length)));
     y += 62;
 
-    // The year, in the column beside the portrait rather than as its own band
-    // across the bottom. Cells are sized to fit that column, which is also what
-    // makes the column tall enough to meet the art with nothing padded.
-    // 8+2 keeps 53 weeks inside artX, which is the portrait at its widest. The
-    // portrait only ever shrinks from there, so the two cannot collide however
-    // the derived leading lands — sizing against the FINAL art position instead
-    // would be circular, since that position depends on this block's height.
-    const map = heatmap((cb?.days as Day[]) ?? [], PAD + CW * 1.6, y + 14, t, 8, 2);
-    if (map.svg) {
-      out.push(map.svg);
-      y += map.height + 22;
-      out.push(`<text x="${PAD + CW * 1.6}" y="${y}" class="cap">${xml(`${cb.total} contributions in the last year`)}</text>`);
-      y += 10;
+    if (cm?.ok) {
+      out.push(row("shipped", clip(`${cm.message}  ·  ${cm.repo?.split("/")[1] || ""}  ·  ${cm.ago}`, Math.floor((RIGHT - INFX - 110) / CW)), y, t, "m", INFX, INFX + 110));
+      y += ROW;
     }
   } else {
     out.push(row("github", "stats unavailable", y, t, "m")); y += ROW;
   }
 
-  // The portrait is drawn LAST, and its line height comes from how tall the
-  // column beside it actually turned out.
-  //
-  // It used to be a fixed 9.4px, which made it the taller of the two and left a
-  // block of nothing under the stats — the kind of gap that gets defended as
-  // breathing room and is really just a gap. Deriving the leading means the two
-  // columns end together no matter what the left one grows into, and the clamp
-  // keeps the face readable rather than letting a short column crush it.
-  // Font size tracks the leading rather than staying at 9.4. Tightening the
-  // leading alone would just overlap the glyphs and turn the face to mud; the
-  // ratio between the two is what keeps a monospace portrait legible, so both
-  // move together and the art scales instead of squashing.
-  const artLead = Math.min(9.4, Math.max(8.8, (y - artTop) / (ART.length - 1)));
-  const artH = (ART.length - 1) * artLead;
-  const artW = ART_COLS * artLead * 0.6;
-  const artLeft = Math.round(RIGHT - artW);
-
-  if (t.artBg) {
-    out.push(`<rect x="${artLeft - 12}" y="${artTop - 15}" width="${Math.round(artW) + 24}" height="${artH + 24}" rx="10" fill="${t.artBg}"/>`);
+  // The year runs the full width under both, which is the one place it can be
+  // 53 weeks wide without fighting the portrait for room.
+  y = Math.max(y, artTop + artH) + 30;
+  const map = heatmap((cb?.days as Day[]) ?? [], PAD, y, t, 13, 3);
+  if (map.svg) {
+    out.push(map.svg);
+    y += map.height + 18;
+    out.push(`<text x="${RIGHT}" y="${y}" text-anchor="end" class="cap">${xml(`${cb.total} contributions in the last year`)}</text>`);
+    y += 8;
   }
-  out.push(
-    `<text class="art" font-size="${artLead.toFixed(2)}" xml:space="preserve" y="${artTop}">${ART.map((l, i) => `<tspan x="${artLeft}" dy="${i === 0 ? 0 : artLead}">${xml(l)}</tspan>`).join("")}</text>`,
-  );
 
-  y = Math.max(y, artTop + artH) + 26;
+  y += 26;
 
   // ── last.fm ───────────────────────────────────────────────────────────────
   out.push(divider(y, t)); y += 40;
@@ -490,6 +495,7 @@ export async function GET(req: Request) {
   .art{font:400 9.4px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:${t.art}}
   .big{font:700 23px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:${t.key}}
   .cap{font:400 10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:${t.faint};letter-spacing:0.08em}
+  .sub{font:700 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:${t.mut};letter-spacing:0.12em}
 </style>
 <defs>
   <filter id="grain" x="0" y="0" width="100%" height="100%">
