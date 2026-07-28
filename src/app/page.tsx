@@ -19,7 +19,7 @@ export default function Home() {
         <span style={{ display: "flex", gap: 16, fontSize: 14, flexWrap: "wrap" }}>
           <a href="#work">Work</a>
           <a href="#writing">Blog</a>
-          <a href="/grain">Grain</a>
+          {/* <a href="/grain">Grain</a> */}
           <a href="/resume">Résumé</a>
           <a href="#contact">Contact</a>
         </span>
