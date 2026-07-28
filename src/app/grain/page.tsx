@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "grain — the design language behind arshnah.in",
+  title: "grain, the design language behind arshnah.in",
   description:
-    "The design system every arshnah surface is held to: spine vs skin, one accent per project, the tells never to ship. With the real components and their code.",
+    "The design system every arshnah surface is held to. Spine vs skin, one accent per project, the tells never to ship, and the real components with their code.",
 };
 
 // Each project's own tokens. Rendered in its own skin rather than translated
 // into the portfolio's, because a material shown in someone else's colours is
-// not the material — and spine vs skin is the entire idea being demonstrated.
+// not the material, and spine vs skin is the entire idea being demonstrated.
 const materials = [
   {
     name: "cipherdrop",
@@ -52,7 +52,7 @@ const components = [
   },
   {
     name: "the leader row",
-    use: "a label and a value. the leader is what makes the whole width mean something.",
+    use: "a label and a value, with dots carrying one to the other.",
     code: `<div className="lrow">
   <span className="k">uptime</span>
   <span className="dots" />          {/* border-bottom: 1px dotted */}
@@ -98,7 +98,7 @@ export default function Grain() {
         .grain .idea{border-left:2px solid var(--link);padding-left:14px;margin:0 0 4px}
         .grain .idea p{margin:0 0 6px}
 
-        /* every specimen is its own skin — the tokens come from the block, not the page */
+        /* every specimen is its own skin. the tokens come from the block, not the page */
         .spec{background:var(--s-bg);border:1px solid var(--s-line);padding:16px 18px;margin:0 0 12px;
           border-radius:var(--s-radius);color:var(--s-ink);font-family:var(--s-face)}
         .spec .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
@@ -139,25 +139,26 @@ export default function Grain() {
       <h1>grain</h1>
       <p className="lede">
         the design language every arshnah surface is held to. it exists because the sites kept coming out
-        looking generated — smooth, centred, safe — and no amount of picking better colours fixed that.
+        looking generated, and no amount of picking better colours fixed that.
       </p>
 
       <h2>the one idea</h2>
       <div className="idea">
         <p>
-          generated design is smooth, centred and safe. hand-made design has grain: asymmetry, a signature,
-          one rough edge that is obviously a choice.
+          generated design is smooth, centered, and safe. hand made design has grain: asymmetry, a signature,
+          one rough edge that is obviously a choice. every screen needs some.
         </p>
         <p style={{ color: "var(--muted)" }}>
-          be a system without becoming twins — a shared <b>spine</b> (the anti-template rules, type
-          discipline, near-monochrome colour, real texture) and a per-project <b>skin</b> (layout, palette,
-          material, one signature move). the spine is what makes them mine. the skin is what keeps them apart.
+          be a system without becoming twins. a shared <b>spine</b> (the anti template rules, type
+          discipline, near monochrome color, real texture) and a per project <b>skin</b> (layout, palette,
+          material, the signature move). the spine is what makes them mine. the skin is what keeps them apart.
         </p>
       </div>
 
       <h2>materials</h2>
       <p className="lede" style={{ margin: "0 0 14px" }}>
-        each one below is drawn in its own tokens, not the page&apos;s. that is the point being made.
+        each one below is drawn in its own tokens, not the page&apos;s. showing a material in someone
+        else&apos;s colours is not the material.
       </p>
       {materials.map((m) => (
         <div
@@ -176,7 +177,7 @@ export default function Grain() {
             <span className="mat">{m.material}</span>
             <span className="where">{m.where}</span>
           </div>
-          <p className="sig">signature — {m.signature}</p>
+          <p className="sig">signature: {m.signature}</p>
           <div className="chips">
             <span className="chip"><span className="sw" />{m.v.accent}</span>
             <span className="chip">bg {m.v.bg}</span>
@@ -221,8 +222,8 @@ export default function Grain() {
             </p>
           </div>
           <p className="why">
-            a rounded card with a centred icon in a tinted square is the most generated thing on the
-            internet. a rail carries the same information and is a decision.
+            a rounded card with a centred icon in a tinted square came with the template. nobody chose it.
+            the rail carries the same information and somebody had to decide on it.
           </p>
         </div>
       </div>
@@ -241,8 +242,8 @@ export default function Grain() {
           <div className="lrow"><span>repos</span><span className="dots" /><span className="v">17</span></div>
           <div className="lrow"><span>stars</span><span className="dots" /><span className="v">6</span></div>
           <p className="why">
-            a value parked at a fixed column leaves the rest of the row as nothing. a leader makes the
-            whole width mean something — and a list where a proportion would do says less than a bar.
+            a value parked at a fixed column leaves the rest of the row as nothing. the dots give the
+            whole width a job. and a list where a proportion would do says less than a bar.
           </p>
         </div>
       </div>
@@ -260,8 +261,8 @@ export default function Grain() {
             more when there is something worth putting here.
           </p>
           <p className="why">
-            an empty promise holding a grid cell open is still empty. every space earns its keep, and the
-            answer to a gap is fewer, bigger things — not more, smaller ones.
+            an empty promise holding a grid cell open is still empty. every space earns its keep, and a
+            gap closes with fewer, bigger things. more small ones just make it look busy.
           </p>
         </div>
       </div>
@@ -275,7 +276,7 @@ export default function Grain() {
       </ol>
 
       <p style={{ color: "var(--faint)", fontSize: 13, marginTop: 28 }}>
-        the full rules live in <code>project-notes/grain.md</code>. it is a living file — when something
+        the full rules live in <code>project-notes/grain.md</code>. it is a living file. when something
         turns out to look generated, the fix goes in there before it goes anywhere else.
       </p>
     </div>
