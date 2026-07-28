@@ -422,10 +422,29 @@ export async function GET(req: Request) {
     y = Math.max(y, coverY + sz + 22);
   } else y += 8;
 
-  // ── focus ─────────────────────────────────────────────────────────────────
+  // ── now ───────────────────────────────────────────────────────────────────
+  //
+  // focus and now were two sections, and both carried the same "now.arshnah.in"
+  // on the right — which is the tell that they were always one. Split, the
+  // second was two rows paying for a header and a divider, the thinnest block in
+  // the image. Together the live facts read as the lead and the sentences as
+  // what they are about.
   out.push(divider(y, t)); y += 40;
-  out.push(head(`${USER}@focus`, "now.arshnah.in", y, t));
+  out.push(head(`${USER}@now`, "now.arshnah.in", y, t));
   y += 34;
+
+  const time = new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: true }).toLowerCase();
+  const st = dc?.status || "offline";
+  out.push(`<circle cx="${VALX + 5}" cy="${y - 5}" r="4.5" fill="${DOT[st] || DOT.offline}"/>` +
+    `<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">status:</text>` +
+    `<text x="${VALX + 20}" y="${y}" class="v">${xml(`${STATUS[st] || st}  ·  ${time} ist`)}</text>`);
+  y += ROW;
+  if (wk?.ok && wk.text) {
+    out.push(`<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">coding:</text><text x="${VALX}" y="${y}" class="v">${xml(clip(`${wk.text}${wk.range === "week" ? " this week" : " today"}${wk.language ? `  ·  mostly ${wk.language}` : ""}`, 70))}</text>`);
+    y += ROW;
+  }
+  y += 6;
+
   const wrap = (s: string, n: number) => {
     const words = s.split(/\s+/); const lines: string[] = []; let cur = "";
     for (const w of words) { if ((cur + " " + w).trim().length > n) { lines.push(cur.trim()); cur = w; } else cur += " " + w; }
@@ -439,22 +458,6 @@ export async function GET(req: Request) {
     out.push(`<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">${k}:</text>`);
     ls.forEach((l, i) => out.push(`<text x="${VALX}" y="${y + i * 22}" class="${cls}">${xml(l)}</text>`));
     y += ls.length * 22 + 8;
-  }
-  y += 12;
-
-  // ── now ───────────────────────────────────────────────────────────────────
-  out.push(divider(y, t)); y += 40;
-  out.push(head(`${USER}@now`, "now.arshnah.in", y, t));
-  y += 34;
-  const time = new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: true }).toLowerCase();
-  const st = dc?.status || "offline";
-  out.push(`<circle cx="${VALX + 5}" cy="${y - 5}" r="4.5" fill="${DOT[st] || DOT.offline}"/>` +
-    `<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">status:</text>` +
-    `<text x="${VALX + 20}" y="${y}" class="v">${xml(`${STATUS[st] || st}  ·  ${time} ist`)}</text>`);
-  y += ROW;
-  if (wk?.ok && wk.text) {
-    out.push(`<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">coding:</text><text x="${VALX}" y="${y}" class="v">${xml(clip(`${wk.text}${wk.range === "week" ? " this week" : " today"}${wk.language ? `  ·  mostly ${wk.language}` : ""}`, 70))}</text>`);
-    y += ROW;
   }
 
   const H = Math.round(y + 20);
