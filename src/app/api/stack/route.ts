@@ -272,7 +272,10 @@ function heatmap(days: Day[], x: number, y: number, t: Theme) {
   const cells = days.map((d, i) => {
     const n = i + offset;
     const on = d.level > 0;
-    return `<rect x="${x + Math.floor(n / 7) * STEP}" y="${y + (n % 7) * STEP}" width="${CELL}" height="${CELL}" rx="2" fill="${on ? t.key : t.rule}" fill-opacity="${on ? LEVEL_OPACITY[Math.min(d.level, 4)] : 0.3}"/>`;
+    // Empty days are grid, not data. At any real weight they turn a mostly
+    // quiet year into a slab of grey with the actual work lost inside it, so
+    // they sit just above the background and the amber carries the eye.
+    return `<rect x="${x + Math.floor(n / 7) * STEP}" y="${y + (n % 7) * STEP}" width="${CELL}" height="${CELL}" rx="2" fill="${on ? t.key : t.rule}" fill-opacity="${on ? LEVEL_OPACITY[Math.min(d.level, 4)] : 0.22}"/>`;
   });
 
   const weeks = Math.ceil((days.length + offset) / 7);
@@ -330,8 +333,11 @@ export async function GET(req: Request) {
     ];
     if (gh.commits !== null) counts.push(["commits", String(gh.commits)]);
     // Kept inside the left column so it cannot run under the portrait.
-    out.push(stats(counts, PAD + CW * 1.6, y + 14, Math.floor((artX - 40 - PAD) / counts.length)));
-    y += 46;
+    // The captions sit 15px under the numerals, so the next row has to clear
+    // both. It cleared only the numerals, and `shipped:` landed on the caption
+    // line — two unrelated things reading as one.
+    out.push(stats(counts, PAD + CW * 1.6, y + 16, Math.floor((artX - 40 - PAD) / counts.length)));
+    y += 62;
 
     // The last commit lives here rather than under @now, where it used to sit.
     // It is a fact about the github account, not about this minute, and putting
@@ -406,7 +412,10 @@ export async function GET(req: Request) {
     y += ROW;
   }
   if (cover) {
-    const sz = 78;
+    // Sized to the rows beside it rather than left at a thumbnail. Three short
+    // rows and a small square left most of this band empty, and the cover is
+    // the one thing in the image that is a picture — it can carry that width.
+    const sz = 112;
     out.push(`<clipPath id="cv"><rect x="${RIGHT - sz}" y="${coverY}" width="${sz}" height="${sz}" rx="8"/></clipPath>` +
       `<image href="${cover}" x="${RIGHT - sz}" y="${coverY}" width="${sz}" height="${sz}" clip-path="url(#cv)" preserveAspectRatio="xMidYMid slice"/>` +
       `<rect x="${RIGHT - sz}" y="${coverY}" width="${sz}" height="${sz}" rx="8" fill="none" stroke="${t.rule}"/>`);
