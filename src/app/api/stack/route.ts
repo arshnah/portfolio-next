@@ -196,30 +196,25 @@ function langBar(langs: [string, number][], x: number, y: number, width: number,
 
   const total = langs.reduce((s, [, n]) => s + n, 0) || 1;
   const bar: string[] = [];
-  const legend: string[] = [];
   let cx = x;
 
-  langs.forEach(([name, n], i) => {
-    // Every segment stays readable: without a floor, a one-repo language at the
-    // tail renders as a two-pixel sliver you cannot see or name.
+  langs.forEach(([, n], i) => {
+    // Every segment stays visible: without a floor, a one-repo language at the
+    // tail renders as a two-pixel sliver.
     const w = Math.max(14, Math.round((n / total) * width));
-    const op = LEVEL_OPACITY[Math.max(1, 4 - i)];
-    bar.push(`<rect x="${cx}" y="${y}" width="${Math.min(w, x + width - cx)}" height="9" rx="2" fill="${t.key}" fill-opacity="${op}"/>`);
+    bar.push(`<rect x="${cx}" y="${y}" width="${Math.min(w, x + width - cx)}" height="9" rx="2" fill="${t.key}" fill-opacity="${LEVEL_OPACITY[Math.max(1, 4 - i)]}"/>`);
     cx += w + 2;
-
-    // Two per line — five language names will not fit across one column.
-    const col = i % 2;
-    const line = Math.floor(i / 2);
-    const lx = x + col * Math.round(width / 2);
-    const ly = y + 26 + line * 18;
-    legend.push(
-      `<rect x="${lx}" y="${ly - 8}" width="8" height="8" rx="2" fill="${t.key}" fill-opacity="${op}"/>` +
-        `<text x="${lx + 14}" y="${ly}" class="m">${xml(name)}</text>`,
-    );
   });
 
-  const lines = Math.ceil(langs.length / 2);
-  return { svg: bar.join("") + legend.join(""), height: 26 + lines * 18 };
+  // The names go on one faint line, in the bar's own order, with no swatches.
+  // A five-row key with a coloured square per language was three lines of
+  // furniture explaining a graphic that is already ordered largest-first — if
+  // a bar needs a legend, the bar is doing it wrong.
+  const names = langs.map(([name]) => name).join("   ");
+  return {
+    svg: bar.join("") + `<text x="${x}" y="${y + 24}" class="cap">${xml(names)}</text>`,
+    height: 32,
+  };
 }
 
 type Day = { date: string; count: number; level: number };
@@ -234,16 +229,16 @@ type Day = { date: string; count: number; level: number };
 // One accent at four opacities rather than four colours: grain allows exactly
 // one accent, and a level is a quantity, which opacity says more honestly than
 // hue does.
-// Sized so 53 weeks land just short of the right margin rather than stopping
-// two thirds across, which read as an accident instead of a choice.
-const CELL = 13;
-const GAP = 3;
-const STEP = CELL + GAP;
+// Sized by the caller. It used to run the full width as its own band, which
+// made it a fifth section competing with the four real ones; it belongs inside
+// the github block, in the column beside the portrait, where it is the thing
+// that makes that column tall enough to meet the art without padding.
 const LEVEL_OPACITY = [0, 0.3, 0.52, 0.76, 1];
 
 const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
-function heatmap(days: Day[], x: number, y: number, t: Theme) {
+function heatmap(days: Day[], x: number, y: number, t: Theme, CELL: number, GAP: number) {
+  const STEP = CELL + GAP;
   if (!days.length) return { svg: "", height: 0, weeks: 0 };
 
   // Column 0 has to start on a Sunday or every square lands on the wrong
@@ -326,30 +321,39 @@ export async function GET(req: Request) {
       out.push(bar.svg);
       y += bar.height;
     }
+    // The last commit lives here rather than under @now: it is a fact about the
+    // account, not about this minute. One line, not two — a message with its
+    // repo and age stacked underneath was a caption explaining a caption.
+    if (cm?.ok) {
+      out.push(row("shipped", clip(`${cm.message}  ·  ${cm.repo?.split("/")[1] || ""}  ·  ${cm.ago}`, Math.floor((artX - 60 - VALX) / CW)), y, t, "m"));
+      y += ROW;
+    }
+
     const counts: [string, string][] = [
       ["repos", String(gh.repos)],
       ["stars", String(gh.stars)],
       ["followers", String(gh.followers)],
     ];
     if (gh.commits !== null) counts.push(["commits", String(gh.commits)]);
-    // Kept inside the left column so it cannot run under the portrait.
-    // The captions sit 15px under the numerals, so the next row has to clear
-    // both. It cleared only the numerals, and `shipped:` landed on the caption
-    // line — two unrelated things reading as one.
-    out.push(stats(counts, PAD + CW * 1.6, y + 16, Math.floor((artX - 40 - PAD) / counts.length)));
+    // Captions sit 15px under the numerals, so whatever follows has to clear
+    // both — clearing only the numerals is what had `shipped:` landing on the
+    // caption line, two unrelated things reading as one.
+    out.push(stats(counts, PAD + CW * 1.6, y + 22, Math.floor((artX - 40 - PAD) / counts.length)));
     y += 62;
 
-    // The last commit lives here rather than under @now, where it used to sit.
-    // It is a fact about the github account, not about this minute, and putting
-    // it back with its own kind is also what lets the portrait stay full size —
-    // the column beside it is now tall enough to meet it.
-    if (cm?.ok) {
-      const w = Math.floor((artX - 60 - VALX) / CW);
-      out.push(`<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">shipped:</text>`);
-      out.push(`<text x="${VALX}" y="${y}" class="v">${xml(clip(cm.message, w))}</text>`);
-      y += 20;
-      out.push(`<text x="${VALX}" y="${y}" class="cap">${xml(`${cm.repo?.split("/")[1] || ""}  ·  ${cm.ago}`)}</text>`);
-      y += 18;
+    // The year, in the column beside the portrait rather than as its own band
+    // across the bottom. Cells are sized to fit that column, which is also what
+    // makes the column tall enough to meet the art with nothing padded.
+    // 8+2 keeps 53 weeks inside artX, which is the portrait at its widest. The
+    // portrait only ever shrinks from there, so the two cannot collide however
+    // the derived leading lands — sizing against the FINAL art position instead
+    // would be circular, since that position depends on this block's height.
+    const map = heatmap((cb?.days as Day[]) ?? [], PAD + CW * 1.6, y + 14, t, 8, 2);
+    if (map.svg) {
+      out.push(map.svg);
+      y += map.height + 22;
+      out.push(`<text x="${PAD + CW * 1.6}" y="${y}" class="cap">${xml(`${cb.total} contributions in the last year`)}</text>`);
+      y += 10;
     }
   } else {
     out.push(row("github", "stats unavailable", y, t, "m")); y += ROW;
@@ -380,15 +384,6 @@ export async function GET(req: Request) {
   );
 
   y = Math.max(y, artTop + artH) + 26;
-
-  // The year, full width under both columns.
-  const map = heatmap((cb?.days as Day[]) ?? [], PAD, y, t);
-  if (map.svg) {
-    out.push(map.svg);
-    const label = `${cb.total} contributions in the last year`;
-    out.push(`<text x="${RIGHT}" y="${y + map.height + 16}" text-anchor="end" class="cap">${xml(label)}</text>`);
-    y += map.height + 26;
-  }
 
   // ── last.fm ───────────────────────────────────────────────────────────────
   out.push(divider(y, t)); y += 40;
