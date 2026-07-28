@@ -191,30 +191,49 @@ function stats(items: [string, string][], x: number, y: number, colW: number) {
 // times their height left an obvious hole under them — asymmetry is fine, a gap
 // is not, and the difference is whether anything lives there. Real data beats
 // spacing the rows out to cover it.
+const BAR_H = 20;
+
+// Languages as one labelled bar.
+//
+// Two wrong turns before this. A five-item key with a coloured square each was
+// three lines of furniture. Replacing it with a run of names underneath was
+// worse: a bar and a word list with nothing tying one to the other, so you could
+// see there were proportions and never which was which.
+//
+// The name belongs inside its own segment. Then nothing needs explaining, and
+// the segments too narrow to hold a word are the ones small enough not to
+// matter — the bar still shows they exist.
 function langBar(langs: [string, number][], x: number, y: number, width: number, t: Theme) {
   if (!langs.length) return { svg: "", height: 0 };
 
   const total = langs.reduce((s, [, n]) => s + n, 0) || 1;
-  const bar: string[] = [];
+  const parts: string[] = [];
   let cx = x;
 
-  langs.forEach(([, n], i) => {
-    // Every segment stays visible: without a floor, a one-repo language at the
-    // tail renders as a two-pixel sliver.
-    const w = Math.max(14, Math.round((n / total) * width));
-    bar.push(`<rect x="${cx}" y="${y}" width="${Math.min(w, x + width - cx)}" height="9" rx="2" fill="${t.key}" fill-opacity="${LEVEL_OPACITY[Math.max(1, 4 - i)]}"/>`);
+  langs.forEach(([name, n], i) => {
+    // A floor so a one-repo language is still a visible sliver rather than
+    // nothing, and a cap so rounding cannot push the last segment past the end.
+    const w = Math.min(Math.max(14, Math.round((n / total) * width)), x + width - cx);
+    if (w <= 0) return;
+
+    const op = LEVEL_OPACITY[Math.max(1, 4 - i)];
+    parts.push(`<rect x="${cx}" y="${y}" width="${w}" height="${BAR_H}" rx="3" fill="${t.key}" fill-opacity="${op}"/>`);
+
+    // 11px mono runs about 6.6px a character. Only label a segment that can
+    // hold the whole word with room to breathe; a clipped or crammed name is
+    // worse than an unlabelled block.
+    const textW = name.length * 6.6;
+    if (w > textW + 14) {
+      // Dark type on the solid end of the ramp, light on the faint end — the
+      // segments are one colour at four strengths, so legibility flips halfway.
+      parts.push(
+        `<text x="${cx + 8}" y="${y + BAR_H - 6}" font-size="11" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" fill="${op >= 0.7 ? t.bg : t.ink}">${xml(name)}</text>`,
+      );
+    }
     cx += w + 2;
   });
 
-  // The names go on one faint line, in the bar's own order, with no swatches.
-  // A five-row key with a coloured square per language was three lines of
-  // furniture explaining a graphic that is already ordered largest-first — if
-  // a bar needs a legend, the bar is doing it wrong.
-  const names = langs.map(([name]) => name).join("   ");
-  return {
-    svg: bar.join("") + `<text x="${x}" y="${y + 24}" class="cap">${xml(names)}</text>`,
-    height: 32,
-  };
+  return { svg: parts.join(""), height: BAR_H };
 }
 
 type Day = { date: string; count: number; level: number };
@@ -313,13 +332,14 @@ export async function GET(req: Request) {
       out.push(row(k, v, y, t)); y += ROW;
     }
 
-    const colW = artX - 40 - PAD;
-    const bar = langBar(gh.langs, PAD + CW * 1.6, y + 2, colW - CW * 1.6, t);
+    // The bar starts at VALX like every other value in this block, and sits on
+    // the same row as its label instead of hanging below it. It was reading as
+    // a second, unlabelled thing.
+    const bar = langBar(gh.langs, VALX, y - BAR_H + 6, artX - 40 - VALX, t);
     if (bar.svg) {
       out.push(`<text x="${PAD}" y="${y}" class="bul">.</text><text x="${PAD + CW * 1.6}" y="${y}" class="k">languages:</text>`);
-      y += 12;
       out.push(bar.svg);
-      y += bar.height;
+      y += ROW + 6;
     }
     // The last commit lives here rather than under @now: it is a fact about the
     // account, not about this minute. One line, not two — a message with its
