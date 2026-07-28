@@ -7,14 +7,21 @@
   --bg:#ffffff; --card:#f4f4f4; --ink:#111111; --muted:#555555; --faint:#6e6e6e;
   --link:#0000ee; --visited:#551a8b; --line:#cccccc; --field:#ffffff; --field-bd:#808080;
 }
+/* dusk palette — warm plum instead of the dark theme's cool near-black, amber
+   link instead of blue. optional third state, off the same toggle cycle. */
+:root[data-theme="sunset"] {
+  --bg:#241220; --card:#341c30; --ink:#f7e8dc; --muted:#c9a3a8; --faint:#a3808a;
+  --link:#ffb37a; --visited:#e0a3d6; --line:#4a2740; --field:#2c1626; --field-bd:#5c3350;
+}
 
 /* github activity heatmap — blue 5-level scale + count colour */
 :root { --gh-0:#1e2130; --gh-1:#1f3f66; --gh-2:#2f6fc0; --gh-3:#4a9eff; --gh-4:#8fc8ff; --gh-count:#3fb950; }
 :root[data-theme="light"] { --gh-0:#ebedf0; --gh-1:#bcd8ff; --gh-2:#6aa6f0; --gh-3:#2f6fc0; --gh-4:#1a4d8f; --gh-count:#1a7f37; }
+:root[data-theme="sunset"] { --gh-0:#3a2436; --gh-1:#7a3a2e; --gh-2:#c05a30; --gh-3:#ff8a3d; --gh-4:#ffc276; --gh-count:#ffb454; }
 
-/* snaps going dark so it's already there under the fading sky, lags going light so the white never shows */
-html { background: var(--bg); overflow-x: hidden; transition: background-color 0s; }
-html[data-theme="light"] { transition: background-color .8s ease; }
+/* every direction fades the same slow way now — dusk into night, night into
+   dawn, dawn into the gold of sunset — instead of snapping straight to dark */
+html { background: var(--bg); overflow-x: hidden; transition: background-color 1s ease; }
 body {
   background: transparent;
   color: var(--ink);
@@ -31,9 +38,12 @@ pre { overflow-wrap: normal; }
 img, svg { max-width: 100%; }
 
 /* starry sky: fixed behind everything, only in dark mode */
-/* incoming sky fades fast, outgoing one lingers — neither swap exposes the bg */
-.starfield { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; transition: opacity .35s ease; }
-:root[data-theme="light"] .starfield { opacity: 0; transition: opacity .9s ease; }
+/* every swap fades at the same unhurried pace now, in or out — a real dusk
+   or dawn takes its time either direction, not just on the way to light */
+.starfield { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; transition: opacity 1s ease; }
+:root[data-theme="light"] .starfield { opacity: 0; }
+/* dusk: the first stars are out but the sky isn't dark yet */
+:root[data-theme="sunset"] .starfield { opacity: .45; }
 
 /* three fixed layers, all z-index -1, painted in DOM order:
    gradient, then sun/moon, then clouds — so clouds pass in front of the sun */
@@ -41,12 +51,19 @@ img, svg { max-width: 100%; }
   position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
 }
 .skygrad {
-  opacity: 0; transition: opacity .55s ease;
+  opacity: 0; transition: opacity 1s ease;
   background: linear-gradient(180deg, #bfe0ff 0%, #d8ecff 32%, #eef7ff 66%, #ffffff 100%);
 }
-.daysky { opacity: 0; transition: opacity .55s ease; }
+.daysky { opacity: 0; transition: opacity 1s ease; }
 :root[data-theme="light"] .skygrad,
-:root[data-theme="light"] .daysky { opacity: 1; transition: opacity .22s ease; }
+:root[data-theme="light"] .daysky { opacity: 1; }
+:root[data-theme="sunset"] .skygrad,
+:root[data-theme="sunset"] .daysky { opacity: 1; }
+/* sunset gets its own gradient — plum overhead down to a hot amber horizon,
+   instead of the light theme's pale blue day sky */
+:root[data-theme="sunset"] .skygrad {
+  background: linear-gradient(180deg, #241a3a 0%, #4a2748 30%, #8a3f52 58%, #d9713f 82%, #ffb15c 100%);
+}
 
 /* bodies never fade — they rise and set, so this layer stays lit in both themes */
 .sun, .moon, .moonglow {
@@ -100,13 +117,22 @@ img, svg { max-width: 100%; }
 :root[data-theme="light"] .moon,
 :root[data-theme="light"] .moonglow { transform: translateY(88vh) scale(.82); opacity: 0; }
 
+/* sunset: the sun sits low and big near the horizon instead of overhead, and
+   the moon is already faintly up on the other side — the one moment both are
+   visible at once */
+:root[data-theme="sunset"] .sun { transform: translateY(46vh) scale(1.3); opacity: 1; }
+:root[data-theme="sunset"] .moon,
+:root[data-theme="sunset"] .moonglow { transform: translateY(18vh) scale(.62); opacity: .5; }
+
 /* warm horizon wash — fires on both swaps, since sunset is as warm as sunrise */
 .dawn {
-  position: absolute; inset: 0; opacity: 0;
+  position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease;
   background: linear-gradient(180deg, rgba(255,183,94,0) 18%, rgba(255,166,89,.22) 56%, rgba(255,124,82,.34) 100%);
 }
 :root[data-swap] .dawn { animation: dawnwash 1.6s ease-out both; }
 @keyframes dawnwash { 0% { opacity: 0 } 30% { opacity: 1 } 100% { opacity: 0 } }
+/* sunset keeps a permanent low wash instead of only flashing it on swap */
+:root[data-theme="sunset"] .dawn { opacity: .6; }
 
 /* scroll parallax rides the layer, drift stays on the cloud — no transform fight */
 .cloud-layer { position: absolute; inset: 0; will-change: transform; }
@@ -123,6 +149,10 @@ img, svg { max-width: 100%; }
 .c6 { top: 82%; width: 80px;  opacity: .65; animation: drift 212s linear infinite; animation-delay: -30s; }
 /* starts far enough left that the deepest layer's +360px scroll shift can't bare the left edge */
 @keyframes drift { from { transform: translateX(-700px); } to { transform: translateX(calc(100vw + 240px)); } }
+
+/* sunset: recolour the same white clouds warm instead of painting new ones —
+   sepia+hue-rotate grades the rendered pixels, box-shadow copies included */
+:root[data-theme="sunset"] .cloud { filter: blur(5px) sepia(1) saturate(2.4) hue-rotate(-14deg) brightness(.94); }
 
 /* phones: everything in the sky is sized for a 1900px viewport, so scale it
    down or the sun runs off the right edge and the bloom is wider than the
@@ -160,7 +190,10 @@ img, svg { max-width: 100%; }
   .sun, .moon, .moonglow { transition: opacity .3s ease; transform: none; }
   :root[data-theme="light"] .sun,
   :root[data-theme="light"] .moon,
-  :root[data-theme="light"] .moonglow { transform: none; }
+  :root[data-theme="light"] .moonglow,
+  :root[data-theme="sunset"] .sun,
+  :root[data-theme="sunset"] .moon,
+  :root[data-theme="sunset"] .moonglow { transform: none; }
   :root[data-swap] .dawn { animation: none; }
 }
 

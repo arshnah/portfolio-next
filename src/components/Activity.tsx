@@ -25,9 +25,9 @@ export default function Activity() {
   // server and client render identically during hydration
   const [ci, setCi] = useState(0);
   useEffect(() => { setCi(Math.floor(Math.random() * MUSIC_DARK.length)); }, []);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark" | "sunset">("dark");
   useEffect(() => {
-    const read = () => setTheme((document.documentElement.getAttribute("data-theme") || "dark") as "light" | "dark");
+    const read = () => setTheme((document.documentElement.getAttribute("data-theme") || "dark") as "light" | "dark" | "sunset");
     read();
     const o = new MutationObserver(read);
     o.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });

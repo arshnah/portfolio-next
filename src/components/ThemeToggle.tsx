@@ -2,16 +2,24 @@
 import { useEffect, useRef, useState } from "react";
 
 const SWAP_MS = 1600;
+// dark -> light -> sunset -> dark. sunset is the optional third state; the
+// other two stay exactly as they were.
+const CYCLE = ["dark", "light", "sunset"] as const;
+type Theme = (typeof CYCLE)[number];
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState<Theme>("dark");
   const swapTimer = useRef(0);
-  useEffect(() => { setTheme(document.documentElement.dataset.theme || "dark"); }, []);
+  useEffect(() => {
+    const t = document.documentElement.dataset.theme;
+    setTheme((CYCLE as readonly string[]).includes(t || "") ? (t as Theme) : "dark");
+  }, []);
   useEffect(() => () => window.clearTimeout(swapTimer.current), []);
 
   function toggle() {
     const root = document.documentElement;
-    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    const current = (CYCLE as readonly string[]).includes(root.dataset.theme || "") ? (root.dataset.theme as Theme) : "dark";
+    const next = CYCLE[(CYCLE.indexOf(current) + 1) % CYCLE.length];
     root.dataset.theme = next;
     try { localStorage.setItem("arsh-theme", next); } catch (e) {}
     setTheme(next);
@@ -23,8 +31,10 @@ export default function ThemeToggle() {
     swapTimer.current = window.setTimeout(() => { delete root.dataset.swap; }, SWAP_MS);
   }
 
+  const next = CYCLE[(CYCLE.indexOf(theme) + 1) % CYCLE.length];
+
   return (
-    <button onClick={toggle} aria-label="toggle theme" title="toggle theme"
+    <button onClick={toggle} aria-label={`switch to ${next} theme`} title={`switch to ${next} theme`}
       style={{
         position: "fixed", top: 16, right: 16, zIndex: 20, width: 38, height: 38,
         borderRadius: 10, background: "var(--card)", border: "1px solid var(--line)",
@@ -35,6 +45,17 @@ export default function ThemeToggle() {
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="4" />
           <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </svg>
+      ) : theme === "light" ? (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17 18a5 5 0 0 0-10 0" />
+          <line x1="12" y1="9" x2="12" y2="2" />
+          <line x1="4.22" y1="10.22" x2="5.64" y2="11.64" />
+          <line x1="1" y1="18" x2="3" y2="18" />
+          <line x1="21" y1="18" x2="23" y2="18" />
+          <line x1="18.36" y1="11.64" x2="19.78" y2="10.22" />
+          <polyline points="16 5 12 9 8 5" />
+          <line x1="23" y1="22" x2="1" y2="22" />
         </svg>
       ) : (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
