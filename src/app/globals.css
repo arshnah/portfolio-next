@@ -13,11 +13,18 @@
   --bg:#241220; --card:#341c30; --ink:#f7e8dc; --muted:#c9a3a8; --faint:#a3808a;
   --link:#ffb37a; --visited:#e0a3d6; --line:#4a2740; --field:#2c1626; --field-bd:#5c3350;
 }
+/* dawn palette — cooler and softer than sunset: blue-lavender instead of
+   plum, sky-blue link instead of amber. the "just waking up" counterpart. */
+:root[data-theme="sunrise"] {
+  --bg:#1c2340; --card:#2a2f52; --ink:#fbeee2; --muted:#b9b0d4; --faint:#8f88ab;
+  --link:#a8c8ff; --visited:#cfa8e8; --line:#454875; --field:#232a4c; --field-bd:#565080;
+}
 
 /* github activity heatmap — blue 5-level scale + count colour */
 :root { --gh-0:#1e2130; --gh-1:#1f3f66; --gh-2:#2f6fc0; --gh-3:#4a9eff; --gh-4:#8fc8ff; --gh-count:#3fb950; }
 :root[data-theme="light"] { --gh-0:#ebedf0; --gh-1:#bcd8ff; --gh-2:#6aa6f0; --gh-3:#2f6fc0; --gh-4:#1a4d8f; --gh-count:#1a7f37; }
 :root[data-theme="sunset"] { --gh-0:#3a2436; --gh-1:#7a3a2e; --gh-2:#c05a30; --gh-3:#ff8a3d; --gh-4:#ffc276; --gh-count:#ffb454; }
+:root[data-theme="sunrise"] { --gh-0:#242b48; --gh-1:#3d5a8f; --gh-2:#6b8fd6; --gh-3:#f2a679; --gh-4:#ffd9a0; --gh-count:#7fd9c4; }
 
 /* every direction fades the same slow way now — dusk into night, night into
    dawn, dawn into the gold of sunset — instead of snapping straight to dark */
@@ -44,6 +51,8 @@ img, svg { max-width: 100%; }
 :root[data-theme="light"] .starfield { opacity: 0; }
 /* dusk: the first stars are out but the sky isn't dark yet */
 :root[data-theme="sunset"] .starfield { opacity: .45; }
+/* sunrise: the night is nearly gone, just a handful of the last stars left */
+:root[data-theme="sunrise"] .starfield { opacity: .2; }
 
 /* three fixed layers, all z-index -1, painted in DOM order:
    gradient, then sun/moon, then clouds — so clouds pass in front of the sun */
@@ -63,6 +72,13 @@ img, svg { max-width: 100%; }
    instead of the light theme's pale blue day sky */
 :root[data-theme="sunset"] .skygrad {
   background: linear-gradient(180deg, #241a3a 0%, #4a2748 30%, #8a3f52 58%, #d9713f 82%, #ffb15c 100%);
+}
+:root[data-theme="sunrise"] .skygrad,
+:root[data-theme="sunrise"] .daysky { opacity: 1; }
+/* sunrise: cooler and softer than sunset — indigo overhead easing through
+   blush into a gentle peach horizon, no hot amber */
+:root[data-theme="sunrise"] .skygrad {
+  background: linear-gradient(180deg, #26305c 0%, #55558a 28%, #9a728f 55%, #e0967f 78%, #ffcf9e 100%);
 }
 
 /* bodies never fade — they rise and set, so this layer stays lit in both themes */
@@ -124,6 +140,13 @@ img, svg { max-width: 100%; }
 :root[data-theme="sunset"] .moon,
 :root[data-theme="sunset"] .moonglow { transform: translateY(18vh) scale(.62); opacity: .5; }
 
+/* sunrise: the sun is only just cresting, lower and smaller than sunset's —
+   still mostly night down there — while the moon is on its way out, low and
+   fading rather than sunset's fresh-and-faint rise */
+:root[data-theme="sunrise"] .sun { transform: translateY(64vh) scale(.95); opacity: 1; }
+:root[data-theme="sunrise"] .moon,
+:root[data-theme="sunrise"] .moonglow { transform: translateY(72vh) scale(.5); opacity: .3; }
+
 /* warm horizon wash — fires on both swaps, since sunset is as warm as sunrise */
 .dawn {
   position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease;
@@ -133,6 +156,8 @@ img, svg { max-width: 100%; }
 @keyframes dawnwash { 0% { opacity: 0 } 30% { opacity: 1 } 100% { opacity: 0 } }
 /* sunset keeps a permanent low wash instead of only flashing it on swap */
 :root[data-theme="sunset"] .dawn { opacity: .6; }
+/* sunrise keeps a gentler version — the light is arriving, not lingering */
+:root[data-theme="sunrise"] .dawn { opacity: .4; }
 
 /* scroll parallax rides the layer, drift stays on the cloud — no transform fight */
 .cloud-layer { position: absolute; inset: 0; will-change: transform; }
@@ -153,6 +178,9 @@ img, svg { max-width: 100%; }
 /* sunset: recolour the same white clouds warm instead of painting new ones —
    sepia+hue-rotate grades the rendered pixels, box-shadow copies included */
 :root[data-theme="sunset"] .cloud { filter: blur(5px) sepia(1) saturate(2.4) hue-rotate(-14deg) brightness(.94); }
+/* sunrise: the same recolour trick, rotated past sepia's orange into a soft
+   blush-lavender instead of sunset's hot amber */
+:root[data-theme="sunrise"] .cloud { filter: blur(5px) sepia(.7) saturate(1.8) hue-rotate(255deg) brightness(1.04); }
 
 /* phones: everything in the sky is sized for a 1900px viewport, so scale it
    down or the sun runs off the right edge and the bloom is wider than the
@@ -193,7 +221,10 @@ img, svg { max-width: 100%; }
   :root[data-theme="light"] .moonglow,
   :root[data-theme="sunset"] .sun,
   :root[data-theme="sunset"] .moon,
-  :root[data-theme="sunset"] .moonglow { transform: none; }
+  :root[data-theme="sunset"] .moonglow,
+  :root[data-theme="sunrise"] .sun,
+  :root[data-theme="sunrise"] .moon,
+  :root[data-theme="sunrise"] .moonglow { transform: none; }
   :root[data-swap] .dawn { animation: none; }
 }
 
