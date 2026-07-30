@@ -74,9 +74,28 @@ async function getStats() {
 
   const list: any[] = Array.isArray(repos) ? repos : [];
   const stars = list.reduce((s, r) => s + (r.stargazers_count || 0), 0);
-  const counts: Record<string, number> = {};
-  for (const r of list) if (r.language && !r.fork) counts[r.language] = (counts[r.language] || 0) + 1;
-  const langs = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([l]) => l);
+
+  // Repo count per primary language undercounts anything that isn't the single
+  // biggest file type in a repo (a Kotlin app with a big generated build/
+  // folder, say) and overcounts small repos in bulk. Real per-language byte
+  // totals from each repo's own languages breakdown are what "percentage of
+  // code" actually has to mean.
+  const owned = list.filter((r) => !r.fork);
+  const byteCounts = await Promise.all(
+    owned.map((r) => get(`https://api.github.com/repos/${USER}/${r.name}/languages`)),
+  );
+  const byteTotals: Record<string, number> = {};
+  byteCounts.forEach((langBytes) => {
+    if (!langBytes) return;
+    for (const [lang, n] of Object.entries(langBytes as Record<string, number>)) {
+      byteTotals[lang] = (byteTotals[lang] || 0) + n;
+    }
+  });
+  const totalBytes = Object.values(byteTotals).reduce((a, b) => a + b, 0) || 1;
+  const langs = Object.entries(byteTotals)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([name, n]) => [name, n / totalBytes] as [string, number]);
 
   // commits need graphql, which is token-only. omit the row rather than
   // reporting a zero that isn't true.
@@ -103,7 +122,7 @@ async function getStats() {
     uptime: age(user.created_at),
     location: (user.location as string) || "India",
     company: (user.company as string) || null,
-    langs: langs.join(", "),
+    langs,
     site,
     repos: user.public_repos as number,
     stars,
@@ -143,6 +162,36 @@ function row(label: string, value: string, x: number, right: number, y: number, 
     `<text x="${right}" y="${y}" text-anchor="end" class="${num ? "n" : "v"}">${xml(value)}</text>`;
 }
 
+const BAR_H = 20;
+const LEVEL_OPACITY = [1, 0.76, 0.52, 0.3, 0.16];
+
+// Languages as a proportion bar instead of a name list, so nothing has to be
+// clipped to fit a line — a language too small to hold its own name in its
+// segment still shows up as a sliver, which is more honest than dropping it.
+function langBar(langs: [string, number][], x: number, y: number, width: number, t: typeof THEMES.dark) {
+  if (!langs.length) return "";
+  const parts: string[] = [];
+  let cx = x;
+
+  langs.forEach(([name, share], i) => {
+    const w = Math.min(Math.max(14, Math.round(share * width)), x + width - cx);
+    if (w <= 0) return;
+    const op = LEVEL_OPACITY[i] ?? LEVEL_OPACITY[LEVEL_OPACITY.length - 1];
+    parts.push(`<rect x="${cx}" y="${y}" width="${w}" height="${BAR_H}" rx="3" fill="${t.head}" fill-opacity="${op}"/>`);
+
+    const label = `${name} ${Math.round(share * 100)}%`;
+    const textW = label.length * 6.6;
+    if (w > textW + 14) {
+      parts.push(
+        `<text x="${cx + 8}" y="${y + BAR_H - 6}" font-size="11" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" fill="${op >= 0.7 ? t.bg : t.ink}">${xml(label)}</text>`,
+      );
+    }
+    cx += w + 2;
+  });
+
+  return parts.join("");
+}
+
 function svg(s: Stats, t: typeof THEMES.dark) {
   const artX = PAD;
   const artW = Math.max(...ART.map((l) => l.length)) * (ART_FS * 0.6);
@@ -168,7 +217,8 @@ function svg(s: Stats, t: typeof THEMES.dark) {
   parts.push(row("Uptime", s.uptime, colX, right, y, t)); y += 25;
   parts.push(row("Location", s.location, colX, right, y, t)); y += 25;
   if (s.company) { parts.push(row("Company", clip(s.company, 28), colX, right, y, t)); y += 25; }
-  parts.push(row("Languages", clip(s.langs, 34), colX, right, y, t)); y += 42;
+  y += 4;
+  parts.push(langBar(s.langs, colX, y, right - colX, t)); y += BAR_H + 18;
 
   parts.push(section("Contact", colX, right, y, t)); y += 30;
   parts.push(row("Website", s.site, colX, right, y, t)); y += 25;
