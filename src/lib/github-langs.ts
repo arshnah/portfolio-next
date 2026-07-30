@@ -1,7 +1,6 @@
-// Real per-language byte totals across a user's owned, non-fork repos, summed
-// from GitHub's own /languages breakdown per repo — not a count of how many
-// repos pick each language as their single "primary" one, which is both less
-// accurate and produces name lists too long to fit anywhere without clipping.
+// Each owned, non-fork repo counts as one vote for its GitHub-detected
+// primary language — share = (repos in that language) / (total repos), not
+// bytes of code. A repo is the unit here, not its file sizes.
 
 export type LangShare = [name: string, share: number];
 
@@ -12,22 +11,13 @@ export async function fetchLanguageShares(user: string, token?: string): Promise
 
   const repos = await get(`https://api.github.com/users/${user}/repos?per_page=100&type=owner&sort=pushed`);
   const list: any[] = Array.isArray(repos) ? repos : [];
-  const owned = list.filter((r) => !r.fork);
+  const owned = list.filter((r) => !r.fork && r.language);
 
-  const byteCounts = await Promise.all(
-    owned.map((r) => get(`https://api.github.com/repos/${user}/${r.name}/languages`)),
-  );
+  const counts: Record<string, number> = {};
+  for (const r of owned) counts[r.language] = (counts[r.language] || 0) + 1;
 
-  const totals: Record<string, number> = {};
-  byteCounts.forEach((langBytes) => {
-    if (!langBytes) return;
-    for (const [lang, n] of Object.entries(langBytes as Record<string, number>)) {
-      totals[lang] = (totals[lang] || 0) + n;
-    }
-  });
-
-  const totalBytes = Object.values(totals).reduce((a, b) => a + b, 0) || 1;
-  return Object.entries(totals)
+  const total = owned.length || 1;
+  return Object.entries(counts)
     .sort((a, b) => b[1] - a[1])
-    .map(([name, n]) => [name, n / totalBytes] as LangShare);
+    .map(([name, n]) => [name, n / total] as LangShare);
 }

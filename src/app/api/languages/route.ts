@@ -27,8 +27,8 @@ const W = 820;
 const PAD = 30;
 const FS = 14;
 const CW = FS * 0.62;
-const ROW_H = 42;
-const BAR_H = 6;
+const ROW_H = 26;
+const BAR_H = 4;
 const LEVEL_OPACITY = [1, 0.8, 0.6, 0.42, 0.28, 0.16];
 
 function leader(x1: number, x2: number, y: number, t: Theme) {
@@ -49,8 +49,8 @@ function row(name: string, share: number, i: number, x: number, right: number, y
     `<text x="${lx}" y="${y}" class="k">${xml(name)}:</text>` +
     leader(labelEnd, valStart, y, t) +
     `<text x="${right}" y="${y}" text-anchor="end" class="v">${value}</text>` +
-    `<rect x="${lx}" y="${y + 8}" width="${barW}" height="${BAR_H}" rx="${BAR_H / 2}" fill="${t.rule}"/>` +
-    `<rect x="${lx}" y="${y + 8}" width="${fillW}" height="${BAR_H}" rx="${BAR_H / 2}" fill="${t.head}" fill-opacity="${op}"/>`;
+    `<rect x="${lx}" y="${y + 5}" width="${barW}" height="${BAR_H}" rx="${BAR_H / 2}" fill="${t.rule}"/>` +
+    `<rect x="${lx}" y="${y + 5}" width="${fillW}" height="${BAR_H}" rx="${BAR_H / 2}" fill="${t.head}" fill-opacity="${op}"/>`;
 }
 
 function fallback(t: Theme) {
@@ -77,7 +77,7 @@ function svg(langs: [string, number][], t: Theme) {
     y += ROW_H;
   });
 
-  const H = Math.round(y - ROW_H + BAR_H + 24);
+  const H = Math.round(y - ROW_H + BAR_H + 20);
 
   return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img">
 <style>
