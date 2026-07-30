@@ -62,7 +62,7 @@ function fallback(t: Theme) {
 }
 
 function svg(langs: [string, number][], t: Theme) {
-  const top = langs.slice(0, 6);
+  const top = langs.slice(0, 8);
   const x = PAD;
   const right = W - PAD;
 
