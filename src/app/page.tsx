@@ -99,14 +99,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <p style={{ color: "var(--muted)", fontSize: 14, margin: "12px 0 4px" }}>Also:</p>
-      <ul>
-        {projects.slice(3).map((p) => (
-          <li key={p.name}>
-            <a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a> ({p.year}) &middot; {p.desc}
-          </li>
-        ))}
-      </ul>
 
       <hr />
 

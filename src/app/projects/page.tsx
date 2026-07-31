@@ -25,7 +25,7 @@ type Item = {
 };
 
 const built: Item[] = [
-  { name: "arshnah.in", url: "https://arshnah.in", desc: <>This site. Next.js, no template, near-monochrome, one accent - the design rules live at <a href="/grain">grain</a>.</> },
+  { name: "arshnah.in", url: "https://arshnah.in", desc: "This site. Next.js, no template, near-monochrome, one accent." },
   {
     name: "After Hours", url: "https://afterhours.arshnah.in", altUrl: "https://github.com/arshnah/After-Hours-Website", altLabel: "website source",
     desc: "A Discord community bot with 98 slash commands - economy, gambling, levelling, moderation, family trees - built with Vasu. Bridges a Minecraft server both ways through a Paper plugin, relaying chat/deaths/advancements and tracking a public playtime leaderboard. Built the bot, the plugin, and the site documenting it.",
@@ -37,7 +37,6 @@ const built: Item[] = [
   { name: "CipherDrop", url: "https://drop.arshnah.in", desc: "Zero-knowledge file and text drops. Encrypted in the browser before it uploads, so the server only ever stores ciphertext it can't read. Ships veil, a page that hides encrypted messages inside ordinary images." },
   { name: "Wisp", url: "https://chat.arshnah.in", desc: "End-to-end encrypted messenger. The whole crypto layer is hand-written against the Web Crypto API - real accounts, a key directory, live realtime chat." },
   { name: "LarpRing", url: "https://larpring.github.io", desc: "A webring I started and run - a small ring of personal sites linking to each other the old-web way. Built the site, the theme-aware badges, and an automated health check that pings every member." },
-  { name: "typer", url: "https://github.com/arshnah/typer", desc: "Typing practice in your terminal - like Monkeytype, but CLI. Ships as a pip package." },
   { name: "Content Helper Community", url: "https://chc-site.vercel.app", desc: "A creator community's site showing every member's live YouTube subscriber count, updated hourly." },
   { name: "microsites", url: "https://github.com/arshnah/microsites", desc: "Small, self-contained sites, one per subdomain of arshnah.in - the odds and ends that don't need their own repo." },
 ];
@@ -51,6 +50,11 @@ const worked: Item[] = [
     name: "WhatNow", url: "https://whatnowindia.vercel.app", altUrl: "https://github.com/arshnah/WhatNow_Website", altLabel: "source",
     desc: "A platform helping Indian students figure out what to do right after their board exams, built with Vasu. Built the site and led the redesign.",
   },
+  { name: "typer", url: "https://github.com/arshnah/typer", desc: "Typing practice in your terminal - like Monkeytype, but CLI. Ships as a pip package." },
+  {
+    name: "Discord Quest Completer", url: "https://github.com/arshnah/Discord-Quest-Completer",
+    desc: "By DyedHue - helped him build it out, even though the commits landed under his name, not mine.",
+  },
   {
     name: "lastly", url: "https://lastly.arshnah.in", altUrl: "https://github.com/arshnah/lastly", altLabel: "source",
     desc: "Forked from ni5arga/lastly - Last.fm stats as embeddable SVG cards for a GitHub README. Added the live now-playing card, multi-account merging, two new GitHub-flavoured themes, a background-color override, and an actual homepage that builds the embed for you instead of just redirecting to GitHub.",
@@ -58,13 +62,6 @@ const worked: Item[] = [
   {
     name: "lanyard-profile-readme", url: "https://lanyard.arshnah.in", altUrl: "https://github.com/arshnah/lanyard-profile-readme", altLabel: "source",
     desc: "Forked from cnrad/lanyard-profile-readme - a Discord presence badge for GitHub READMEs. Added multi-account merging (shows whichever linked account isn't offline) and fixed a couple of real bugs in the process.",
-  },
-];
-
-const using: Item[] = [
-  {
-    name: "Discord Quest Completer", url: "https://github.com/arshnah/Discord-Quest-Completer",
-    desc: "By DyedHue. Just a fork I keep around because I actually use it - no code of mine in it, worth being upfront about that.",
   },
 ];
 
@@ -114,23 +111,8 @@ export default function ProjectsPage() {
       <hr />
 
       <h2>Worked on</h2>
-      <p style={{ color: "var(--muted)", margin: "0 0 16px" }}>
-        Forks and collaborations with real commits behind them, not just a fork sitting there untouched.
-      </p>
       <div>
         {worked.map((item) => (
-          <Rail key={item.name} item={item} />
-        ))}
-      </div>
-
-      <hr />
-
-      <h2>Using, not building</h2>
-      <p style={{ color: "var(--muted)", margin: "0 0 16px" }}>
-        Forked because it's useful, not because I wrote any of it.
-      </p>
-      <div>
-        {using.map((item) => (
           <Rail key={item.name} item={item} />
         ))}
       </div>
