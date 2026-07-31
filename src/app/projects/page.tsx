@@ -19,15 +19,18 @@ export const metadata: Metadata = {
 type Item = {
   name: string;
   url: string;
-  altUrl?: string;
-  altLabel?: string;
+  links?: { url: string; label: string }[];
   desc: ReactNode;
 };
 
 const built: Item[] = [
   { name: "arshnah.in", url: "https://arshnah.in", desc: "This site. Next.js, no template, near-monochrome, one accent." },
   {
-    name: "After Hours", url: "https://afterhours.arshnah.in", altUrl: "https://github.com/arshnah/After-Hours-Website", altLabel: "website source",
+    name: "After Hours", url: "https://afterhours.arshnah.in",
+    links: [
+      { url: "https://github.com/arshnah/After-Hours-Website", label: "website source" },
+      { url: "https://afterhours.arshnah.in/minecraft.html", label: "Minecraft plugin" },
+    ],
     desc: "A Discord community bot with 98 slash commands - economy, gambling, levelling, moderation, family trees - built with Vasu. Bridges a Minecraft server both ways through a Paper plugin, relaying chat/deaths/advancements and tracking a public playtime leaderboard. Built the bot, the plugin, and the site documenting it.",
   },
   {
@@ -43,11 +46,13 @@ const built: Item[] = [
 
 const worked: Item[] = [
   {
-    name: "Marked Goats", url: "https://github.com/arshnah/marked-goats/tree/stonecutter-remake", altUrl: "https://modrinth.com/mod/marked-goats", altLabel: "Modrinth",
+    name: "Marked Goats", url: "https://github.com/arshnah/marked-goats/tree/stonecutter-remake",
+    links: [{ url: "https://modrinth.com/mod/marked-goats", label: "Modrinth" }],
     desc: "An open-source Minecraft mod by Allan Taylor - a different texture per goat variant instead of leaving you to guess which horn it drops. I rewrote the build system onto Stonecutter so one codebase now targets Fabric, Forge, and NeoForge across 32 Minecraft versions instead of a branch per version, tracked down several real Minecraft API changes by reading decompiled source directly, and wired up an in-game WTHIT tooltip.",
   },
   {
-    name: "WhatNow", url: "https://whatnowindia.vercel.app", altUrl: "https://github.com/arshnah/WhatNow_Website", altLabel: "source",
+    name: "WhatNow", url: "https://whatnowindia.vercel.app",
+    links: [{ url: "https://github.com/arshnah/WhatNow_Website", label: "source" }],
     desc: "A platform helping Indian students figure out what to do right after their board exams, built with Vasu. Built the site and led the redesign.",
   },
   { name: "typer", url: "https://github.com/arshnah/typer", desc: "Typing practice in your terminal - like Monkeytype, but CLI. Ships as a pip package." },
@@ -56,11 +61,13 @@ const worked: Item[] = [
     desc: "By DyedHue - helped him build it out, even though the commits landed under his name, not mine.",
   },
   {
-    name: "lastly", url: "https://lastly.arshnah.in", altUrl: "https://github.com/arshnah/lastly", altLabel: "source",
+    name: "lastly", url: "https://lastly.arshnah.in",
+    links: [{ url: "https://github.com/arshnah/lastly", label: "source" }],
     desc: "Forked from ni5arga/lastly - Last.fm stats as embeddable SVG cards for a GitHub README. Added the live now-playing card, multi-account merging, two new GitHub-flavoured themes, a background-color override, and an actual homepage that builds the embed for you instead of just redirecting to GitHub.",
   },
   {
-    name: "lanyard-profile-readme", url: "https://lanyard.arshnah.in", altUrl: "https://github.com/arshnah/lanyard-profile-readme", altLabel: "source",
+    name: "lanyard-profile-readme", url: "https://lanyard.arshnah.in",
+    links: [{ url: "https://github.com/arshnah/lanyard-profile-readme", label: "source" }],
     desc: "Forked from cnrad/lanyard-profile-readme - a Discord presence badge for GitHub READMEs. Added multi-account merging (shows whichever linked account isn't offline) and fixed a couple of real bugs in the process.",
   },
 ];
@@ -72,11 +79,11 @@ function Rail({ item }: { item: Item }) {
         <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 700, fontSize: 17 }}>
           {item.name}
         </a>
-        {item.altUrl && (
-          <a href={item.altUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--faint)", fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 13 }}>
-            · {item.altLabel} ↗
+        {item.links?.map((link) => (
+          <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" style={{ color: "var(--faint)", fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 13 }}>
+            · {link.label} ↗
           </a>
-        )}
+        ))}
       </div>
       <p style={{ margin: "3px 0 0" }}>{item.desc}</p>
     </div>
