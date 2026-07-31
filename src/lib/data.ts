@@ -5,6 +5,8 @@ export const projects = [
     desc: "A Discord community bot with 98 slash commands: an economy, gambling games, levelling, moderation, and family trees. Every money operation goes through Postgres functions under row locks, so two commands racing each other cannot duplicate currency. It also bridges a Minecraft server both ways through a Paper plugin I wrote, relaying chat, deaths and advancements, drawing a player's inventory as an image, and tracking playtime for a public leaderboard. Node.js and discord.js on Supabase, running 24/7 on my own VPS under PM2. I built the bot, the plugin, and the site that documents it." },
   { year: "2026", name: "CipherDrop", url: "https://drop.arshnah.in",
     desc: "Zero-knowledge file and text drops. Everything is encrypted in your browser before it uploads, and the key lives in the link fragment, so the server only ever stores ciphertext it cannot read. AES-GCM through the Web Crypto API, expiring links, burn-after-read, and syntax-highlighted code pastes. It also ships veil, a page that tucks encrypted messages inside ordinary images. I self-host the whole thing on my own VPS." },
+  { year: "2026", name: "Marked Goats", url: "https://github.com/arshnah/marked-goats/tree/stonecutter-remake", altUrl: "https://modrinth.com/mod/marked-goats", altLabel: "Modrinth",
+    desc: "An open-source Minecraft mod by Allan Taylor. Gives each of the 8 goat variants its own texture instead of leaving you to guess which horn a goat drops. I jumped in to help rewrite the build system onto Stonecutter, so one codebase now targets Fabric, Forge, and NeoForge across 32 Minecraft versions instead of a branch per version. Along the way I tracked down a few real Minecraft API changes by reading the decompiled source directly, and helped wire up an in-game tooltip that shows the variant on hover. Java and Gradle." },
   { year: "2026", name: "Wisp", url: "https://chat.arshnah.in",
     desc: "An open-source, end-to-end encrypted messenger. Messages get locked in your browser before they ever reach the server, so a database leak would only spill gibberish. I wrote the whole crypto layer myself with the Web Crypto API: real accounts, a key directory, and live realtime chat. The code is public." },
   { year: "2025", name: "WhatNow", url: "https://whatnowindia.vercel.app",
@@ -21,7 +23,7 @@ export const services = [
   { n: "02", title: "Mobile apps", desc: "Android apps, built and published to the Play Store. Bookings, payments, notifications, all of it." },
   { n: "03", title: "Backend & servers", desc: "The part nobody sees: databases, APIs, and the server that keeps everything online. I set it up and I keep it alive." },
 ];
-export const stack = ["TypeScript","React","Next.js","Node.js","Kotlin / Android","Python","MySQL","Firebase","Supabase","Linux / VPS","PM2","Vercel"];
+export const stack = ["TypeScript","React","Next.js","Node.js","Kotlin / Android","Java","Gradle","Python","MySQL","Firebase","Supabase","Linux / VPS","PM2","Vercel"];
 
 export const posts = [
   { slug: "welcome-to-the-jungle-is-a-pure-nightmare", title: "Welcome to the Jungle Is a Pure Nightmare", date: "2026-07-02",

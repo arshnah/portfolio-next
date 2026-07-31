@@ -86,6 +86,11 @@ export default function Home() {
             <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
               <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 700, fontSize: 17 }}>{p.name}</a>
               <span style={{ color: "var(--faint)", fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 13 }}>{p.year} · live ↗</span>
+              {"altUrl" in p && p.altUrl && (
+                <a href={p.altUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--faint)", fontFamily: 'var(--font-mono),"Courier New",monospace', fontSize: 13 }}>
+                  · {p.altLabel} ↗
+                </a>
+              )}
             </div>
             <p style={{ margin: "3px 0 0" }}>{p.desc}</p>
           </div>
