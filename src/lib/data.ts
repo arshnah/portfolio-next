@@ -22,6 +22,7 @@ export const services = [
   { n: "01", title: "Websites", desc: "Fast, modern sites that look good and actually show up on Google. Business sites, landing pages, web apps." },
   { n: "02", title: "Mobile apps", desc: "Android apps, built and published to the Play Store. Bookings, payments, notifications, all of it." },
   { n: "03", title: "Backend & servers", desc: "The part nobody sees: databases, APIs, and the server that keeps everything online. I set it up and I keep it alive." },
+  { n: "04", title: "Discord bots & Minecraft mods", desc: "Community tooling that actually holds up: After Hours runs 98 slash commands with a money-safe economy, plus JugaadBridge, a Paper plugin I wrote that bridges chat, deaths, and whitelisting to Discord over RCON. On the mod side, I helped rewrite Marked Goats' build system to target 32 Minecraft versions from one codebase." },
 ];
 export const stack = ["TypeScript","React","Next.js","Node.js","Kotlin / Android","Java","Gradle","Python","MySQL","Firebase","Supabase","Linux / VPS","PM2","Vercel"];
 
