@@ -77,8 +77,11 @@ export default function Home() {
       <hr />
 
       <h2 id="work">Work</h2>
-      <p style={{ color: "var(--muted)", margin: "0 0 16px" }}>
+      <p style={{ color: "var(--muted)", margin: "0 0 4px" }}>
         Note: Most of my work remains under strict NDAs.
+      </p>
+      <p style={{ margin: "0 0 16px" }}>
+        <Link href="/projects">everything, including what I&apos;ve worked on that isn&apos;t mine →</Link>
       </p>
       <div>
         {projects.slice(0, 3).map((p) => (
