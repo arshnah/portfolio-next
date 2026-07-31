@@ -2,25 +2,39 @@
 import { useEffect, useRef, useState } from "react";
 
 const SWAP_MS = 1600;
-// the actual day: dark night -> sunrise -> light day -> sunset -> back to
-// dark. sunrise and sunset are the optional additions; dark and light stay
-// exactly as they were before either existed.
-const CYCLE = ["dark", "sunrise", "light", "sunset"] as const;
-type Theme = (typeof CYCLE)[number];
+// the public toggle only ever flips between these two, same as before sunset/
+// sunrise existed.
+const BASE_CYCLE = ["dark", "light"] as const;
+// the full day, dark night -> sunrise -> light day -> sunset -> back to dark.
+// not reachable by a normal click - only by mashing the button (see
+// RAPID_COUNT below). an undocumented reward for fidgeting with the UI.
+const FULL_CYCLE = ["dark", "sunrise", "light", "sunset"] as const;
+type Theme = (typeof FULL_CYCLE)[number];
+
+const RAPID_WINDOW_MS = 1500; // all RAPID_COUNT clicks must land inside this window
+const RAPID_COUNT = 5;
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("dark");
   const swapTimer = useRef(0);
+  const clickTimes = useRef<number[]>([]);
   useEffect(() => {
     const t = document.documentElement.dataset.theme;
-    setTheme((CYCLE as readonly string[]).includes(t || "") ? (t as Theme) : "dark");
+    setTheme((FULL_CYCLE as readonly string[]).includes(t || "") ? (t as Theme) : "dark");
   }, []);
   useEffect(() => () => window.clearTimeout(swapTimer.current), []);
 
   function toggle() {
+    const now = Date.now();
+    clickTimes.current = [...clickTimes.current, now].filter((t) => now - t < RAPID_WINDOW_MS);
+    // 5 clicks in quick succession temporarily unlocks the full cycle for
+    // this one step; a single, unhurried click always stays on dark/light.
+    const unlocked = clickTimes.current.length >= RAPID_COUNT;
+    const cycle: readonly string[] = unlocked ? FULL_CYCLE : BASE_CYCLE;
+
     const root = document.documentElement;
-    const current = (CYCLE as readonly string[]).includes(root.dataset.theme || "") ? (root.dataset.theme as Theme) : "dark";
-    const next = CYCLE[(CYCLE.indexOf(current) + 1) % CYCLE.length];
+    const current = cycle.includes(root.dataset.theme || "") ? (root.dataset.theme as Theme) : "dark";
+    const next = cycle[(cycle.indexOf(current) + 1) % cycle.length] as Theme;
     root.dataset.theme = next;
     try { localStorage.setItem("arsh-theme", next); } catch (e) {}
     setTheme(next);
@@ -32,7 +46,11 @@ export default function ThemeToggle() {
     swapTimer.current = window.setTimeout(() => { delete root.dataset.swap; }, SWAP_MS);
   }
 
-  const next = CYCLE[(CYCLE.indexOf(theme) + 1) % CYCLE.length];
+  // preview always assumes the next click is a normal one, so the icon/label
+  // never hints that sunset/sunrise exist
+  const next: Theme = ((BASE_CYCLE as readonly string[]).includes(theme)
+    ? BASE_CYCLE[(BASE_CYCLE.indexOf(theme as "dark" | "light") + 1) % BASE_CYCLE.length]
+    : BASE_CYCLE[0]) as Theme;
 
   return (
     <button onClick={toggle} aria-label={`switch to ${next} theme`} title={`switch to ${next} theme`}
