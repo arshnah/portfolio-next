@@ -149,9 +149,10 @@ export default function Grain() {
           one rough edge that is obviously a choice. every screen needs some.
         </p>
         <p style={{ color: "var(--muted)" }}>
-          be a system without becoming twins. a shared <b>spine</b> (the anti template rules, type
-          discipline, near monochrome color, real texture) and a per project <b>skin</b> (layout, palette,
-          material, the signature move). the spine is what makes them mine. the skin is what keeps them apart.
+          be a system without becoming twins. a shared <b>spine</b> (the anti template rules, Space
+          Grotesk + JetBrains Mono as the fixed type pair, near monochrome color, real texture) and a per
+          project <b>skin</b> (layout, palette, material, the signature move). the spine is what makes
+          them mine. the skin is what keeps them apart.
         </p>
       </div>
 
