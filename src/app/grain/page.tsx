@@ -330,6 +330,7 @@ export default function Grain() {
           alt="now playing, last.fm"
           loading="lazy"
         />
+        <img src="https://now.arshnah.in/api/focus" alt="what i'm focused on" loading="lazy" />
         <img src="https://now.arshnah.in/api/card" alt="what arsh is doing right now" loading="lazy" />
       </div>
 
