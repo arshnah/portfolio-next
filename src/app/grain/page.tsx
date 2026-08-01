@@ -187,7 +187,7 @@ const components = [
   },
   {
     name: "the overshoot",
-    use: "any value that moves — a needle, a fill, a bar — settles past its mark first, like a real analog gauge. slop's meter.",
+    use: "any value that moves (a needle, a fill, a bar) settles past its mark first, like a real analog gauge. slop's meter.",
     code: `.needle {
   transition: left .32s cubic-bezier(.34, 1.56, .64, 1);
 }
@@ -311,12 +311,12 @@ export default function Grain() {
 
       <div className="readme-showcase">
         <p className="rs-label">
-          github profile readme —{" "}
+          github profile readme ·{" "}
           <a href="https://github.com/arshnah" target="_blank" rel="noopener" style={{ color: "var(--link)" }}>
             github.com/arshnah ↗
           </a>
         </p>
-        <img src="https://arshnah.in/api/neofetch" alt="arshnah — github stats neofetch card" loading="lazy" />
+        <img src="https://arshnah.in/api/neofetch" alt="arshnah's github stats neofetch card" loading="lazy" />
         <img src="https://arshnah.in/api/languages" alt="most used languages by real code volume" loading="lazy" />
         <img
           src="https://lastly.arshnah.in/api/now-playing?username=arshnahbtw%2Carshnah&theme=arsh"
@@ -422,7 +422,7 @@ export default function Grain() {
           </p>
           <p className="why">
             buzzwords, hollow intensifiers, and the &ldquo;it&apos;s not X, it&apos;s Y&rdquo; contrast
-            structure are the copy equivalent of the icon in a tinted square — nobody chose them, the
+            structure are the copy equivalent of the icon in a tinted square. nobody chose them, the
             template did. say the specific true thing instead. (this is exactly what{" "}
             <a href="https://slop.arshnah.in" target="_blank" rel="noopener" style={{ color: "var(--link)" }}>
               slop.arshnah.in
@@ -439,7 +439,7 @@ export default function Grain() {
         <li>is the working thing the hero, or is it buried under a pitch?</li>
         <li>does it look like my other work in spirit, but not in skin?</li>
         <li>
-          would slop.arshnah.in flag the copy? read it out loud — if it sounds like it&apos;s pitching
+          would slop.arshnah.in flag the copy? read it out loud. if it sounds like it&apos;s pitching
           instead of telling you a specific true thing, rewrite it.
         </li>
         <li>
