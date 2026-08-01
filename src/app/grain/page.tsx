@@ -38,6 +38,76 @@ const materials = [
     signature: "the theme-following sky",
     v: { bg: "#0a0a12", ink: "#e8e8ec", muted: "#9a9aa8", line: "#25252f", accent: "#8fb6ff", radius: "0px", face: "inherit" },
   },
+  {
+    name: "now",
+    material: "instrument panel",
+    where: "now.arshnah.in",
+    signature: "the clock's colon blinks on a real 1s css cycle",
+    v: { bg: "#0a0b0d", ink: "#e8ebf0", muted: "#8b93a1", line: "#242830", accent: "#3ecf6e", radius: "6px", face: "JetBrains Mono" },
+  },
+  {
+    name: "card",
+    material: "credential kiosk",
+    where: "card.arshnah.in",
+    signature: "camera-flash pulse over the card on mint/reroll",
+    v: { bg: "#0a0c10", ink: "#e8ebf0", muted: "#8b93a1", line: "#232830", accent: "#3ddc84", radius: "4px", face: "inherit" },
+  },
+  {
+    name: "shame",
+    material: "museum placard",
+    where: "shame.arshnah.in",
+    signature: "glass-case light sweep on exhibit hover",
+    v: { bg: "#0c0a0b", ink: "#ece7e7", muted: "#9a8e8f", line: "#2b2224", accent: "#e0483d", radius: "2px", face: "inherit" },
+  },
+  {
+    name: "status",
+    material: "switchboard",
+    where: "status.arshnah.in",
+    signature: "numbered ports boot in a staggered cascade on load",
+    v: { bg: "#0b0d10", ink: "#e8ebf0", muted: "#8b93a1", line: "#232830", accent: "#3ba55d", radius: "3px", face: "JetBrains Mono" },
+  },
+  {
+    name: "uses",
+    material: "equipment manifest",
+    where: "uses.arshnah.in",
+    signature: "a verified stamp fades in on card hover",
+    v: { bg: "#0b0d10", ink: "#e8ebf0", muted: "#8b93a1", line: "#232830", accent: "#8fb6ff", radius: "5px", face: "inherit" },
+  },
+  {
+    name: "buttons",
+    material: "badge press",
+    where: "buttons.arshnah.in",
+    signature: "the stage punches down like a press on download",
+    v: { bg: "#0b0d10", ink: "#e8ebf0", muted: "#8b93a1", line: "#232830", accent: "#8fb6ff", radius: "9px", face: "inherit" },
+  },
+  {
+    name: "playlist",
+    material: "the crate",
+    where: "playlist.arshnah.in",
+    signature: "whatever's actually playing spins like it's on a turntable",
+    v: { bg: "#0b0d10", ink: "#e8ebf0", muted: "#8b93a1", line: "#232830", accent: "#8fb6ff", radius: "8px", face: "inherit" },
+  },
+  {
+    name: "scratch",
+    material: "the split desk",
+    where: "scratch.arshnah.in",
+    signature: "a perforated dashed seam between write and preview",
+    v: { bg: "#0b0d10", ink: "#e8ebf0", muted: "#8b93a1", line: "#232830", accent: "#8fb6ff", radius: "6px", face: "inherit" },
+  },
+  {
+    name: "slop",
+    material: "the gauge",
+    where: "slop.arshnah.in",
+    signature: "the needle overshoots before settling, like a real analog meter",
+    v: { bg: "#0b0d10", ink: "#e8ebf0", muted: "#8b93a1", line: "#232830", accent: "#8fb6ff", radius: "7px", face: "inherit" },
+  },
+  {
+    name: "wrapped",
+    material: "terminal (shared with cipherdrop, by explicit request)",
+    where: "wrapped.arshnah.in",
+    signature: "a blinking cursor after every huge/big readout",
+    v: { bg: "#0a0c0a", ink: "#dcf2e2", muted: "#7fa088", line: "#1a2a1e", accent: "#3ecf6e", radius: "3px", face: "JetBrains Mono" },
+  },
 ];
 
 const components = [
@@ -187,6 +257,20 @@ export default function Grain() {
           </div>
         </div>
       ))}
+
+      <p className="lede" style={{ margin: "-4px 0 0" }}>
+        not every surface gets its own row. the{" "}
+        <a href="https://github.com/arshnah" target="_blank" rel="noopener" style={{ color: "var(--link)" }}>
+          GitHub profile README
+        </a>{" "}
+        is a showcase, not a material of its own — it stacks the lastly and lanyard cards and portfolio&apos;s
+        own <code>/api/neofetch</code> and <code>/api/languages</code> badges, each already on the spine. SVG
+        badges get the one carve-out rule 3 doesn&apos;t reach: they render as raw <code>{"<img>"}</code> in a
+        README, browsers block external font loading inside an SVG used as an image, so embedding Space
+        Grotesk/JetBrains Mono into every badge would mean base64&apos;ing the font into each one&apos;s own{" "}
+        <code>{"<style>"}</code> block — tens of KB per badge, weighed and declined on purpose. those fall back
+        to system fonts, not an oversight.
+      </p>
 
       <h2>components</h2>
       {components.map((c) => (
