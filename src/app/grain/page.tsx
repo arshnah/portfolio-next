@@ -32,6 +32,13 @@ const materials = [
     v: { bg: "#0e0e14", ink: "#e9e9f0", muted: "#9a9aa8", line: "#26262f", accent: "#8b9cff", radius: "10px", face: "inherit" },
   },
   {
+    name: "larpring",
+    material: "xerox flyer",
+    where: "larpring.github.io",
+    signature: "grain, stamp, vibe",
+    v: { bg: "#0c0c0f", ink: "#f0f0f5", muted: "#9fa0b2", line: "#242430", accent: "#9FA1FF", radius: "2px", face: "inherit" },
+  },
+  {
     name: "portfolio",
     material: "refined document",
     where: "arshnah.in",
