@@ -100,7 +100,7 @@ async function getStats() {
     uptime: age(user.created_at),
     location: (user.location as string) || "India",
     company: (user.company as string) || null,
-    email: "me@arshnah.in",
+    email: "arsh@arshnah.in",
     site,
     repos: user.public_repos as number,
     stars,
