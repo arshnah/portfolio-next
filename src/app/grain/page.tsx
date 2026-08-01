@@ -154,6 +154,35 @@ const components = [
       <rect width='100%' height='100%' filter='url(%23g)'/></svg>");
 }`,
   },
+  {
+    name: "the punch",
+    use: "feedback for a physical action, on any kiosk or press material. card's mint/reroll, buttons' download.",
+    code: `function punch(el) {
+  el.classList.remove("punch");
+  void el.offsetWidth;        // restart the animation on repeat clicks
+  el.classList.add("punch");
+}
+
+@keyframes punch { 0%{transform:scale(1)} 40%{transform:scale(.96)} 100%{transform:scale(1)} }
+.punch { animation: punch .32s ease; }`,
+  },
+  {
+    name: "the boot cascade",
+    use: "a list powering on in sequence before its real state lands. status's numbered ports.",
+    code: `items.forEach((el, i) => {
+  el.classList.add("boot");
+  el.style.animationDelay = i * 70 + "ms";   // real data can still land mid-cascade
+});
+
+@keyframes boot-flash { 0%{opacity:1} 100%{opacity:.4} }
+.boot { animation: boot-flash .5s ease-out both; }`,
+  },
+  {
+    name: "the overshoot",
+    use: "any value that moves — a needle, a fill, a bar — settles past its mark first, like a real analog gauge. slop's meter.",
+    code: `.needle { transition: left .32s cubic-bezier(.34, 1.56, .64, 1); }
+/* the same curve works on width, transform, top — anything with a target */`,
+  },
 ];
 
 export default function Grain() {
