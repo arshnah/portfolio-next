@@ -103,7 +103,7 @@ const materials = [
   },
   {
     name: "wrapped",
-    material: "terminal (shared with cipherdrop, by explicit request)",
+    material: "terminal",
     where: "wrapped.arshnah.in",
     signature: "a blinking cursor after every huge/big readout",
     v: { bg: "#0a0c0a", ink: "#dcf2e2", muted: "#7fa088", line: "#1a2a1e", accent: "#3ecf6e", radius: "3px", face: "JetBrains Mono" },
@@ -159,11 +159,15 @@ const components = [
     use: "feedback for a physical action, on any kiosk or press material. card's mint/reroll, buttons' download.",
     code: `function punch(el) {
   el.classList.remove("punch");
-  void el.offsetWidth;        // restart the animation on repeat clicks
+  void el.offsetWidth;   // replay on repeat clicks
   el.classList.add("punch");
 }
 
-@keyframes punch { 0%{transform:scale(1)} 40%{transform:scale(.96)} 100%{transform:scale(1)} }
+@keyframes punch {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(.96); }
+  100% { transform: scale(1); }
+}
 .punch { animation: punch .32s ease; }`,
   },
   {
@@ -171,17 +175,24 @@ const components = [
     use: "a list powering on in sequence before its real state lands. status's numbered ports.",
     code: `items.forEach((el, i) => {
   el.classList.add("boot");
-  el.style.animationDelay = i * 70 + "ms";   // real data can still land mid-cascade
+  el.style.animationDelay = i * 70 + "ms";
+  // real data can still land mid-cascade
 });
 
-@keyframes boot-flash { 0%{opacity:1} 100%{opacity:.4} }
+@keyframes boot-flash {
+  0%   { opacity: 1; }
+  100% { opacity: .4; }
+}
 .boot { animation: boot-flash .5s ease-out both; }`,
   },
   {
     name: "the overshoot",
     use: "any value that moves — a needle, a fill, a bar — settles past its mark first, like a real analog gauge. slop's meter.",
-    code: `.needle { transition: left .32s cubic-bezier(.34, 1.56, .64, 1); }
-/* the same curve works on width, transform, top — anything with a target */`,
+    code: `.needle {
+  transition: left .32s cubic-bezier(.34, 1.56, .64, 1);
+}
+/* same curve works on width, transform, top —
+   anything with a target */`,
   },
 ];
 
@@ -215,7 +226,18 @@ export default function Grain() {
         .cmp .nm{font-weight:700;font-size:15px}
         .cmp .use{color:var(--muted);font-size:14px;margin:2px 0 8px}
         .grain pre{background:var(--card);border:1px solid var(--line);padding:12px 14px;
-          overflow-x:auto;font-size:12.5px;line-height:1.55;margin:0}
+          overflow-x:auto;font-size:12.5px;line-height:1.55;margin:0;
+          scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+        .grain pre::-webkit-scrollbar{height:6px}
+        .grain pre::-webkit-scrollbar-track{background:transparent}
+        .grain pre::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+        .grain pre::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+
+        .readme-showcase{border:1px solid var(--line);padding:16px 18px;margin:0 0 4px;
+          display:flex;flex-direction:column;gap:10px;background:var(--card)}
+        .readme-showcase img{max-width:100%;display:block;border-radius:6px}
+        .readme-showcase .rs-label{font-family:var(--font-mono),monospace;font-size:11.5px;
+          color:var(--faint);margin:0 0 2px}
 
         .tell{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 20px}
         @media(max-width:620px){.tell{grid-template-columns:1fr}}
@@ -287,19 +309,22 @@ export default function Grain() {
         </div>
       ))}
 
-      <p className="lede" style={{ margin: "-4px 0 0" }}>
-        not every surface gets its own row. the{" "}
-        <a href="https://github.com/arshnah" target="_blank" rel="noopener" style={{ color: "var(--link)" }}>
-          GitHub profile README
-        </a>{" "}
-        is a showcase, not a material of its own — it stacks the lastly and lanyard cards and portfolio&apos;s
-        own <code>/api/neofetch</code> and <code>/api/languages</code> badges, each already on the spine. SVG
-        badges get the one carve-out rule 3 doesn&apos;t reach: they render as raw <code>{"<img>"}</code> in a
-        README, browsers block external font loading inside an SVG used as an image, so embedding Space
-        Grotesk/JetBrains Mono into every badge would mean base64&apos;ing the font into each one&apos;s own{" "}
-        <code>{"<style>"}</code> block — tens of KB per badge, weighed and declined on purpose. those fall back
-        to system fonts, not an oversight.
-      </p>
+      <div className="readme-showcase">
+        <p className="rs-label">
+          github profile readme —{" "}
+          <a href="https://github.com/arshnah" target="_blank" rel="noopener" style={{ color: "var(--link)" }}>
+            github.com/arshnah ↗
+          </a>
+        </p>
+        <img src="https://arshnah.in/api/neofetch" alt="arshnah — github stats neofetch card" loading="lazy" />
+        <img src="https://arshnah.in/api/languages" alt="most used languages by real code volume" loading="lazy" />
+        <img
+          src="https://lastly.arshnah.in/api/now-playing?username=arshnahbtw%2Carshnah&theme=arsh"
+          alt="now playing, last.fm"
+          loading="lazy"
+        />
+        <img src="https://now.arshnah.in/api/card" alt="what arsh is doing right now" loading="lazy" />
+      </div>
 
       <h2>components</h2>
       {components.map((c) => (
@@ -381,12 +406,46 @@ export default function Grain() {
         </div>
       </div>
 
+      <div className="tell">
+        <div className="side no">
+          <p className="tag">never</p>
+          <p style={{ fontSize: 13.5, lineHeight: 1.6 }}>
+            &ldquo;Leverage our comprehensive platform to seamlessly unlock your creative potential — in
+            today&apos;s fast-paced world, it&apos;s not just a tool, it&apos;s a game-changer.&rdquo;
+          </p>
+        </div>
+        <div className="side yes">
+          <p className="tag">instead</p>
+          <p style={{ fontSize: 13.5, lineHeight: 1.6 }}>
+            &ldquo;built this because the guestbook kept getting sprayed with SQL injections. none of them
+            worked. here&apos;s the receipts.&rdquo;
+          </p>
+          <p className="why">
+            buzzwords, hollow intensifiers, and the &ldquo;it&apos;s not X, it&apos;s Y&rdquo; contrast
+            structure are the copy equivalent of the icon in a tinted square — nobody chose them, the
+            template did. say the specific true thing instead. (this is exactly what{" "}
+            <a href="https://slop.arshnah.in" target="_blank" rel="noopener" style={{ color: "var(--link)" }}>
+              slop.arshnah.in
+            </a>{" "}
+            scores.)
+          </p>
+        </div>
+      </div>
+
       <h2>the gut check</h2>
       <ol style={{ color: "var(--muted)", paddingLeft: 20 }}>
         <li>could a generator produce this in one shot? if yes, it is not done.</li>
         <li>what is the one thing a person obviously tuned here?</li>
         <li>is the working thing the hero, or is it buried under a pitch?</li>
         <li>does it look like my other work in spirit, but not in skin?</li>
+        <li>
+          would slop.arshnah.in flag the copy? read it out loud — if it sounds like it&apos;s pitching
+          instead of telling you a specific true thing, rewrite it.
+        </li>
+        <li>
+          is there a gap next to a tall element? that&apos;s data already being fetched and thrown away,
+          not a spot for more padding or a bigger heading.
+        </li>
       </ol>
 
       <p style={{ color: "var(--faint)", fontSize: 13, marginTop: 28 }}>
