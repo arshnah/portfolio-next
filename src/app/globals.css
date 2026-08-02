@@ -30,12 +30,16 @@
    dawn, dawn into the gold of sunset — instead of snapping straight to dark */
 html {
   background: var(--bg); overflow-x: hidden; transition: background-color 1s ease;
-  scrollbar-width: thin; scrollbar-color: var(--line) var(--bg);
+  scrollbar-width: thin; scrollbar-color: var(--muted) transparent;
 }
-/* CSS vars already carry all four themes, so this repaints itself on every swap */
+/* CSS vars already carry all four themes, so this repaints itself on every swap.
+   track is transparent, not var(--bg) — the sky layers paint over html's own flat
+   background, so an opaque track showed as a seam against the gradient. thumb is
+   --muted, not --line: --line is #cccccc in light mode, almost the same pale grey
+   as a default unstyled scrollbar, so it read as broken rather than styled. */
 ::-webkit-scrollbar { width: 12px; height: 12px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; border: 3px solid var(--bg); }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 8px; border: 3px solid transparent; background-clip: padding-box; }
 ::-webkit-scrollbar-thumb:hover { background: var(--link); }
 body {
   background: transparent;
