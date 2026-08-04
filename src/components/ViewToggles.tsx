@@ -25,6 +25,11 @@ const btnStyle: React.CSSProperties = {
 export default function ViewToggles() {
   const [bgHidden, setBgHidden] = usePersistedAttr("arsh-bg-hidden", "data-bg");
   const [contentHidden, setContentHidden] = usePersistedAttr("arsh-content-hidden", "data-content");
+  const skipContentEvent = useRef(true);
+  useEffect(() => {
+    if (skipContentEvent.current) { skipContentEvent.current = false; return; }
+    window.dispatchEvent(new CustomEvent("arsh:content-toggle", { detail: { hidden: contentHidden } }));
+  }, [contentHidden]);
 
   return (
     <div style={{ position: "fixed", top: 64, right: 16, zIndex: 20, display: "flex", flexDirection: "column", gap: 8 }}>

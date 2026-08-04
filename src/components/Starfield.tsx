@@ -36,6 +36,8 @@ export default function Starfield() {
     const DPR = Math.min(devicePixelRatio || 1, 2);
     let W = 0, H = 0, stars: any[] = [], shoot: any[] = [], cons: any[] = [], raf = 0, next = 0;
     let mx = 0, my = 0, tmx = 0, tmy = 0;
+    let solo = document.documentElement.dataset.content === "hidden";
+    const burstTimers: number[] = [];
 
     function size() {
       W = cv.clientWidth; H = cv.clientHeight;
@@ -54,7 +56,8 @@ export default function Starfield() {
     const ro = new ResizeObserver(size); ro.observe(cv); size();
 
     function drawStars(t: number) {
-      for (const s of stars) { const tw = Math.sin(t*0.001*s.sp+s.tw)*0.5+0.5; ctx!.globalAlpha = s.b*(0.4+tw*0.6); ctx!.fillStyle = "#fff"; ctx!.beginPath(); ctx!.arc(s.x, s.y, s.r, 0, 6.28); ctx!.fill(); }
+      const lift = solo ? 0.55 : 0.4, span = solo ? 0.65 : 0.6, boost = solo ? 1.15 : 1;
+      for (const s of stars) { const tw = Math.sin(t*0.001*s.sp+s.tw)*0.5+0.5; ctx!.globalAlpha = Math.min(1, s.b*(lift+tw*span)*boost); ctx!.fillStyle = "#fff"; ctx!.beginPath(); ctx!.arc(s.x, s.y, s.r, 0, 6.28); ctx!.fill(); }
       ctx!.globalAlpha = 1;
     }
     function drawConstellations(t: number) {
@@ -77,6 +80,12 @@ export default function Starfield() {
       shoot.push({ x:startX, y:startY, vx:Math.cos(a)*speed, vy:Math.sin(a)*speed, len, life:0, max:90+Math.random()*40, warm:Math.random()<0.3 });
     }
     function spawn() { launch(Math.random()*W*1.1, -20-Math.random()*60); }
+    function burst() {
+      for (let i = 0; i < 7; i++) {
+        const id = window.setTimeout(() => launch(Math.random()*W*1.1, -20-Math.random()*60), i*140+Math.random()*80);
+        burstTimers.push(id);
+      }
+    }
 
     if (reduce) { ctx.clearRect(0,0,W,H); drawStars(0); drawConstellations(0); return () => ro.disconnect(); }
 
@@ -90,6 +99,12 @@ export default function Starfield() {
     window.addEventListener("pointermove", onMove);
     window.addEventListener("click", onClick);
 
+    const onContentToggle = (e: Event) => {
+      solo = !!(e as CustomEvent).detail?.hidden;
+      if (solo) burst();
+    };
+    window.addEventListener("arsh:content-toggle", onContentToggle);
+
     function frame(t: number) {
       const dt = last ? t - last : 16;
       last = t;
@@ -101,7 +116,7 @@ export default function Starfield() {
       // throttled background tab piles them up. drop the backlog instead of
       // streaming it all across at once on the way back.
       if (dt > 200) { shoot.length = 0; next = t + 700; raf = requestAnimationFrame(frame); return; }
-      if (t > next) { spawn(); if (!mobile && Math.random()<0.3) spawn(); next = t + (mobile?1100:700) + Math.random()*1600; }
+      if (t > next) { spawn(); if (!mobile && Math.random()<0.3) spawn(); const pace = solo ? 0.5 : 1; next = t + ((mobile?1100:700) + Math.random()*1600)*pace; }
       for (let i = shoot.length-1; i>=0; i--) {
         const o = shoot[i]; o.x += o.vx; o.y += o.vy; o.life++;
         if (o.life>o.max || o.y>H+40 || o.x<-40 || o.x>W+40) { shoot.splice(i,1); continue; }
@@ -124,6 +139,8 @@ export default function Starfield() {
       document.removeEventListener("visibilitychange", onVis);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("click", onClick);
+      window.removeEventListener("arsh:content-toggle", onContentToggle);
+      burstTimers.forEach((id) => window.clearTimeout(id));
     };
   }, []);
   return <canvas ref={ref} className="starfield" aria-hidden="true" />;
