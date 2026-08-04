@@ -2,19 +2,30 @@
 import { useEffect, useRef } from "react";
 
 const CONSTELLATIONS = [
-  { name: "after hours", fx: 0.09, fy: 0.74, size: 72,
-    pts: [[30,15],[70,15],[50,50],[30,85],[70,85]],
-    lines: [[0,1],[0,2],[1,2],[2,3],[2,4],[3,4]] },
-  { name: "cipherdrop", fx: 0.91, fy: 0.20, size: 78,
-    pts: [[50,8],[34,20],[66,20],[28,42],[72,42],[72,78],[28,78]],
-    lines: [[0,1],[0,2],[1,3],[2,4],[3,4],[4,5],[5,6],[6,3]] },
-  { name: "wisp", fx: 0.87, fy: 0.70, size: 60,
-    pts: [[50,92],[42,74],[56,56],[44,38],[53,20],[48,6]],
-    lines: [[0,1],[1,2],[2,3],[3,4],[4,5]] },
-  { name: "larpring", fx: 0.11, fy: 0.16, size: 66,
-    pts: [[50,20],[73,32],[73,60],[50,74],[27,60],[27,32]],
-    lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0]] },
+  { fx: 0.20, fy: 0.34, size: 0.30,
+    pts: [[0,8],[2,26],[20,30],[22,10],[40,4],[58,-4],[76,-14]],
+    lines: [[0,1],[1,2],[2,3],[3,0],[3,4],[4,5],[5,6]] },
+  { fx: 0.83, fy: 0.60, size: 0.34,
+    pts: [[10,0],[55,8],[28,38],[38,42],[48,40],[52,82],[14,86]],
+    lines: [[0,2],[1,4],[2,3],[3,4],[2,6],[4,5]] },
+  { fx: 0.55, fy: 0.10, size: 0.16,
+    pts: [[0,20],[18,0],[38,16],[58,-2],[78,14]],
+    lines: [[0,1],[1,2],[2,3],[3,4]] },
+  { fx: 0.12, fy: 0.82, size: 0.26,
+    pts: [[40,-40],[40,0],[0,10],[80,10],[44,60]],
+    lines: [[0,1],[1,2],[1,3],[1,4]] },
 ];
+
+function layout(pts: number[][], fx: number, fy: number, targetSize: number, W: number, H: number) {
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+  const scale = targetSize / Math.max(maxX-minX, maxY-minY);
+  const cx = (minX+maxX)/2, cy = (minY+maxY)/2;
+  return pts.map(([x, y]) => ({
+    x: fx*W + (x-cx)*scale, y: fy*H + (y-cy)*scale,
+    tw: Math.random()*6.28, sp: 0.4+Math.random()*0.7,
+  }));
+}
 
 export default function Starfield() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -32,14 +43,11 @@ export default function Starfield() {
       const n = Math.round((W * H) / (mobile ? 13000 : 9000));
       stars = [];
       for (let i = 0; i < n; i++) stars.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()<0.15?1.4:0.8, b: Math.random()*0.5+0.15, tw: Math.random()*6.28, sp: 0.6+Math.random()*1.2 });
-      const scale = mobile ? 0.72 : 1;
+      const scale = mobile ? 0.68 : 1;
+      const minDim = Math.min(W, H);
       cons = CONSTELLATIONS.map(c => ({
-        name: c.name, lines: c.lines,
-        pts: c.pts.map(([px, py]) => ({
-          x: c.fx*W + (px-50)/100*c.size*scale,
-          y: c.fy*H + (py-50)/100*c.size*scale,
-          tw: Math.random()*6.28, sp: 0.4+Math.random()*0.7,
-        })),
+        lines: c.lines,
+        pts: layout(c.pts, c.fx, c.fy, c.size*minDim*scale, W, H),
       }));
     }
     const ro = new ResizeObserver(size); ro.observe(cv); size();
@@ -50,21 +58,16 @@ export default function Starfield() {
     }
     function drawConstellations(t: number) {
       for (const c of cons) {
-        ctx!.strokeStyle = "rgba(255,255,255,0.14)"; ctx!.lineWidth = 1;
+        ctx!.strokeStyle = "rgba(255,255,255,0.16)"; ctx!.lineWidth = 1;
         ctx!.beginPath();
         for (const [a, b] of c.lines) { ctx!.moveTo(c.pts[a].x, c.pts[a].y); ctx!.lineTo(c.pts[b].x, c.pts[b].y); }
         ctx!.stroke();
         for (const p of c.pts) {
           const tw = Math.sin(t*0.001*p.sp+p.tw)*0.5+0.5;
-          ctx!.globalAlpha = 0.55 + tw*0.35; ctx!.fillStyle = "#fff";
-          ctx!.beginPath(); ctx!.arc(p.x, p.y, 1.3, 0, 6.28); ctx!.fill();
+          ctx!.globalAlpha = 0.65 + tw*0.35; ctx!.fillStyle = "#fff";
+          ctx!.beginPath(); ctx!.arc(p.x, p.y, 1.6, 0, 6.28); ctx!.fill();
         }
         ctx!.globalAlpha = 1;
-        const cx = c.pts.reduce((s: number, p: any) => s+p.x, 0) / c.pts.length;
-        const maxY = Math.max(...c.pts.map((p: any) => p.y));
-        ctx!.font = "10px ui-monospace, 'JetBrains Mono', Menlo, monospace";
-        ctx!.fillStyle = "rgba(255,255,255,0.26)"; ctx!.textAlign = "center";
-        ctx!.fillText(c.name, cx, Math.min(maxY+16, H-6));
       }
     }
     function spawn() {
