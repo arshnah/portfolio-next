@@ -302,3 +302,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 1.7em 0; }
 @media (max-width: 380px) {
   body { padding: 0 11px; }
 }
+
+main { transition: opacity .4s ease; }
+:root[data-content="hidden"] main { opacity: 0; pointer-events: none; user-select: none; }
+:root[data-bg="hidden"] .starfield,
+:root[data-bg="hidden"] .skygrad,
+:root[data-bg="hidden"] .skybodies,
+:root[data-bg="hidden"] .daysky { opacity: 0 !important; }

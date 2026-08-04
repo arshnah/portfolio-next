@@ -35,6 +35,7 @@ export default function Starfield() {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const DPR = Math.min(devicePixelRatio || 1, 2);
     let W = 0, H = 0, stars: any[] = [], shoot: any[] = [], cons: any[] = [], raf = 0, next = 0;
+    let mx = 0, my = 0, tmx = 0, tmy = 0;
 
     function size() {
       W = cv.clientWidth; H = cv.clientHeight;
@@ -70,12 +71,12 @@ export default function Starfield() {
         ctx!.globalAlpha = 1;
       }
     }
-    function spawn() {
-      const startX = Math.random()*W*1.1, startY = -20-Math.random()*60;
+    function launch(startX: number, startY: number) {
       const a = Math.random()<0.5 ? Math.PI*0.78 : Math.PI*0.62;
       const speed = 7+Math.random()*5, len = 120+Math.random()*120;
       shoot.push({ x:startX, y:startY, vx:Math.cos(a)*speed, vy:Math.sin(a)*speed, len, life:0, max:90+Math.random()*40, warm:Math.random()<0.3 });
     }
+    function spawn() { launch(Math.random()*W*1.1, -20-Math.random()*60); }
 
     if (reduce) { ctx.clearRect(0,0,W,H); drawStars(0); drawConstellations(0); return () => ro.disconnect(); }
 
@@ -84,12 +85,18 @@ export default function Starfield() {
     const onVis = () => { if (document.hidden) shoot.length = 0; };
     document.addEventListener("visibilitychange", onVis);
 
+    const onMove = (e: PointerEvent) => { tmx = (e.clientX/W-0.5)*20; tmy = (e.clientY/H-0.5)*14; };
+    const onClick = (e: MouseEvent) => launch(e.clientX, e.clientY);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("click", onClick);
+
     function frame(t: number) {
       const dt = last ? t - last : 16;
       last = t;
+      mx += (tmx-mx)*0.05; my += (tmy-my)*0.05;
       ctx!.clearRect(0, 0, W, H);
-      drawStars(t);
-      drawConstellations(t);
+      ctx!.save(); ctx!.translate(mx*0.4, my*0.4); drawStars(t); ctx!.restore();
+      ctx!.save(); ctx!.translate(mx, my); drawConstellations(t); ctx!.restore();
       // spawns are clock-based but lifetimes are counted in frames, so a
       // throttled background tab piles them up. drop the backlog instead of
       // streaming it all across at once on the way back.
@@ -115,6 +122,8 @@ export default function Starfield() {
       cancelAnimationFrame(raf);
       ro.disconnect();
       document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("click", onClick);
     };
   }, []);
   return <canvas ref={ref} className="starfield" aria-hidden="true" />;

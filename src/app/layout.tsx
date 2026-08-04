@@ -4,6 +4,7 @@ import "./globals.css";
 import Starfield from "@/components/Starfield";
 import DaySky from "@/components/DaySky";
 import ThemeToggle from "@/components/ThemeToggle";
+import ViewToggles from "@/components/ViewToggles";
 import CommandPalette from "@/components/CommandPalette";
 
 // self-hosted, preloaded, non-render-blocking (replaces the old google-fonts
@@ -64,7 +65,7 @@ const siteLd = {
   url: "https://arshnah.in",
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem('arsh-theme');document.documentElement.dataset.theme=t||'dark';}catch(e){document.documentElement.dataset.theme='dark';}})();`;
+const themeScript = `(function(){try{var t=localStorage.getItem('arsh-theme');document.documentElement.dataset.theme=t||'dark';var d=document.documentElement;if(localStorage.getItem('arsh-bg-hidden')==='1')d.setAttribute('data-bg','hidden');if(localStorage.getItem('arsh-content-hidden')==='1')d.setAttribute('data-content','hidden');}catch(e){document.documentElement.dataset.theme='dark';}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <DaySky />
         <Starfield />
         <ThemeToggle />
+        <ViewToggles />
         <CommandPalette />
         <main>{children}</main>
       </body>
