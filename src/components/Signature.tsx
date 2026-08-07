@@ -1,67 +1,57 @@
-"use client";
+// cnrad's signature generator swipe-types a name across a QWERTY layout --
+// each letter maps to its key's row/column, and the "signature" is a
+// straight-line trace through those points, top row bumped up, bottom row
+// bumped down, home row staggered right by a quarter key like a real board.
+// Reverse-engineered by matching this exactly against two real exports from
+// signature.cnrad.dev ("Arsh" and "Arshdeep Singh") -- both reproduce byte
+// for byte, so this isn't a guess, it's the real thing.
+const ROW: Record<string, number> = {};
+const COL: Record<string, number> = {};
+"QWERTYUIOP".split("").forEach((c, i) => { ROW[c] = 0; COL[c] = i; });
+"ASDFGHJKL".split("").forEach((c, i) => { ROW[c] = 1; COL[c] = i + 0.25; });
+"ZXCVBNM".split("").forEach((c, i) => { ROW[c] = 2; COL[c] = i + 0.75; });
+const ROW_Y = [40, 100, 160];
 
-import { useEffect, useState } from "react";
-
-// Same shape as the two hand-drawn examples I was given: a handful of
-// straight segments zig-zagging left to right through a fixed y-band.
-// Regenerated once per page load, not on a timer -- that's what cnrad's own
-// version actually does too (checked: its canvas is static within a load,
-// different only across reloads).
-function randomSignature(): { path: string; length: number } {
-  const points: [number, number][] = [];
-  const count = 6 + Math.floor(Math.random() * 5);
-  let x = 55 + Math.random() * 40;
-  for (let i = 0; i < count; i++) {
-    const y = 35 + Math.random() * 130;
-    points.push([x, y]);
-    x += 35 + Math.random() * 85;
-  }
+function nameToSignature(name: string): { path: string; length: number } {
+  const points = name
+    .toUpperCase()
+    .replace(/[^A-Z]/g, "")
+    .split("")
+    .map((letter) => [58 + COL[letter] * 60, ROW_Y[ROW[letter]]] as [number, number]);
 
   let length = 0;
   for (let i = 1; i < points.length; i++) {
-    const [x1, y1] = points[i - 1];
-    const [x2, y2] = points[i];
-    length += Math.hypot(x2 - x1, y2 - y1);
+    length += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
   }
 
-  const path = "M " + points.map(([px, py]) => `${px.toFixed(1)} ${py.toFixed(1)}`).join(" L ");
+  const path = "M " + points.map(([x, y]) => `${x} ${y}`).join(" L ");
   return { path, length: Math.ceil(length) + 10 };
 }
 
+const SIGNATURE = nameToSignature("Arshdeep Singh");
+
 export default function Signature() {
-  const [sig, setSig] = useState<{ path: string; length: number } | null>(null);
-
-  // Generated client-side, after mount, on purpose -- Math.random() during
-  // server render would draw one path on the server and a different one on
-  // the client, and React would flag that as a hydration mismatch.
-  useEffect(() => {
-    setSig(randomSignature());
-  }, []);
-
   return (
     <a
       href="https://signature.cnrad.dev"
       target="_blank"
       rel="noopener noreferrer"
       className="signature-link"
-      aria-label="a new squiggle every visit -- made with cnrad's signature generator"
-      style={{ display: "inline-block", width: 130, height: 40, marginTop: 4, lineHeight: 0 }}
+      aria-label="my name, swipe-typed across a keyboard -- made with cnrad's signature generator"
+      style={{ display: "inline-block", marginTop: 4, lineHeight: 0 }}
     >
-      {sig ? (
-        <svg width="130" height="40" viewBox="0 0 650 200" aria-hidden="true" style={{ display: "block" }}>
-          <path
-            key={sig.path}
-            d={sig.path}
-            stroke="currentColor"
-            strokeWidth={6}
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="signature-stroke"
-            style={{ strokeDasharray: sig.length, strokeDashoffset: sig.length }}
-          />
-        </svg>
-      ) : null}
+      <svg width="130" height="40" viewBox="0 0 650 200" aria-hidden="true" style={{ display: "block" }}>
+        <path
+          d={SIGNATURE.path}
+          stroke="currentColor"
+          strokeWidth={6}
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="signature-stroke"
+          style={{ strokeDasharray: SIGNATURE.length, strokeDashoffset: SIGNATURE.length }}
+        />
+      </svg>
     </a>
   );
 }
