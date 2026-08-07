@@ -5,6 +5,7 @@ import Guestbook from "@/components/Guestbook";
 import Webring from "@/components/Webring";
 import { projects, services, stack, posts, testimonials } from "@/lib/data";
 import DevringLoader from "@/components/DevringLoader";
+import Signature from "@/components/Signature";
 
 const dateFmt = (d: string) =>
   new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
@@ -36,6 +37,7 @@ export default function Home() {
         <div>
           <h1 style={{ margin: 0 }}>Arshdeep Singh</h1>
           <p style={{ margin: "2px 0 0" }}>Developer in India. Currently open for work.</p>
+          <Signature />
         </div>
       </div>
       <Activity />
